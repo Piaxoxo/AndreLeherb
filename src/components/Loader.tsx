@@ -11,10 +11,8 @@ export default function Loader() {
   const [gone, setGone] = useState(false);
 
   useEffect(() => {
-    // Done when the loaders are idle (progress is 0 when nothing needed loading),
-    // and never later than 7 s, whatever happens.
-    const idle = !active && (progress >= 100 || progress === 0);
-    const t = window.setTimeout(() => setReady(true), idle ? 900 : 7000);
+    // Done once the loaders have been idle for a moment, and never later than 6 s.
+    const t = window.setTimeout(() => setReady(true), active ? 6000 : 1000);
     return () => window.clearTimeout(t);
   }, [active, progress, setReady]);
 

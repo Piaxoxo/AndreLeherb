@@ -60,8 +60,6 @@ export default function Stage() {
         toneMappingExposure: 1.05,
       }}
       style={{ position: "absolute", inset: 0 }}
-      eventSource={typeof document !== "undefined" ? document.body : undefined}
-      eventPrefix="client"
     >
       <Suspense fallback={null}>
         <ScrollControls pages={PAGES} damping={0.22} distance={1}>

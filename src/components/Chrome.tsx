@@ -4,12 +4,17 @@ import { useStore } from "@/store";
 import { player } from "@/lib/audio";
 import { songs } from "@/content";
 
+function NavLogo() {
+  const glitch = useStore((s) => s.glitch);
+  return <img src={glitch ? "/img/logo-dark.webp" : "/img/logo-light.webp"} alt="" className="h-9 w-auto sm:h-11" draggable={false} />;
+}
+
 /** Fixed UI around the canvas: nav, mini player, glitch tear. */
 export function Nav() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-4 sm:px-10 lg:px-16">
-      <a href="#" className="pointer-events-auto display text-sm tracking-[0.25em]" style={{ color: "var(--ink)" }}>
-        ANDRE LEHERB
+      <a href="#" className="pointer-events-auto block" aria-label="Andre Leherb, Start">
+        <NavLogo />
       </a>
       <nav className="pointer-events-auto flex items-center gap-2 sm:gap-3">
         <a href="#musik" className="hidden rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] opacity-70 hover:opacity-100 sm:block">

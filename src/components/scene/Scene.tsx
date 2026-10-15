@@ -4,7 +4,6 @@ import { Environment, Lightformer, useScroll, ContactShadows } from "@react-thre
 import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
-import Mic from "./Mic";
 import Falcon from "./Falcon";
 import DiscoBall from "./DiscoBall";
 import Portrait from "./Portrait";
@@ -22,11 +21,14 @@ function Rig() {
   const target = useRef(new THREE.Vector3());
   const glitch = useStore((s) => s.glitch);
 
+  const mobile = useStore((s) => s.mobile);
+
   useFrame((state, dt) => {
     const { camera } = state;
     const vh = state.viewport.height;
     const y = -scroll.offset * (PAGES - 1) * vh;
-    target.current.set(state.pointer.x * 0.25, y + state.pointer.y * 0.15, 9);
+    // Phones get the camera closer so the objects fill the narrow frame.
+    target.current.set(state.pointer.x * 0.25, y + state.pointer.y * 0.15, mobile ? 7.2 : 9);
     camera.position.lerp(target.current, 1 - Math.exp(-dt * 6));
     if (glitch) {
       camera.position.x += (Math.random() - 0.5) * 0.08;
@@ -80,7 +82,7 @@ export default function Scene() {
 
   // Horizontal layout helper: fraction of the visible width.
   const X = (f: number) => (vw / 2) * f;
-  const scale = mobile ? 0.62 : 1;
+  const scale = mobile ? 0.85 : 1;
 
   return (
     <>
@@ -89,25 +91,25 @@ export default function Scene() {
 
       {/* ---------- 0 · Intro ---------- */}
       <group position={[0, 0, 0]}>
-        {/* phones: mic small in the upper third, name below it; desktop: mic left column */}
-        <group scale={mobile ? 0.5 : 1} position={[mobile ? X(0.05) : X(-0.52), mobile ? 1.55 : -0.1, mobile ? 0 : 0.4]}>
-          <Mic />
-          <Falcon position={[0.9, 1.6, -0.3]} scale={0.42} rotation={[0, -0.7, 0]} />
-        </group>
-        {!mobile && (
-          <Portrait src="/img/andre-hero.webp" glitchSrc="/img/glitch-point.jpg" height={4.2} position={[X(0.52), -0.2, -0.6]} />
-        )}
-        <ChromeSphere r={mobile ? 0.22 : 0.4} position={[X(-0.82), mobile ? 2.3 : 1.9, -1.5]} />
-        <ChromeSphere r={mobile ? 0.1 : 0.16} position={[X(mobile ? 0.7 : 0.12), 2.1, 0.3]} />
-        <GlassDrop r={mobile ? 0.25 : 0.4} position={[X(0.22), -2.0, 1.0]} />
-        <GlassDrop r={mobile ? 0.14 : 0.22} position={[X(-0.1), 1.2, 1.5]} />
-        {/* the easter egg sits where you'd overlook it */}
-        <TriggerSphere position={[X(mobile ? 0.6 : 0.72), mobile ? -0.9 : -1.75, 0.6]} />
+        {/* André stands in the room; the brush logo lives in the HTML layer behind him */}
+        <Portrait
+          src="/img/andre-hero.webp"
+          glitchSrc="/img/glitch-point.jpg"
+          height={mobile ? 2.9 : 4.4}
+          position={[mobile ? X(0.3) : X(0.5), mobile ? -0.95 : -0.3, mobile ? -0.4 : -0.6]}
+        />
+        <ChromeSphere r={mobile ? 0.26 : 0.42} position={[X(-0.78), mobile ? 2.4 : 1.9, -1.5]} />
+        <ChromeSphere r={mobile ? 0.12 : 0.16} position={[X(mobile ? 0.75 : 0.12), mobile ? 2.3 : 2.1, 0.3]} />
+        <ChromeSphere r={mobile ? 0.16 : 0.22} position={[X(-0.55), mobile ? -2.0 : -1.6, 0.2]} />
+        <GlassDrop r={mobile ? 0.28 : 0.42} position={[X(mobile ? -0.4 : 0.2), mobile ? -2.4 : -2.0, 1.0]} />
+        <GlassDrop r={mobile ? 0.16 : 0.22} position={[X(-0.2), mobile ? 1.0 : 1.3, 1.5]} />
+        {/* the easter egg: desktop bottom right, phone free in the room right of the logo */}
+        <TriggerSphere position={[X(mobile ? 0.78 : 0.72), mobile ? 0.55 : -1.75, mobile ? 0.9 : 0.6]} />
       </group>
 
       {/* ---------- 1 · Musik ---------- */}
       <group position={[0, -vh, 0]}>
-        <group position={[mobile ? X(-0.45) : X(-0.62), mobile ? 1.5 : 0.9, 0]} scale={scale}>
+        <group position={[mobile ? X(-0.3) : X(-0.62), mobile ? 0.9 : 0.9, 0]} scale={mobile ? 0.62 : 1}>
           <DiscoBall radius={0.95} active={playing === "247"} onClick={() => s247.audio && player.toggle("247", s247.audio)} />
         </group>
         <group position={[mobile ? X(0.55) : X(0.45), mobile ? 1.1 : 1.3, 0.2]} scale={scale}>
@@ -128,11 +130,14 @@ export default function Scene() {
 
       {/* ---------- 3 · Booking ---------- */}
       <group position={[0, -vh * 3, 0]}>
-        {!mobile && (
-          <Portrait src="/img/andre-silver.webp" glitchSrc="/img/glitch-point.jpg" height={4.6} position={[X(0.55), -0.2, -0.8]} />
-        )}
-        <group scale={scale} position={[X(mobile ? 0.3 : -0.55), mobile ? 2.2 : 1.4, -1.5]}>
-          <Falcon scale={0.7} rotation={[0, 0.5, 0]} />
+        <Portrait
+          src="/img/andre-silver.webp"
+          glitchSrc="/img/glitch-point.jpg"
+          height={mobile ? 2.0 : 4.6}
+          position={[mobile ? X(0.6) : X(0.55), mobile ? 1.5 : -0.2, -0.8]}
+        />
+        <group scale={scale} position={[X(mobile ? -0.45 : -0.55), mobile ? 2.2 : 1.4, -1.5]}>
+          <Falcon scale={mobile ? 0.5 : 0.7} rotation={[0, 0.5, 0]} />
         </group>
         <ChromeSphere r={0.5} position={[X(-0.8), -1.7, -1.5]} />
         <GlassDrop r={0.35} position={[X(0.1), 2.2, 0.5]} />

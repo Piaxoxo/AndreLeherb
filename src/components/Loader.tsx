@@ -40,9 +40,7 @@ export default function Loader() {
           <span className="shadow" />
         </div>
       </div>
-      <div className="display mt-2 text-sm tracking-[0.3em]" style={{ color: "var(--violet)" }}>
-        ANDRE LEHERB
-      </div>
+      <img src="/img/logo-light.webp" alt="Andre Leherb" className="mt-2 h-12 w-auto sm:h-14" draggable={false} />
       <div className="mt-3 h-[2px] w-40 overflow-hidden rounded-full bg-black/10">
         <div
           className="h-full rounded-full"

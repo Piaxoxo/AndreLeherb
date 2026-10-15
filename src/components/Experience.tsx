@@ -23,9 +23,15 @@ export default function Experience() {
     (window as unknown as { __leherb: unknown }).__leherb = { glitch: (ms?: number) => useStore.getState().triggerGlitch(ms) };
     window.addEventListener("resize", update);
     mq.addEventListener("change", update);
+    // Very rarely (about 1 in 50 visits) the page twitches on its own for a split second.
+    let twitch: number | undefined;
+    if (Math.random() < 0.02 && !mq.matches) {
+      twitch = window.setTimeout(() => useStore.getState().triggerGlitch(140, true), 9000 + Math.random() * 12000);
+    }
     return () => {
       window.removeEventListener("resize", update);
       mq.removeEventListener("change", update);
+      window.clearTimeout(twitch);
     };
   }, [setDevice]);
 

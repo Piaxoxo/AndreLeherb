@@ -3,8 +3,73 @@
 import { artist, songs, type Song } from "@/content";
 import { player } from "@/lib/audio";
 import { useStore } from "@/store";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ParticleSwirl from "./ParticleSwirl";
+
+/** Brush logo that tilts with the pointer; swaps to the original (white) version in the glitch. */
+function LogoTilt({ className }: { className?: string }) {
+  const glitch = useStore((s) => s.glitch);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const onMove = (e: PointerEvent) => {
+      const x = e.clientX / window.innerWidth - 0.5;
+      const y = e.clientY / window.innerHeight - 0.5;
+      el.style.transform = `perspective(1200px) rotateY(${x * 10}deg) rotateX(${-y * 8}deg)`;
+    };
+    window.addEventListener("pointermove", onMove);
+    return () => window.removeEventListener("pointermove", onMove);
+  }, []);
+  return (
+    <div ref={ref} className={className} style={{ transition: "transform .25s ease-out", willChange: "transform" }}>
+      <img
+        src={glitch ? "/img/logo-dark.webp" : "/img/logo-light.webp"}
+        alt=""
+        className="block h-auto w-full select-none"
+        draggable={false}
+        style={{ filter: glitch ? "drop-shadow(0 0 30px rgba(155,92,255,.6))" : "drop-shadow(0 30px 40px rgba(60,30,120,.18))" }}
+      />
+    </div>
+  );
+}
+
+/** The short vertical clip in a glass phone; muted loop, tap for sound. */
+function PhoneClip({ className }: { className?: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [sound, setSound] = useState(false);
+  const toggle = () => {
+    const v = ref.current;
+    if (!v) return;
+    v.muted = sound;
+    if (!sound) v.currentTime = 0;
+    v.play().catch(() => {});
+    setSound(!sound);
+  };
+  return (
+    <button onClick={toggle} className={`${className ?? ""} pointer-events-auto group block`} aria-label={sound ? "Ton aus" : "Ton an"}>
+      <div
+        className="glass relative aspect-[9/16] w-full overflow-hidden !rounded-[22px] p-[6px] transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-[-1.5deg]"
+        style={{ boxShadow: "0 30px 60px -20px rgba(60,30,120,.45), inset 0 1px 0 rgba(255,255,255,.7)" }}
+      >
+        <video
+          ref={ref}
+          src="/video/walzertruck.mp4"
+          poster="/video/walzertruck-poster.jpg"
+          className="h-full w-full rounded-[16px] object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
+        <span className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur">
+          {sound ? "Ton aus" : "Ton an"}
+        </span>
+      </div>
+    </button>
+  );
+}
 
 /** André as a living particle field; bursts and darkens during the glitch. */
 function ParticleAndre({ className }: { className?: string }) {
@@ -178,27 +243,31 @@ export default function Overlay() {
     <div className="pointer-events-none select-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_form]:pointer-events-auto [&_form]:select-auto">
       {/* ---------- 0 · Intro ---------- */}
       <Section>
-        {/* big type behind the scene; on phones it sits in the upper third, under the mic */}
-        <div className="absolute inset-0 flex items-start justify-center pt-[34vh] sm:items-center sm:pt-0">
-          <h1 className="display text-center text-[21vw] leading-[0.82] opacity-[0.92] sm:text-[15vw] lg:text-[12vw]" style={{ color: "var(--ink)" }}>
-            Andre
-            <br />
-            Leherb
+        {/* the brush logo, big, behind André; it tilts a little with the pointer */}
+        <div className="absolute inset-0 flex items-start justify-center pt-[12vh] sm:items-center sm:justify-start sm:pt-0 sm:pl-[6vw] lg:pl-[8vw]">
+          <h1 className="m-0 sm:-translate-y-[9vh]">
+            <span className="sr-only">Andre Leherb</span>
+            <LogoTilt className="w-[80vw] max-w-[1000px] sm:w-[50vw]" />
           </h1>
         </div>
+        {/* the 12-second truck clip as a floating glass phone */}
+        <PhoneClip className="absolute left-4 top-[40vh] w-[27vw] max-w-[120px] sm:left-auto sm:right-10 sm:top-auto sm:bottom-10 sm:w-[15vw] sm:max-w-[200px] lg:right-16" />
         <div className="absolute inset-x-5 bottom-[max(2rem,env(safe-area-inset-bottom))] sm:inset-x-10 lg:inset-x-16">
           <div className="flex flex-col items-start justify-between gap-5 lg:flex-row lg:items-end">
-            <div className="glass drip max-w-md p-5 sm:p-6">
-              <div className="text-xs font-bold uppercase tracking-[0.25em] opacity-60">Wien · Singer / Songwriter</div>
-              <p className="mt-2 text-base leading-relaxed sm:text-lg">{artist.claim} Neue Single: <strong>24/7</strong>, dazu <strong>Wir tanzen den Walzer</strong>. Produziert mit Gary Lux.</p>
-              <div className="mt-4 flex flex-wrap gap-3">
+            <div className="glass drip max-w-[calc(100vw-2.5rem)] p-4 sm:max-w-md sm:p-6">
+              <div className="text-[10px] font-bold uppercase tracking-[0.25em] opacity-60 sm:text-xs">Wien · Singer / Songwriter</div>
+              <p className="mt-1.5 text-[15px] leading-snug sm:mt-2 sm:text-lg sm:leading-relaxed">
+                {artist.claim} Neue Single: <strong>24/7</strong>
+                <span className="hidden sm:inline">, dazu <strong>Wir tanzen den Walzer</strong>. Produziert mit Gary Lux.</span>
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2 sm:mt-4 sm:gap-3">
                 <PlayButton song={walzer} big />
                 <a href="#booking" className="btn-chrome">
                   Buch mich
                 </a>
               </div>
             </div>
-            <div className="hidden text-right text-xs font-bold uppercase tracking-[0.3em] opacity-50 lg:block">
+            <div className="hidden pr-[17vw] text-right text-xs font-bold uppercase tracking-[0.3em] opacity-50 lg:block">
               Scroll
               <div className="mx-auto mt-2 h-10 w-px bg-current opacity-60" />
             </div>

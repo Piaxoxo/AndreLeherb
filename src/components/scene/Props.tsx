@@ -102,13 +102,21 @@ export function TriggerSphere(props: React.ComponentProps<"group">) {
   const mesh = useRef<THREE.Mesh>(null);
   const { gl } = useThree();
 
+  const mat = useRef<THREE.MeshStandardMaterial>(null);
   useFrame((state) => {
     if (!mesh.current) return;
     const t = state.clock.elapsedTime;
     mesh.current.position.y = Math.sin(t * 1.3) * 0.05;
-    // Every so often it twitches, barely.
-    const twitch = Math.sin(t * 7.3) > 0.995 ? 0.03 : 0;
-    mesh.current.position.x = twitch;
+    // Every 20 s it twitches and flickers lilac for a third of a second: enough to catch the eye,
+    // not enough to read as a button.
+    const phase = t % 20;
+    const twitching = phase > 19.4 && phase < 19.75;
+    mesh.current.position.x = twitching ? (Math.random() - 0.5) * 0.08 : 0;
+    if (mat.current && !glitch) {
+      const flicker = twitching ? (Math.sin(t * 90) > 0 ? 1.6 : 0.2) : 0;
+      mat.current.emissive.set("#9b5cff");
+      mat.current.emissiveIntensity = flicker;
+    }
   });
 
   return (
@@ -132,6 +140,7 @@ export function TriggerSphere(props: React.ComponentProps<"group">) {
       >
         <sphereGeometry args={[0.22, 48, 48]} />
         <meshStandardMaterial
+          ref={mat}
           color={glitch ? "#0a0010" : "#ffffff"}
           metalness={1}
           roughness={0.04}

@@ -16,7 +16,8 @@ type State = {
   glitch: boolean;
   glitchCount: number;
   note: string | null;
-  triggerGlitch: (ms?: number) => void;
+  /** `silent`: a split-second twitch that leaves no note behind (the page "flickering by itself"). */
+  triggerGlitch: (ms?: number, silent?: boolean) => void;
 
   reduced: boolean;
   mobile: boolean;
@@ -35,15 +36,15 @@ export const useStore = create<State>((set, get) => ({
   glitch: false,
   glitchCount: 0,
   note: null,
-  triggerGlitch: (ms = 2600) => {
+  triggerGlitch: (ms = 2600, silent = false) => {
     if (get().glitch) return;
-    const count = get().glitchCount + 1;
+    const count = silent ? get().glitchCount : get().glitchCount + 1;
     set({ glitch: true, glitchCount: count });
     if (typeof document !== "undefined") document.documentElement.dataset.glitch = "on";
     window.setTimeout(() => {
       set({
         glitch: false,
-        note: glitchNotes[Math.min(count - 1, glitchNotes.length - 1)],
+        note: silent ? get().note : glitchNotes[Math.min(count - 1, glitchNotes.length - 1)],
       });
       if (typeof document !== "undefined") delete document.documentElement.dataset.glitch;
     }, ms);

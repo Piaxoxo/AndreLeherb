@@ -1,0 +1,282 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f4f9;
+  --ink: #0e0b14;
+  --silver: #c9c9d2;
+  --chrome: #e8e8ee;
+  --lilac: #b9a3ff;
+  --lilac-deep: #6d4bd6;
+  --violet: #4b2c9a;
+  --glass: rgba(255, 255, 255, 0.42);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --font-display: var(--font-display), "Helvetica Neue", Arial, sans-serif;
+  --font-body: var(--font-body), "Helvetica Neue", Arial, sans-serif;
+}
+
+/* The "Glitch" state: the page tips into the dark for a few seconds. */
+:root[data-glitch="on"] {
+  --bg: #050308;
+  --ink: #e9e4ff;
+  --silver: #3a3a44;
+  --chrome: #1c1c22;
+  --lilac: #8a2bff;
+  --lilac-deep: #c15cff;
+  --violet: #d9c6ff;
+  --glass: rgba(20, 8, 40, 0.55);
+  --glass-border: rgba(190, 120, 255, 0.35);
+}
+
+html,
+body {
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+::selection {
+  background: var(--lilac);
+  color: var(--ink);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+/* Frosted glass panel, in the spirit of the reference boards. */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  border-radius: 28px;
+  box-shadow:
+    0 30px 60px -30px rgba(60, 30, 120, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+/* A soft "drip" under glass elements. */
+.drip {
+  position: relative;
+}
+.drip::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  bottom: -14px;
+  width: 22px;
+  height: 28px;
+  border-radius: 0 0 14px 14px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-top: 0;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.btn-chrome {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: linear-gradient(135deg, #ffffff 0%, #d9d9e3 40%, #ffffff 55%, #b8b8c6 100%);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-chrome:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 40px -12px rgba(80, 40, 160, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+:root[data-glitch="on"] .btn-chrome {
+  background: linear-gradient(135deg, #2a2a33, #0d0d12);
+  color: #e9e4ff;
+}
+
+.btn-lilac {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #c9b6ff, #7c5cff 60%, #5b3fd6);
+  box-shadow:
+    0 14px 34px -12px rgba(100, 60, 220, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: transform 0.2s ease;
+}
+.btn-lilac:hover {
+  transform: translateY(-2px);
+}
+
+.field {
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--glass-border);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.field:focus {
+  border-color: var(--lilac-deep);
+}
+:root[data-glitch="on"] .field {
+  background: rgba(10, 4, 20, 0.6);
+}
+
+/* Glitch message that stays behind after the dark flash. */
+.ghost-note {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--violet);
+  text-shadow:
+    1px 0 0 rgba(255, 0, 180, 0.35),
+    -1px 0 0 rgba(0, 220, 255, 0.35);
+  animation: ghost 6s ease-in-out infinite;
+}
+@keyframes ghost {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: translateX(0);
+  }
+  47% {
+    opacity: 0.85;
+  }
+  49% {
+    opacity: 0.2;
+    transform: translateX(2px) skewX(-6deg);
+  }
+  51% {
+    opacity: 0.9;
+    transform: translateX(-2px) skewX(4deg);
+  }
+  53% {
+    opacity: 0.85;
+    transform: translateX(0);
+  }
+}
+
+/* Screen tear during the glitch. */
+.tear {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  mix-blend-mode: difference;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 6px,
+      rgba(255, 255, 255, 0.08) 6px 7px
+    );
+  animation: tear 0.18s steps(2) infinite;
+}
+@keyframes tear {
+  0% {
+    transform: translateY(0) scaleX(1);
+  }
+  50% {
+    transform: translateY(-6px) scaleX(1.02);
+  }
+  100% {
+    transform: translateY(4px) scaleX(0.99);
+  }
+}
+
+/* ---------- Pyramid loader (based on Uiverse.io by andrew-demchenk0) ---------- */
+.pyramid-loader {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: block;
+  transform-style: preserve-3d;
+  transform: rotateX(-20deg);
+}
+.pyramid-loader .wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: pyramid-spin 4s linear infinite;
+}
+@keyframes pyramid-spin {
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+.pyramid-loader .wrapper .side {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  transform-origin: center top;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.pyramid-loader .wrapper .side1 {
+  transform: rotateZ(-30deg) rotateY(90deg);
+  background: conic-gradient(#ffffff, #b9a3ff, #c9c9d2, #4b2c9a);
+}
+.pyramid-loader .wrapper .side2 {
+  transform: rotateZ(30deg) rotateY(90deg);
+  background: conic-gradient(#4b2c9a, #c9c9d2, #b9a3ff, #ffffff);
+}
+.pyramid-loader .wrapper .side3 {
+  transform: rotateX(30deg);
+  background: conic-gradient(#4b2c9a, #c9c9d2, #b9a3ff, #ffffff);
+}
+.pyramid-loader .wrapper .side4 {
+  transform: rotateX(-30deg);
+  background: conic-gradient(#ffffff, #b9a3ff, #c9c9d2, #4b2c9a);
+}
+.pyramid-loader .wrapper .shadow {
+  width: 60px;
+  height: 60px;
+  background: #8b5ad5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  transform: rotateX(90deg) translateZ(-40px);
+  filter: blur(12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pyramid-loader .wrapper,
+  .ghost-note,
+  .tear {
+    animation: none;
+  }
+}

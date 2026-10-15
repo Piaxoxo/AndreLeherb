@@ -16,10 +16,10 @@ export function Chrome({ dark = false, roughness = 0.06 }: { dark?: boolean; rou
 }
 
 /** Glossy lilac "lacquer" for the blobs and the walzer object. */
-export function Lilac({ glitch = false }: { glitch?: boolean }) {
+export function Lilac({ glitch = false, color = "#b39aff" }: { glitch?: boolean; color?: string }) {
   return (
     <meshPhysicalMaterial
-      color={glitch ? "#5a0fd6" : "#b39aff"}
+      color={glitch ? "#5a0fd6" : color}
       roughness={glitch ? 0.35 : 0.14}
       metalness={glitch ? 0.4 : 0}
       clearcoat={1}

@@ -33,6 +33,15 @@ export const artist = {
   booking: {
     email: "office@bandita.agency",
     agency: "Bandita Agency",
+    agencyUrl: "https://bandita.agency",
+  },
+  /** outbound links (dofollow) */
+  links: {
+    instagram: "https://www.instagram.com/andreleherb/",
+    youtube: "https://www.youtube.com/@andre_leherb",
+    leherbOrg: "https://www.leherb.org",
+    label: "https://newartmusicproduction.com",
+    bandita: "https://bandita.agency",
   },
 };
 

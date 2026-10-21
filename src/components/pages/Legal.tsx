@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Nav, Tear } from "@/components/Chrome";
+import { artist } from "@/content";
 
 const Backdrop = dynamic(() => import("./Backdrop"), { ssr: false });
 
@@ -28,6 +29,9 @@ export default function Legal({ label, title, children }: { label: string; title
           <Link href="/datenschutz" className="hover:opacity-100">
             Datenschutz
           </Link>
+          <a href={artist.booking.agencyUrl} target="_blank" rel="noreferrer" className="hover:opacity-100">
+            {artist.booking.agency}
+          </a>
         </footer>
       </main>
     </>

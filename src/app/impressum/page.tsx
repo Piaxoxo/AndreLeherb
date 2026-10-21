@@ -40,9 +40,26 @@ export default function Page() {
         <a href="mailto:alex@newartmusicproduction.com">alex@newartmusicproduction.com</a>
       </p>
       <p>
-        Bilder: Martin Hauser
+        Bilder:{" "}
+        <a href="https://www.catchlight.at" target="_blank" rel="noreferrer">
+          Martin Hauser, Catchlight
+        </a>
         <br />
-        Webdesign: Ingrid Sojak | Capricorn Marketing
+        Webdesign und 3D:{" "}
+        <a href="https://bandita.agency" target="_blank" rel="noreferrer">
+          Bandita Agency
+        </a>
+        , Wien
+        <br />
+        Label:{" "}
+        <a href="https://newartmusicproduction.com" target="_blank" rel="noreferrer">
+          New Art Music Productions
+        </a>
+        <br />
+        Maître Leherb:{" "}
+        <a href="https://www.leherb.org" target="_blank" rel="noreferrer">
+          leherb.org
+        </a>
       </p>
     </Legal>
   );

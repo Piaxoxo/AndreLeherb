@@ -99,10 +99,8 @@ export default function Scene() {
           height={mobile ? 2.9 : 4.4}
           position={[mobile ? X(0.3) : X(0.5), mobile ? -0.95 : -0.3, mobile ? -0.4 : -0.6]}
         />
-        {/* The chrome stage mic with lilac lacquer, in the foreground between logo and André */}
-        <group position={[mobile ? X(-0.14) : X(0.2), mobile ? -0.8 : -1.55, mobile ? 0.9 : 0.8]} scale={mobile ? 0.44 : 0.72} rotation={[0, 0.25, 0]}>
-          <Mic />
-        </group>
+        {/* The melted lilac mic stands on the floor between logo and André */}
+        <Mic size={mobile ? 1.7 : 3.2} position={[mobile ? X(-0.12) : X(0.2), mobile ? -1.5 : -2.7, mobile ? 0.6 : 0.8]} rotation={[0, 0.25, 0]} />
         <ChromeSphere r={mobile ? 0.26 : 0.42} position={[X(-0.84), mobile ? 2.4 : 2.5, -1.5]} />
         <ChromeSphere r={mobile ? 0.12 : 0.16} position={[X(mobile ? 0.75 : 0.12), mobile ? 2.3 : 2.1, 0.3]} />
         <ChromeSphere r={mobile ? 0.16 : 0.22} position={[X(-0.62), mobile ? 0.2 : -1.6, 0.2]} />

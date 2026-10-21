@@ -1,66 +1,21 @@
 "use client";
 
-import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import Falcon from "./Falcon";
+import GlbModel from "./GlbModel";
 import { useStore } from "@/store";
 
 /** The lilac pigeon (Tripo GLB). Until the file is deployed the wireframe falcon stands in. */
 export const PIGEON_URL = "/models/taube.glb";
 
-type Mat = THREE.MeshStandardMaterial;
-
 function Model({ size }: { size: number }) {
-  const { scene, animations } = useGLTF(PIGEON_URL);
-  const { actions } = useAnimations(animations, scene);
   const glitch = useStore((s) => s.glitch);
   const level = useStore((s) => s.level);
   const { gl } = useThree();
   const root = useRef<THREE.Group>(null);
   const drag = useRef({ on: false, x: 0, y: 0, rx: 0, ry: 0 });
-
-  // Normalise: centre the model and scale it to `size` in height.
-  const fit = useMemo(() => {
-    const box = new THREE.Box3().setFromObject(scene);
-    const c = box.getCenter(new THREE.Vector3());
-    const h = box.getSize(new THREE.Vector3()).y || 1;
-    return { offset: c.multiplyScalar(-1), scale: size / h };
-  }, [scene, size]);
-
-  // Day and night materials for every mesh in the model.
-  const mats = useMemo(() => {
-    const list: { mesh: THREE.Mesh; day: THREE.Material; night: THREE.Material }[] = [];
-    scene.traverse((o) => {
-      const m = o as THREE.Mesh;
-      if (!m.isMesh) return;
-      const day = m.material as Mat;
-      const night = (day as Mat).clone() as Mat;
-      if (night.color) night.color.multiplyScalar(0.22);
-      if ("emissive" in night) {
-        night.emissive = new THREE.Color("#3b0066");
-        night.emissiveIntensity = 0.5;
-      }
-      if ("roughness" in night) night.roughness = Math.min(1, (night.roughness ?? 0.5) + 0.2);
-      m.castShadow = false;
-      list.push({ mesh: m, day, night });
-    });
-    return list;
-  }, [scene]);
-
-  useEffect(() => {
-    for (const { mesh, day, night } of mats) mesh.material = glitch ? night : day;
-  }, [glitch, mats]);
-
-  // Play the first clip if the model carries one (wing beat).
-  useEffect(() => {
-    const first = Object.values(actions)[0];
-    first?.reset().fadeIn(0.3).play();
-    return () => {
-      first?.fadeOut(0.2);
-    };
-  }, [actions]);
 
   useFrame((state) => {
     if (!root.current) return;
@@ -106,7 +61,7 @@ function Model({ size }: { size: number }) {
       onPointerOver={() => (gl.domElement.style.cursor = "grab")}
       onPointerOut={() => (gl.domElement.style.cursor = "")}
     >
-      <primitive object={scene} scale={fit.scale} position={fit.offset.clone().multiplyScalar(fit.scale)} />
+      <GlbModel url={PIGEON_URL} size={size} />
     </group>
   );
 }

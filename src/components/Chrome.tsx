@@ -37,6 +37,15 @@ export function Nav({ dark = false }: { dark?: boolean }) {
         <NavLogo dark={dark} />
       </Link>
       <nav className="pointer-events-auto flex items-center gap-2 sm:gap-3">
+        {home ? (
+          <a href="#" className={`hidden sm:block ${link}`}>
+            Home
+          </a>
+        ) : (
+          <Link href="/" className={link}>
+            Home
+          </Link>
+        )}
         <Sec hash="musik" home={home} className={`hidden sm:block ${link}`}>
           Musik
         </Sec>

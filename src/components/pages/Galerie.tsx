@@ -154,22 +154,22 @@ export default function Galerie() {
         <div className="relative mt-14 sm:mt-20">
           <div
             aria-hidden
-            className="absolute bottom-0 top-0 left-[11px] w-[3px] rounded-full sm:left-[calc(5.5rem+11px)] lg:left-[calc(7rem+11px)]"
+            className="absolute bottom-0 top-0 left-[11px] w-[3px] rounded-full sm:left-[calc(6rem+11px)] lg:left-[calc(8.5rem+11px)]"
             style={{ background: "linear-gradient(#ffffff, #b8b8c6 30%, var(--lilac) 60%, #b8b8c6)", boxShadow: "0 0 0 1px rgba(255,255,255,.6)" }}
           />
           {groups.map((g) => (
-            <section key={g.year} id={`jahr-${g.year}`} className="relative scroll-mt-28 pb-16 pl-10 sm:pl-[calc(5.5rem+2.5rem)] lg:pl-[calc(7rem+2.5rem)]">
+            <section key={g.year} id={`jahr-${g.year}`} className="relative scroll-mt-28 pb-16 pl-10 sm:pl-[calc(6rem+2.5rem)] lg:pl-[calc(8.5rem+2.5rem)]">
               {/* bead */}
               <span
                 aria-hidden
-                className="absolute left-0 top-1 h-[25px] w-[25px] rounded-full sm:left-[5.5rem] lg:left-[7rem]"
+                className="absolute left-0 top-1 h-[25px] w-[25px] rounded-full sm:left-[6rem] lg:left-[8.5rem]"
                 style={{
                   background: "radial-gradient(circle at 35% 30%, #ffffff, #cfcfdc 45%, #8e8c9c 75%, #ffffff)",
                   boxShadow: "0 4px 12px rgba(60,40,100,.25), inset 0 0 0 1px rgba(255,255,255,.8)",
                 }}
               />
               {/* year, sticky on wide screens */}
-              <div className="mb-5 sm:absolute sm:left-0 sm:top-0 sm:mb-0 sm:w-[5rem] lg:w-[6.5rem]">
+              <div className="mb-5 sm:absolute sm:left-0 sm:top-0 sm:mb-0 sm:w-[5.5rem] lg:w-[8rem]">
                 <div className="display sticky top-28 text-3xl leading-none sm:text-4xl lg:text-5xl" style={{ color: "var(--lilac-deep)" }}>
                   {g.year}
                 </div>

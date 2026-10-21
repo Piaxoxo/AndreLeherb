@@ -83,7 +83,6 @@ export default function Scene() {
 
   // Horizontal layout helper: fraction of the visible width.
   const X = (f: number) => (vw / 2) * f;
-  const scale = mobile ? 0.85 : 1;
 
   return (
     <>
@@ -112,10 +111,10 @@ export default function Scene() {
 
       {/* ---------- 1 · Musik ---------- */}
       <group position={[0, -vh, 0]}>
-        <group position={[mobile ? X(-0.3) : X(-0.62), mobile ? 0.9 : 0.9, 0]} scale={mobile ? 0.62 : 1}>
+        <group position={[mobile ? X(0.3) : X(-0.62), mobile ? 0.9 : 0.9, 0]} scale={mobile ? 0.55 : 1}>
           <DiscoBall radius={0.95} active={playing === "247"} onClick={() => s247.audio && player.toggle("247", s247.audio)} />
         </group>
-        <group position={[mobile ? X(0.55) : X(0.45), mobile ? 1.1 : 1.3, 0.2]} scale={scale}>
+        <group position={[mobile ? X(-0.55) : X(0.02), mobile ? -0.2 : 1.5, 0.2]} scale={mobile ? 0.7 : 0.9}>
           <WalzerBlob active={playing === "walzer"} onClick={() => walzer.audio && player.toggle("walzer", walzer.audio)} />
         </group>
         <ChromeSphere r={0.22} position={[X(0.1), 2.2, -1]} />

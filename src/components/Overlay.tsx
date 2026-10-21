@@ -35,7 +35,21 @@ function LogoTilt({ className }: { className?: string }) {
 }
 
 /** The short vertical clip in a glass phone; muted loop, tap for sound. */
-function PhoneClip({ className }: { className?: string }) {
+function Clip({
+  className,
+  src,
+  poster,
+  aspect = "9/16",
+  radius = 22,
+  label,
+}: {
+  className?: string;
+  src: string;
+  poster: string;
+  aspect?: string;
+  radius?: number;
+  label?: string;
+}) {
   const ref = useRef<HTMLVideoElement>(null);
   const [sound, setSound] = useState(false);
   const toggle = () => {
@@ -49,26 +63,36 @@ function PhoneClip({ className }: { className?: string }) {
   return (
     <button onClick={toggle} className={`${className ?? ""} pointer-events-auto group block`} aria-label={sound ? "Ton aus" : "Ton an"}>
       <div
-        className="glass relative aspect-[9/16] w-full overflow-hidden !rounded-[22px] p-[6px] transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-[-1.5deg]"
-        style={{ boxShadow: "0 30px 60px -20px rgba(60,30,120,.45), inset 0 1px 0 rgba(255,255,255,.7)" }}
+        className="glass relative w-full overflow-hidden p-[6px] transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-[-1.5deg]"
+        style={{ aspectRatio: aspect, borderRadius: radius, boxShadow: "0 30px 60px -20px rgba(60,30,120,.45), inset 0 1px 0 rgba(255,255,255,.7)" }}
       >
         <video
           ref={ref}
-          src="/video/walzertruck.mp4"
-          poster="/video/walzertruck-poster.jpg"
-          className="h-full w-full rounded-[16px] object-cover"
+          src={src}
+          poster={poster}
+          className="h-full w-full object-cover"
+          style={{ borderRadius: radius - 6 }}
           autoPlay
           muted
           loop
           playsInline
           preload="metadata"
         />
+        {label && (
+          <span className="absolute left-3 top-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur">
+            {label}
+          </span>
+        )}
         <span className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur">
           {sound ? "Ton aus" : "Ton an"}
         </span>
       </div>
     </button>
   );
+}
+
+function PhoneClip({ className }: { className?: string }) {
+  return <Clip className={className} src="/video/walzertruck.mp4" poster="/video/walzertruck-poster.jpg" />;
 }
 
 /** André as a living particle field; bursts and darkens during the glitch. */
@@ -301,6 +325,15 @@ export default function Overlay() {
             Andre auf YouTube abonnieren
           </a>
         </div>
+        {/* the ballroom clip: a wide glass screen, top right */}
+        <Clip
+          className="absolute right-5 top-[max(5.5rem,10vh)] w-[46vw] max-w-[230px] sm:right-10 sm:w-[32vw] sm:max-w-[400px] lg:right-16"
+          src="/video/ballroom.mp4"
+          poster="/video/ballroom-poster.jpg"
+          aspect="16/9"
+          radius={26}
+          label="24/7 · Teaser"
+        />
         <div className="absolute inset-x-5 bottom-6 grid gap-3 sm:inset-x-10 sm:gap-5 lg:inset-x-16 lg:bottom-10 lg:grid-cols-2 lg:gap-10">
           <div className="lg:mt-10">
             <SongCard song={s247} align="left" />

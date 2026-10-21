@@ -140,7 +140,7 @@ export default function Scene() {
           position={[mobile ? X(0.6) : X(0.55), mobile ? 1.5 : -0.2, -0.8]}
         />
         {/* the lilac pigeon, Andre's mascot; drag to turn her */}
-        <Pigeon size={mobile ? 1.7 : 2.8} position={[X(mobile ? -0.45 : -0.5), mobile ? 2.2 : 1.2, -1.2]} />
+        <Pigeon size={mobile ? 1.3 : 2.8} position={[X(mobile ? -0.3 : -0.5), mobile ? 1.85 : 1.2, -1.2]} />
         <ChromeSphere r={0.5} position={[X(-0.8), -1.7, -1.5]} />
         <GlassDrop r={0.35} position={[X(0.1), 2.2, 0.5]} />
         <GlassDrop r={0.22} position={[X(-0.2), -2.2, 1.4]} />

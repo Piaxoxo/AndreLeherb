@@ -48,9 +48,9 @@ export default function GlbModel({
       const day = m.material as Mat;
       day.envMapIntensity = envMapIntensity;
       const night = day.clone() as Mat;
-      if (night.color) night.color.multiplyScalar(0.2);
-      night.emissive = new THREE.Color("#3b0066");
-      night.emissiveIntensity = 0.5;
+      if (night.color) night.color.multiplyScalar(0.35);
+      night.emissive = new THREE.Color("#5a00a8");
+      night.emissiveIntensity = 0.7;
       night.roughness = Math.min(1, night.roughness + 0.2);
       night.envMapIntensity = 0.5;
       list.push({ mesh: m, day, night });

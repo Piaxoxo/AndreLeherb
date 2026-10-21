@@ -1,6 +1,8 @@
 "use client";
 
 import { MeshTransmissionMaterial } from "@react-three/drei";
+import { useMemo } from "react";
+import * as THREE from "three";
 import { useStore } from "@/store";
 
 /** Mirror chrome. Reads the environment map for its reflections. */
@@ -37,6 +39,9 @@ export function Lilac({ glitch = false, color = "#b39aff" }: { glitch?: boolean;
 export function Glass({ tint = "#ffffff" }: { tint?: string }) {
   const mobile = useStore((s) => s.mobile);
   const glitch = useStore((s) => s.glitch);
+  // The canvas is transparent (a film plays behind it), so the transmission pass
+  // needs an explicit backdrop or the glass turns black.
+  const backdrop = useMemo(() => new THREE.Color(glitch ? "#050308" : "#f6f4f9"), [glitch]);
   if (mobile) {
     return (
       <meshPhysicalMaterial
@@ -52,6 +57,7 @@ export function Glass({ tint = "#ffffff" }: { tint?: string }) {
   }
   return (
     <MeshTransmissionMaterial
+      background={backdrop}
       color={glitch ? "#3a1370" : tint}
       transmission={1}
       thickness={0.6}
@@ -65,7 +71,6 @@ export function Glass({ tint = "#ffffff" }: { tint?: string }) {
       samples={6}
       resolution={512}
       backside={false}
-      background={undefined}
     />
   );
 }

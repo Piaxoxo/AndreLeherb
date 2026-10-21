@@ -76,7 +76,7 @@ export default function Stage() {
       camera={{ position: [0, 0, 9], fov: 35, near: 0.1, far: 60 }}
       gl={{
         antialias: true,
-        alpha: false,
+        alpha: true,
         powerPreference: "high-performance",
         toneMapping: THREE.ACESFilmicToneMapping,
         toneMappingExposure: 1.05,

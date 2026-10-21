@@ -5,7 +5,6 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
 import Pigeon from "./Pigeon";
-import HeroFilm from "./HeroFilm";
 import Mic from "./Mic";
 import DiscoBall from "./DiscoBall";
 import Portrait from "./Portrait";
@@ -41,11 +40,21 @@ function Rig() {
   return null;
 }
 
-export function Studio() {
+/** Fades the HTML film behind the canvas out as the room scrolls past the hero. */
+function FilmFade() {
+  const scroll = useScroll();
+  useFrame(() => {
+    const el = document.getElementById("hero-film");
+    if (el) el.style.opacity = String(Math.max(0, 1 - scroll.offset * (PAGES - 1) * 1.6));
+  });
+  return null;
+}
+
+export function Studio({ transparent = false }: { transparent?: boolean }) {
   const glitch = useStore((s) => s.glitch);
   return (
     <>
-      <color attach="background" args={[glitch ? "#050308" : "#f6f4f9"]} />
+      {!transparent && <color attach="background" args={[glitch ? "#050308" : "#f6f4f9"]} />}
       <fog attach="fog" args={[glitch ? "#050308" : "#f6f4f9", 14, 26]} />
       <ambientLight intensity={glitch ? 0.2 : 0.9} />
       <directionalLight position={[4, 6, 6]} intensity={glitch ? 0.4 : 1.4} color={glitch ? "#9b5cff" : "#ffffff"} />
@@ -87,13 +96,12 @@ export default function Scene() {
 
   return (
     <>
-      <Studio />
+      <Studio transparent />
       <Rig />
 
       {/* ---------- 0 · Intro ---------- */}
       <group position={[0, 0, 0]}>
-        {/* the ballroom film fills the back wall of the hero */}
-        <HeroFilm />
+        <FilmFade />
         {/* André stands in the room; the brush logo lives in the HTML layer behind him */}
         <Portrait
           src="/img/andre-hero.webp"

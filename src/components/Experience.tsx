@@ -40,6 +40,13 @@ export default function Experience() {
   return (
     <main className="fixed inset-0">
       <Loader />
+      {/* the ballroom film: a plain video element behind the transparent canvas, hardware decoded */}
+      <div id="hero-film" className="hero-film" aria-hidden>
+        <video autoPlay muted loop playsInline preload="auto" poster="/video/ballroom-poster.jpg">
+          <source src="/video/ballroom.webm" type="video/webm" />
+          <source src="/video/ballroom.mp4" type="video/mp4" />
+        </video>
+      </div>
       <Nav />
       <Stage />
       <MiniPlayer />

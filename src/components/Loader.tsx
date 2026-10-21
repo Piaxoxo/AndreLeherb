@@ -3,6 +3,7 @@
 import { useProgress } from "@react-three/drei";
 import { useEffect, useState } from "react";
 import { useStore } from "@/store";
+import MicSequence from "./MicSequence";
 
 export default function Loader() {
   const { progress, active } = useProgress();
@@ -34,19 +35,11 @@ export default function Loader() {
     <div
       aria-hidden
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center transition-opacity duration-700"
-      style={{ background: "var(--bg)", opacity: ready ? 0 : 1, pointerEvents: ready ? "none" : "auto" }}
+      style={{ background: "#000", opacity: ready ? 0 : 1, pointerEvents: ready ? "none" : "auto" }}
     >
-      <div className="pyramid-loader" style={{ transform: "scale(0.8) rotateX(-20deg)" }}>
-        <div className="wrapper">
-          <span className="side side1" />
-          <span className="side side2" />
-          <span className="side side3" />
-          <span className="side side4" />
-          <span className="shadow" />
-        </div>
-      </div>
-      <img src="/img/logo-light.webp" alt="Andre Leherb" className="mt-2 h-12 w-auto sm:h-14" draggable={false} />
-      <div className="mt-3 h-[2px] w-40 overflow-hidden rounded-full bg-black/10">
+      <MicSequence className="h-[52vh] w-full max-w-[60vw]" speed={30} />
+      <img src="/img/logo-dark.webp" alt="Andre Leherb" className="mt-2 h-12 w-auto sm:h-14" draggable={false} />
+      <div className="mt-3 h-[2px] w-40 overflow-hidden rounded-full bg-white/15">
         <div
           className="h-full rounded-full"
           style={{ width: `${Math.round(progress)}%`, background: "var(--lilac-deep)", transition: "width .3s" }}

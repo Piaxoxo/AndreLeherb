@@ -46,7 +46,7 @@ export function Nav() {
         <Link href="/ueber" className={link}>
           André
         </Link>
-        <Sec hash="booking" home={home} className="btn-chrome !py-2.5 !px-4 text-xs uppercase tracking-[0.15em]">
+        <Sec hash="booking" home={home} className="btn-chrome whitespace-nowrap !py-2.5 !px-4 text-xs uppercase tracking-[0.15em]">
           Buch mich
         </Sec>
       </nav>

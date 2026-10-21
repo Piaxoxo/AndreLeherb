@@ -166,8 +166,8 @@ export default function Galerie() {
                   style={{ aspectRatio: `${p.w} / ${p.h}` }}
                 />
                 <div className="flex items-center justify-between px-2 pb-1 pt-2 text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">
-                  <span>{p.caption}</span>
-                  <span>{p.set}</span>
+                  <span className="truncate">{p.caption}</span>
+                  <span className="hidden shrink-0 sm:inline">{p.set}</span>
                 </div>
               </button>
             </li>

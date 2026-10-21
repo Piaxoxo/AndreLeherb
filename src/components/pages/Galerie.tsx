@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Nav, Tear } from "@/components/Chrome";
 import { gallery, type Photo } from "@/gallery";
 import { artist } from "@/content";
@@ -64,7 +64,7 @@ function Lightbox({ photos, index, onClose, onMove }: { photos: Photo[]; index: 
         onClick={(e) => e.stopPropagation()}
       />
       <div className="pointer-events-none absolute inset-x-0 bottom-5 flex items-center justify-center gap-4 text-xs font-bold uppercase tracking-[0.25em] text-white/70">
-        <span>{p.caption}</span>
+        <span>{p.caption || p.year}</span>
         <span className="opacity-60">
           {index + 1} / {photos.length}
         </span>
@@ -101,14 +101,25 @@ function Lightbox({ photos, index, onClose, onMove }: { photos: Photo[]; index: 
   );
 }
 
+/** Photos grouped by year, newest first, in the order of the data file. */
+function useTimeline() {
+  return useMemo(() => {
+    const groups: { year: string; photos: Photo[]; start: number }[] = [];
+    gallery.forEach((p, i) => {
+      const g = groups[groups.length - 1];
+      if (g && g.year === p.year) g.photos.push(p);
+      else groups.push({ year: p.year, photos: [p], start: i });
+    });
+    return groups;
+  }, []);
+}
+
 export default function Galerie() {
   const [open, setOpen] = useState<number | null>(null);
-  const [set, setSet] = useState<string>("alle");
-  const sets = ["alle", ...Array.from(new Set(gallery.map((p) => p.set)))];
-  const photos = set === "alle" ? gallery : gallery.filter((p) => p.set === set);
+  const groups = useTimeline();
 
   const close = useCallback(() => setOpen(null), []);
-  const move = useCallback((d: number) => setOpen((i) => (i == null ? null : (i + d + photos.length) % photos.length)), [photos.length]);
+  const move = useCallback((d: number) => setOpen((i) => (i == null ? null : (i + d + gallery.length) % gallery.length)), []);
 
   return (
     <>
@@ -121,60 +132,81 @@ export default function Galerie() {
           <div>
             <Label>Galerie</Label>
             <h1 className="display mt-3 text-5xl leading-[0.95] sm:text-7xl lg:text-8xl">
-              Bilder.
+              Von heute
               <br />
-              Blicke.
+              zurück.
             </h1>
             <p className="mt-4 max-w-xl text-base leading-relaxed opacity-85 sm:text-lg">
-              Andre Leherb vor der Kamera: das Shooting 2026 mit Catchlight by Martin Hauser und Momente aus den Jahren davor. Zum Vergrößern antippen.
+              Andre Leherb vor der Kamera, als Zeitreise: vom Shooting 2026 zurück bis zu DEZIRE. Zum Vergrößern antippen.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {sets.map((s) => (
-              <button
-                key={s}
-                onClick={() => {
-                  setSet(s);
-                  setOpen(null);
-                }}
-                className={s === set ? "btn-lilac !py-2 !px-4 text-xs uppercase tracking-[0.15em]" : "btn-chrome !py-2 !px-4 text-xs uppercase tracking-[0.15em]"}
-                aria-pressed={s === set}
-              >
-                {s}
-              </button>
+          {/* year chips jump along the line */}
+          <nav aria-label="Jahre" className="flex flex-wrap gap-2">
+            {groups.map((g) => (
+              <a key={g.year} href={`#jahr-${g.year}`} className="btn-chrome !py-2 !px-4 text-xs tracking-[0.15em]">
+                {g.year}
+              </a>
             ))}
-          </div>
+          </nav>
         </header>
 
-        {/* Masonry via CSS columns: cheap, responsive, keeps the aspect ratios. */}
-        <ul className="mt-12 columns-2 gap-3 sm:gap-4 md:columns-3 xl:columns-4 [&>li]:mb-3 sm:[&>li]:mb-4">
-          {photos.map((p, i) => (
-            <li key={p.src} className="break-inside-avoid">
-              <button
-                onClick={() => setOpen(i)}
-                className="group glass block w-full overflow-hidden !rounded-[1.4rem] !p-1.5 text-left transition-transform duration-500 hover:-translate-y-1"
-                aria-label={`${p.alt} öffnen`}
-              >
-                <img
-                  src={p.thumb}
-                  alt={p.alt}
-                  width={p.w}
-                  height={p.h}
-                  loading={i < 8 ? "eager" : "lazy"}
-                  decoding="async"
-                  className="w-full rounded-[1rem] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  style={{ aspectRatio: `${p.w} / ${p.h}` }}
-                />
-                <div className="flex items-center justify-between px-2 pb-1 pt-2 text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">
-                  <span className="truncate">{p.caption}</span>
-                  <span className="hidden shrink-0 sm:inline">{p.set}</span>
+        {/* The timeline: a chrome thread down the left with a bead per year, photos to its right. */}
+        <div className="relative mt-14 sm:mt-20">
+          <div
+            aria-hidden
+            className="absolute bottom-0 top-0 left-[11px] w-[3px] rounded-full sm:left-[calc(5.5rem+11px)] lg:left-[calc(7rem+11px)]"
+            style={{ background: "linear-gradient(#ffffff, #b8b8c6 30%, var(--lilac) 60%, #b8b8c6)", boxShadow: "0 0 0 1px rgba(255,255,255,.6)" }}
+          />
+          {groups.map((g) => (
+            <section key={g.year} id={`jahr-${g.year}`} className="relative scroll-mt-28 pb-16 pl-10 sm:pl-[calc(5.5rem+2.5rem)] lg:pl-[calc(7rem+2.5rem)]">
+              {/* bead */}
+              <span
+                aria-hidden
+                className="absolute left-0 top-1 h-[25px] w-[25px] rounded-full sm:left-[5.5rem] lg:left-[7rem]"
+                style={{
+                  background: "radial-gradient(circle at 35% 30%, #ffffff, #cfcfdc 45%, #8e8c9c 75%, #ffffff)",
+                  boxShadow: "0 4px 12px rgba(60,40,100,.25), inset 0 0 0 1px rgba(255,255,255,.8)",
+                }}
+              />
+              {/* year, sticky on wide screens */}
+              <div className="mb-5 sm:absolute sm:left-0 sm:top-0 sm:mb-0 sm:w-[5rem] lg:w-[6.5rem]">
+                <div className="display sticky top-28 text-3xl leading-none sm:text-4xl lg:text-5xl" style={{ color: "var(--lilac-deep)" }}>
+                  {g.year}
                 </div>
-              </button>
-            </li>
+              </div>
+              <ul className="columns-2 gap-3 sm:gap-4 md:columns-3 xl:columns-4 [&>li]:mb-3 sm:[&>li]:mb-4">
+                {g.photos.map((p, j) => {
+                  const i = g.start + j;
+                  return (
+                    <li key={p.src} className="break-inside-avoid">
+                      <button
+                        onClick={() => setOpen(i)}
+                        className="group glass block w-full overflow-hidden !rounded-[1.4rem] !p-1.5 text-left transition-transform duration-500 hover:-translate-y-1"
+                        aria-label={`${p.alt} öffnen`}
+                      >
+                        <img
+                          src={p.thumb}
+                          alt={p.alt}
+                          width={p.w}
+                          height={p.h}
+                          loading={i < 8 ? "eager" : "lazy"}
+                          decoding="async"
+                          className="w-full rounded-[1rem] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                          style={{ aspectRatio: `${p.w} / ${p.h}` }}
+                        />
+                        {p.caption && (
+                          <div className="px-2 pb-1 pt-2 text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">{p.caption}</div>
+                        )}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
           ))}
-        </ul>
+        </div>
 
-        <footer className="mt-24 flex flex-col items-start justify-between gap-6 border-t pt-8 sm:flex-row sm:items-center" style={{ borderColor: "var(--glass-border)" }}>
+        <footer className="mt-8 flex flex-col items-start justify-between gap-6 border-t pt-8 sm:flex-row sm:items-center" style={{ borderColor: "var(--glass-border)" }}>
           <div>
             <div className="display text-2xl">Pressefotos?</div>
             <p className="mt-1 text-sm opacity-70">Druckfähige Dateien auf Anfrage an {artist.booking.email}</p>
@@ -189,7 +221,7 @@ export default function Galerie() {
           </div>
         </footer>
       </main>
-      {open != null && photos[open] && <Lightbox photos={photos} index={open} onClose={close} onMove={move} />}
+      {open != null && gallery[open] && <Lightbox photos={gallery} index={open} onClose={close} onMove={move} />}
     </>
   );
 }

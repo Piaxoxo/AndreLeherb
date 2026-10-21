@@ -8,14 +8,6 @@ import { useStore } from "@/store";
 const FRAMES = 124;
 const src = (i: number) => `/scrub/f${String(i + 1).padStart(3, "0")}.webp`;
 
-/** Captions that appear along the scroll (progress 0..1). */
-const CAPTIONS: { at: number; until: number; title: string; text: string }[] = [
-  { at: 0.0, until: 0.16, title: "Das Mikro.", text: "Chrom, lila Lack, ein Herz aus Draht. Scroll, und es zerlegt sich." },
-  { at: 0.3, until: 0.52, title: "Innen.", text: "Jede Schicht ein Song. Jede Membran eine Stimme. Noch teilen sie sich eine." },
-  { at: 0.62, until: 0.8, title: "24/7.", text: "Was nachts gesungen wird, bleibt. Das Mikro vergisst nichts." },
-  { at: 0.88, until: 1.01, title: "Und wieder ganz.", text: "Zurück auf die Bühne. Buch mich." },
-];
-
 export default function Mikro() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const wrap = useRef<HTMLDivElement>(null);
@@ -100,8 +92,6 @@ export default function Mikro() {
     g.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
   }, [progress, loaded]);
 
-  const cap = CAPTIONS.find((k) => progress >= k.at && progress < k.until);
-
   return (
     <>
       <Nav dark />
@@ -116,14 +106,6 @@ export default function Mikro() {
               className="pointer-events-none absolute inset-0"
               style={{ background: "radial-gradient(ellipse 60% 70% at 50% 50%, rgba(0,0,0,0) 40%, rgba(0,0,0,.6) 100%)" }}
             />
-            {/* captions */}
-            <div className="pointer-events-none absolute inset-x-5 bottom-[max(2.5rem,env(safe-area-inset-bottom))] sm:inset-x-10 lg:inset-x-16">
-              <div className="max-w-md transition-opacity duration-500" style={{ opacity: cap ? 1 : 0 }}>
-                <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">Das Mikro</div>
-                <h1 className="display mt-2 text-4xl sm:text-6xl">{cap?.title ?? ""}</h1>
-                <p className="mt-3 text-sm leading-relaxed opacity-80 sm:text-base">{cap?.text ?? ""}</p>
-              </div>
-            </div>
             {/* progress hairline */}
             <div aria-hidden className="pointer-events-none absolute right-5 top-[20vh] h-[60vh] w-px bg-white/15 sm:right-10 lg:right-16">
               <div className="w-px" style={{ height: `${progress * 100}%`, background: "var(--lilac)", boxShadow: "0 0 12px var(--lilac)" }} />

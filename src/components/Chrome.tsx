@@ -40,7 +40,10 @@ export function Nav() {
         <Sec hash="musik" home={home} className={`hidden sm:block ${link}`}>
           Musik
         </Sec>
-        <Link href="/ueber" className={`${link} ${home ? "" : "opacity-100"}`} aria-current={home ? undefined : "page"}>
+        <Link href="/galerie" className={link}>
+          Galerie
+        </Link>
+        <Link href="/ueber" className={link}>
           André
         </Link>
         <Sec hash="booking" home={home} className="btn-chrome !py-2.5 !px-4 text-xs uppercase tracking-[0.15em]">

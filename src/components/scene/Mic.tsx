@@ -1,9 +1,10 @@
 "use client";
 
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import * as THREE from "three";
 import GlbModel from "./GlbModel";
+import { useRouter } from "next/navigation";
 import { useStore } from "@/store";
 
 export const MIC_URL = "/models/mic.glb";
@@ -16,6 +17,8 @@ export default function Mic({ size = 3, ...props }: { size?: number } & React.Co
   const inner = useRef<THREE.Group>(null);
   const level = useStore((s) => s.level);
   const glitch = useStore((s) => s.glitch);
+  const { gl } = useThree();
+  const router = useRouter();
 
   useFrame((state) => {
     if (!inner.current) return;
@@ -28,7 +31,15 @@ export default function Mic({ size = 3, ...props }: { size?: number } & React.Co
 
   return (
     <group {...props}>
-      <group ref={inner}>
+      <group
+        ref={inner}
+        onClick={(e) => {
+          e.stopPropagation();
+          router.push("/mikro");
+        }}
+        onPointerOver={() => (gl.domElement.style.cursor = "pointer")}
+        onPointerOut={() => (gl.domElement.style.cursor = "")}
+      >
         <Suspense fallback={null}>
           <GlbModel url={MIC_URL} size={size} anchor="bottom" envMapIntensity={1.4} />
         </Suspense>

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { artist, songs, type Song } from "@/content";
 import { player } from "@/lib/audio";
 import { useStore } from "@/store";
@@ -293,6 +295,9 @@ export default function Overlay() {
                 <a href="#booking" className="btn-chrome">
                   Buch mich
                 </a>
+                <Link href="/mikro" className="hidden rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] opacity-70 hover:opacity-100 sm:inline-block">
+                  Das Mikro ↓
+                </Link>
               </div>
             </div>
             <div className="hidden pr-[17vw] text-right text-xs font-bold uppercase tracking-[0.3em] opacity-50 lg:block">

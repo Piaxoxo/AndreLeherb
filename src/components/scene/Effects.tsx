@@ -15,14 +15,9 @@ export default function Effects() {
   // The canvas is transparent (the hero film sits behind it). Chromatic aberration and the
   // vignette also shift and darken the alpha channel, which paints rainbow fringes and dark
   // corners onto everything, so in the calm state only bloom and a little grain run.
-  if (!glitch) {
-    return (
-      <EffectComposer multisampling={4}>
-        <Bloom intensity={0.25} luminanceThreshold={0.9} luminanceSmoothing={0.2} mipmapBlur />
-        <Noise premultiply blendFunction={BlendFunction.SOFT_LIGHT} opacity={0.08} />
-      </EffectComposer>
-    );
-  }
+  // Outside the glitch no post-processing at all: every screen-space pass on the
+  // transparent canvas (the hero film plays behind it) leaves colour fringes on edges.
+  if (!glitch) return null;
 
   return (
     <EffectComposer multisampling={4}>

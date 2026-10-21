@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 
 import { artist, songs, type Song } from "@/content";
 import { player } from "@/lib/audio";
@@ -295,9 +294,9 @@ export default function Overlay() {
                 <a href="#booking" className="btn-chrome">
                   Buch mich
                 </a>
-                <Link href="/mikro" className="hidden rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] opacity-70 hover:opacity-100 sm:inline-block">
+                <a href="#mikro" className="hidden rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] opacity-70 hover:opacity-100 sm:inline-block">
                   Das Mikro ↓
-                </Link>
+                </a>
               </div>
             </div>
             <div className="hidden pr-[17vw] text-right text-xs font-bold uppercase tracking-[0.3em] opacity-50 lg:block">
@@ -315,6 +314,9 @@ export default function Overlay() {
           </div>
         )}
       </Section>
+
+      {/* ---------- the mic scrub lives in a fixed layer (Experience); these pages give it scroll room ---------- */}
+      <div aria-hidden style={{ height: "300vh" }} />
 
       {/* ---------- 1 · Musik ---------- */}
       <Section>

@@ -4,7 +4,6 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import * as THREE from "three";
 import GlbModel from "./GlbModel";
-import { useRouter } from "next/navigation";
 import { useStore } from "@/store";
 
 export const MIC_URL = "/models/mic.glb";
@@ -18,7 +17,6 @@ export default function Mic({ size = 3, ...props }: { size?: number } & React.Co
   const level = useStore((s) => s.level);
   const glitch = useStore((s) => s.glitch);
   const { gl } = useThree();
-  const router = useRouter();
 
   useFrame((state) => {
     if (!inner.current) return;
@@ -35,7 +33,7 @@ export default function Mic({ size = 3, ...props }: { size?: number } & React.Co
         ref={inner}
         onClick={(e) => {
           e.stopPropagation();
-          router.push("/mikro");
+          document.querySelector<HTMLAnchorElement>("a[href='#mikro']")?.click();
         }}
         onPointerOver={() => (gl.domElement.style.cursor = "pointer")}
         onPointerOut={() => (gl.domElement.style.cursor = "")}

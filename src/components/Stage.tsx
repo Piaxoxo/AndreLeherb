@@ -11,7 +11,7 @@ import { useStore } from "@/store";
 /** Anchor links (#musik, #booking) scroll the drei scroll container. */
 function Anchors() {
   useEffect(() => {
-    const map: Record<string, number> = { "#": 0, "#musik": 1, "#ueber": 2, "#booking": 3 };
+    const map: Record<string, number> = { "#": 0, "#mikro": 1, "#musik": 4, "#ueber": 5, "#booking": 6 };
     const onClick = (e: MouseEvent) => {
       const a = (e.target as HTMLElement).closest("a[href^='#']") as HTMLAnchorElement | null;
       if (!a) return;

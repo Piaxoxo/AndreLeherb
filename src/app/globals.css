@@ -317,3 +317,11 @@ body {
     radial-gradient(ellipse 70% 70% at 50% 45%, rgba(5, 3, 8, 0) 35%, var(--bg) 100%),
     linear-gradient(to bottom, rgba(5, 3, 8, 0.4), rgba(5, 3, 8, 0) 30%, rgba(5, 3, 8, 0) 70%, var(--bg));
 }
+
+/* nav on the black mic scrub */
+:root[data-scrub="on"] header {
+  color: #fff;
+}
+:root[data-scrub="on"] header img {
+  filter: invert(1) hue-rotate(180deg);
+}

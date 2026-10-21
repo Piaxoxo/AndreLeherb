@@ -14,7 +14,10 @@ import { useStore } from "@/store";
 import { player } from "@/lib/audio";
 import { songs } from "@/content";
 
-export const PAGES = 4;
+/** hero · 3 pages of mic scrub · musik · über · booking */
+export const PAGES = 7;
+export const SCRUB_START = 1;
+export const SCRUB_PAGES = 3;
 
 /** Camera follows the scroll down the "room", with a little pointer parallax. */
 function Rig() {
@@ -44,8 +47,24 @@ function Rig() {
 function FilmFade() {
   const scroll = useScroll();
   useFrame(() => {
+    const page = scroll.offset * (PAGES - 1);
     const el = document.getElementById("hero-film");
-    if (el) el.style.opacity = String(Math.max(0, 1 - scroll.offset * (PAGES - 1) * 1.6));
+    if (el) el.style.opacity = String(Math.max(0, 1 - page * 1.6));
+    // the mic scrub: progress 0..1 across its pages, visible only while inside them
+    const scrub = document.getElementById("mic-scrub");
+    if (scrub) {
+      const p = (page - SCRUB_START) / SCRUB_PAGES;
+      scrub.dataset.p = String(Math.min(1, Math.max(0, p)));
+      // fade in over the last third of the hero, fade out just before Musik arrives
+      const vis = Math.min(1, Math.max(0, Math.min((page - SCRUB_START + 0.35) / 0.35, (SCRUB_START + SCRUB_PAGES + 0.02 - page) / 0.3)));
+      scrub.style.opacity = String(vis);
+      scrub.style.visibility = vis > 0.01 ? "visible" : "hidden";
+      const dark = vis > 0.5;
+      if ((document.documentElement.dataset.scrub === "on") !== dark) {
+        if (dark) document.documentElement.dataset.scrub = "on";
+        else delete document.documentElement.dataset.scrub;
+      }
+    }
   });
   return null;
 }
@@ -121,7 +140,7 @@ export default function Scene() {
       </group>
 
       {/* ---------- 1 · Musik ---------- */}
-      <group position={[0, -vh, 0]}>
+      <group position={[0, -vh * (SCRUB_START + SCRUB_PAGES), 0]}>
         <group position={[mobile ? X(0.3) : X(-0.62), mobile ? 0.9 : 0.9, 0]} scale={mobile ? 0.55 : 1}>
           <DiscoBall radius={0.95} active={playing === "247"} onClick={() => s247.audio && player.toggle("247", s247.audio)} />
         </group>
@@ -133,7 +152,7 @@ export default function Scene() {
       </group>
 
       {/* ---------- 2 · Über ---------- */}
-      <group position={[0, -vh * 2, 0]}>
+      <group position={[0, -vh * (SCRUB_START + SCRUB_PAGES + 1), 0]}>
         {/* The portrait here is the particle field in the HTML layer. */}
         <GlassSlab w={3.2} h={1.6} position={[X(0.45), 1.6, -2]} rotation={[0, -0.3, 0.05]} />
         <ChromeSphere r={0.35} position={[X(0.85), -1.8, -1]} />
@@ -142,7 +161,7 @@ export default function Scene() {
       </group>
 
       {/* ---------- 3 · Booking ---------- */}
-      <group position={[0, -vh * 3, 0]}>
+      <group position={[0, -vh * (SCRUB_START + SCRUB_PAGES + 2), 0]}>
         <Portrait
           src="/img/andre-silver.webp"
           glitchSrc="/img/glitch-point.jpg"

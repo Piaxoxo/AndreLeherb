@@ -157,7 +157,9 @@ function SongCard({ song, align }: { song: Song; align: "left" | "right" }) {
           className="h-20 w-20 shrink-0 rounded-2xl object-cover shadow-lg sm:h-28 sm:w-28"
         />
         <div className="min-w-0">
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] opacity-60 sm:text-xs">Single · {song.release}</div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.25em] opacity-60 sm:text-xs">
+            {song.tag && <span style={{ color: "var(--lilac-deep)" }}>{song.tag} · </span>}Single · {song.release}
+          </div>
           <h3 className="display mt-1 text-2xl sm:text-4xl">{song.title}</h3>
           <div className="mt-2 flex flex-wrap gap-2 sm:mt-3">
             <PlayButton song={song} />
@@ -245,7 +247,7 @@ export default function Overlay() {
       <Section>
         {/* the brush logo, big, behind André; it tilts a little with the pointer */}
         <div className="absolute inset-0 flex items-start justify-center pt-[12vh] sm:items-center sm:justify-start sm:pt-0 sm:pl-[6vw] lg:pl-[8vw]">
-          <h1 className="m-0 sm:-translate-y-[9vh]">
+          <h1 className="m-0 sm:-translate-y-[13vh]">
             <span className="sr-only">Andre Leherb</span>
             <LogoTilt className="w-[80vw] max-w-[1000px] sm:w-[50vw]" />
           </h1>
@@ -256,9 +258,11 @@ export default function Overlay() {
           <div className="flex flex-col items-start justify-between gap-5 lg:flex-row lg:items-end">
             <div className="glass drip max-w-[calc(100vw-2.5rem)] p-4 sm:max-w-md sm:p-6">
               <div className="text-[10px] font-bold uppercase tracking-[0.25em] opacity-60 sm:text-xs">Wien · Singer / Songwriter</div>
-              <p className="mt-1.5 text-[15px] leading-snug sm:mt-2 sm:text-lg sm:leading-relaxed">
-                {artist.claim} Neue Single: <strong>24/7</strong>
-                <span className="hidden sm:inline">, dazu <strong>Wir tanzen den Walzer</strong>. Produziert mit Gary Lux.</span>
+              <p className="display mt-1.5 text-xl leading-tight sm:mt-2 sm:text-3xl">{artist.motto}</p>
+              <p className="mt-2 hidden text-sm leading-relaxed opacity-85 sm:block">{artist.intro}</p>
+              <p className="mt-1.5 text-[14px] leading-snug sm:mt-3 sm:text-[15px]">
+                Neues Video: <strong>24/7</strong>
+                <span className="hidden sm:inline"> · Single: <strong>Wir tanzen den Walzer</strong>. Produziert mit Gary Lux.</span>
               </p>
               <div className="mt-3 flex flex-wrap gap-2 sm:mt-4 sm:gap-3">
                 <PlayButton song={walzer} big />
@@ -288,6 +292,14 @@ export default function Overlay() {
         <div className="absolute left-5 top-[max(5.5rem,10vh)] sm:left-10 lg:left-16">
           <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">01 · Musik</div>
           <h2 className="display mt-2 text-5xl sm:text-7xl">Neu.</h2>
+          <a
+            href={artist.youtube}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-chrome mt-4 hidden !py-2.5 !px-4 text-xs uppercase tracking-[0.15em] sm:inline-flex"
+          >
+            Andre auf YouTube abonnieren
+          </a>
         </div>
         <div className="absolute inset-x-5 bottom-6 grid gap-3 sm:inset-x-10 sm:gap-5 lg:inset-x-16 lg:bottom-10 lg:grid-cols-2 lg:gap-10">
           <div className="lg:mt-10">
@@ -318,6 +330,9 @@ export default function Overlay() {
             <p className="text-sm leading-relaxed sm:text-[15px]">{artist.bio[0]}</p>
             <p className="mt-3 hidden text-sm leading-relaxed sm:block sm:text-[15px]">{artist.bio[1]}</p>
             {!mobile && <p className="mt-3 text-sm leading-relaxed sm:text-[15px]">{artist.bio[2]}</p>}
+            <a href="/ueber" className="btn-lilac mt-4 !py-2.5 !px-5 text-sm">
+              Mehr über André
+            </a>
             <ol className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t pt-3 sm:mt-5 sm:gap-x-5 sm:gap-y-2 sm:pt-4" style={{ borderColor: "var(--glass-border)" }}>
               {artist.timeline.map((t) => (
                 <li key={t.year} className="flex items-baseline gap-2 text-[11px] sm:text-xs">

@@ -23,7 +23,29 @@ function Anchors() {
       if (el) el.scrollTo({ top: (map[hash] * (el.scrollHeight - el.clientHeight)) / (PAGES - 1), behavior: "smooth" });
     };
     document.addEventListener("click", onClick);
-    return () => document.removeEventListener("click", onClick);
+    // Arriving from another page with a hash (/#musik): jump once the scroller exists.
+    const hash = window.location.hash;
+    let poll: number | undefined;
+    if (hash in map && map[hash] > 0) {
+      // Keep nudging while the stage boots (it resets its scroller once ready), but
+      // stop at the first real user scroll or after ten seconds.
+      const until = Date.now() + 10000;
+      const stop = () => window.clearInterval(poll);
+      window.addEventListener("wheel", stop, { once: true, passive: true });
+      window.addEventListener("touchstart", stop, { once: true, passive: true });
+      window.addEventListener("keydown", stop, { once: true });
+      poll = window.setInterval(() => {
+        const el = document.querySelector<HTMLElement>("[data-scroll]");
+        if (Date.now() > until) stop();
+        if (!el) return;
+        const top = (map[hash] * (el.scrollHeight - el.clientHeight)) / (PAGES - 1);
+        if (Math.abs(el.scrollTop - top) > 2) el.scrollTo({ top, behavior: "instant" });
+      }, 200);
+    }
+    return () => {
+      document.removeEventListener("click", onClick);
+      window.clearInterval(poll);
+    };
   }, []);
   return null;
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useStore } from "@/store";
 import { player } from "@/lib/audio";
 import { songs } from "@/content";
@@ -10,22 +12,40 @@ function NavLogo() {
 }
 
 /** Fixed UI around the canvas: nav, mini player, glitch tear. */
+/**
+ * On the start page the sections are scroll targets inside the 3D stage;
+ * from other pages they are real navigations back to "/".
+ */
+function Sec({ hash, home, className, children }: { hash: string; home: boolean; className: string; children: React.ReactNode }) {
+  return home ? (
+    <a href={`#${hash}`} className={className}>
+      {children}
+    </a>
+  ) : (
+    <Link href={`/#${hash}`} className={className}>
+      {children}
+    </Link>
+  );
+}
+
 export function Nav() {
+  const home = usePathname() === "/";
+  const link = "rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] opacity-70 hover:opacity-100";
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-4 sm:px-10 lg:px-16">
-      <a href="#" className="pointer-events-auto block" aria-label="Andre Leherb, Start">
+      <Link href="/" className="pointer-events-auto block" aria-label="Andre Leherb, Start">
         <NavLogo />
-      </a>
+      </Link>
       <nav className="pointer-events-auto flex items-center gap-2 sm:gap-3">
-        <a href="#musik" className="hidden rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] opacity-70 hover:opacity-100 sm:block">
+        <Sec hash="musik" home={home} className={`hidden sm:block ${link}`}>
           Musik
-        </a>
-        <a href="#ueber" className="hidden rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] opacity-70 hover:opacity-100 sm:block">
-          Über
-        </a>
-        <a href="#booking" className="btn-chrome !py-2.5 !px-4 text-xs uppercase tracking-[0.15em]">
+        </Sec>
+        <Link href="/ueber" className={`${link} ${home ? "" : "opacity-100"}`} aria-current={home ? undefined : "page"}>
+          André
+        </Link>
+        <Sec hash="booking" home={home} className="btn-chrome !py-2.5 !px-4 text-xs uppercase tracking-[0.15em]">
           Buch mich
-        </a>
+        </Sec>
       </nav>
     </header>
   );

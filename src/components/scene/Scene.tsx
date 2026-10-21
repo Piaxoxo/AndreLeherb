@@ -40,7 +40,7 @@ function Rig() {
   return null;
 }
 
-function Studio() {
+export function Studio() {
   const glitch = useStore((s) => s.glitch);
   return (
     <>
@@ -103,7 +103,7 @@ export default function Scene() {
         <group position={[mobile ? X(-0.14) : X(0.2), mobile ? -0.8 : -1.55, mobile ? 0.9 : 0.8]} scale={mobile ? 0.44 : 0.72} rotation={[0, 0.25, 0]}>
           <Mic />
         </group>
-        <ChromeSphere r={mobile ? 0.26 : 0.42} position={[X(-0.78), mobile ? 2.4 : 1.9, -1.5]} />
+        <ChromeSphere r={mobile ? 0.26 : 0.42} position={[X(-0.84), mobile ? 2.4 : 2.5, -1.5]} />
         <ChromeSphere r={mobile ? 0.12 : 0.16} position={[X(mobile ? 0.75 : 0.12), mobile ? 2.3 : 2.1, 0.3]} />
         <ChromeSphere r={mobile ? 0.16 : 0.22} position={[X(-0.62), mobile ? 0.2 : -1.6, 0.2]} />
         <GlassDrop r={mobile ? 0.28 : 0.42} position={[X(mobile ? 0.1 : -0.08), mobile ? -2.5 : -2.3, 1.0]} />

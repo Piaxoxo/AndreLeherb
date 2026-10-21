@@ -10,8 +10,10 @@ const Stage = dynamic(() => import("./Stage"), { ssr: false });
 
 export default function Experience() {
   const setDevice = useStore((s) => s.setDevice);
+  const restoreTakeover = useStore((s) => s.restoreTakeover);
 
   useEffect(() => {
+    restoreTakeover();
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () =>
       setDevice({
@@ -33,7 +35,7 @@ export default function Experience() {
       mq.removeEventListener("change", update);
       window.clearTimeout(twitch);
     };
-  }, [setDevice]);
+  }, [setDevice, restoreTakeover]);
 
   return (
     <main className="fixed inset-0">

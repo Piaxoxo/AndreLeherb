@@ -325,15 +325,6 @@ export default function Overlay() {
             Andre auf YouTube abonnieren
           </a>
         </div>
-        {/* the ballroom clip: a wide glass screen, top right */}
-        <Clip
-          className="absolute right-5 top-[max(5.5rem,10vh)] w-[46vw] max-w-[230px] sm:right-10 sm:w-[32vw] sm:max-w-[400px] lg:right-16"
-          src="/video/ballroom.mp4"
-          poster="/video/ballroom-poster.jpg"
-          aspect="16/9"
-          radius={26}
-          label="24/7 · Teaser"
-        />
         <div className="absolute inset-x-5 bottom-6 grid gap-3 sm:inset-x-10 sm:gap-5 lg:inset-x-16 lg:bottom-10 lg:grid-cols-2 lg:gap-10">
           <div className="lg:mt-10">
             <SongCard song={s247} align="left" />

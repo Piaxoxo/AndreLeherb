@@ -5,6 +5,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
 import Pigeon from "./Pigeon";
+import HeroFilm from "./HeroFilm";
 import Mic from "./Mic";
 import DiscoBall from "./DiscoBall";
 import Portrait from "./Portrait";
@@ -91,6 +92,8 @@ export default function Scene() {
 
       {/* ---------- 0 · Intro ---------- */}
       <group position={[0, 0, 0]}>
+        {/* the ballroom film fills the back wall of the hero */}
+        <HeroFilm />
         {/* André stands in the room; the brush logo lives in the HTML layer behind him */}
         <Portrait
           src="/img/andre-hero.webp"

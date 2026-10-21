@@ -43,6 +43,9 @@ export function Nav() {
         <Link href="/galerie" className={link}>
           Galerie
         </Link>
+        <Link href="/spiel" className={`hidden sm:block ${link}`}>
+          Spiel
+        </Link>
         <Link href="/ueber" className={link}>
           André
         </Link>
@@ -80,6 +83,8 @@ export function MiniPlayer() {
 
 export function Tear() {
   const glitch = useStore((s) => s.glitch);
-  if (!glitch) return null;
+  const takeover = useStore((s) => s.takeover);
+  // the tear is a flash effect; once the twin owns the page it stays calm
+  if (!glitch || takeover) return null;
   return <div className="tear" aria-hidden />;
 }

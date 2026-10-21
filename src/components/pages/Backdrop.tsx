@@ -42,10 +42,12 @@ function Room() {
 /** A quiet version of the 3D room behind the text pages. */
 export default function Backdrop() {
   const setDevice = useStore((s) => s.setDevice);
+  const restoreTakeover = useStore((s) => s.restoreTakeover);
   useEffect(() => {
+    restoreTakeover();
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setDevice({ reduced: mq.matches, mobile: window.innerWidth < 768 });
-  }, [setDevice]);
+  }, [setDevice, restoreTakeover]);
   return (
     <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
       <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 9], fov: 40 }} gl={{ antialias: true, alpha: false }}>

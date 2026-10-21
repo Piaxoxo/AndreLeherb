@@ -11,10 +11,15 @@ export default function Loader() {
   const [gone, setGone] = useState(false);
 
   useEffect(() => {
-    // Done once the loaders have been idle for a moment, and never later than 6 s.
+    // Done once the loaders have been idle for a moment, and never later than 5 s after mount
+    // (a streaming video texture can keep the loader "active" for a long time).
     const t = window.setTimeout(() => setReady(true), active ? 6000 : 1000);
     return () => window.clearTimeout(t);
   }, [active, progress, setReady]);
+  useEffect(() => {
+    const t = window.setTimeout(() => setReady(true), 5000);
+    return () => window.clearTimeout(t);
+  }, [setReady]);
 
   useEffect(() => {
     if (ready) {

@@ -15,7 +15,7 @@ const eslintConfig = defineConfig([
   {
     // react-three-fiber animates by mutating three.js objects inside useFrame;
     // the React Compiler's immutability heuristics do not apply there.
-    files: ["src/components/scene/**/*.tsx"],
+    files: ["src/components/scene/**/*.tsx", "src/components/game/**/*.tsx"],
     rules: {
       "react-hooks/immutability": "off",
       "react-hooks/refs": "off",

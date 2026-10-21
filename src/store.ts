@@ -19,10 +19,19 @@ type State = {
   /** `silent`: a split-second twitch that leaves no note behind (the page "flickering by itself"). */
   triggerGlitch: (ms?: number, silent?: boolean) => void;
 
+  /** The evil twin has taken the site: the dark mode stays for the rest of the visit. */
+  takeover: boolean;
+  takeOver: () => void;
+  release: () => void;
+  /** Restores a takeover saved in this tab (call once on mount of every page). */
+  restoreTakeover: () => void;
+
   reduced: boolean;
   mobile: boolean;
   setDevice: (d: { reduced: boolean; mobile: boolean }) => void;
 };
+
+const KEY = "leherb-takeover";
 
 export const useStore = create<State>((set, get) => ({
   ready: false,
@@ -37,7 +46,7 @@ export const useStore = create<State>((set, get) => ({
   glitchCount: 0,
   note: null,
   triggerGlitch: (ms = 2600, silent = false) => {
-    if (get().glitch) return;
+    if (get().glitch || get().takeover) return;
     const count = silent ? get().glitchCount : get().glitchCount + 1;
     set({ glitch: true, glitchCount: count });
     if (typeof document !== "undefined") document.documentElement.dataset.glitch = "on";
@@ -48,6 +57,30 @@ export const useStore = create<State>((set, get) => ({
       });
       if (typeof document !== "undefined") delete document.documentElement.dataset.glitch;
     }, ms);
+  },
+
+  takeover: false,
+  takeOver: () => {
+    set({ takeover: true, glitch: true, note: "Die Nacht bin ich." });
+    document.documentElement.dataset.glitch = "on";
+    try {
+      sessionStorage.setItem(KEY, "1");
+    } catch {}
+  },
+  release: () => {
+    set({ takeover: false, glitch: false, note: null });
+    delete document.documentElement.dataset.glitch;
+    try {
+      sessionStorage.removeItem(KEY);
+    } catch {}
+  },
+  restoreTakeover: () => {
+    try {
+      if (sessionStorage.getItem(KEY) === "1" && !get().takeover) {
+        set({ takeover: true, glitch: true, note: "Die Nacht bin ich." });
+        document.documentElement.dataset.glitch = "on";
+      }
+    } catch {}
   },
 
   reduced: false,

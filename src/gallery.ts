@@ -348,6 +348,159 @@ export const gallery: Photo[] = [
     "caption": ""
   },
   {
+    "src": "/gallery/y23-finissage-1.webp",
+    "thumb": "/gallery/y23-finissage-1-s.webp",
+    "w": 989,
+    "h": 1600,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-gloriette-1.webp",
+    "thumb": "/gallery/y23-gloriette-1-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-gloriette-2.webp",
+    "thumb": "/gallery/y23-gloriette-2-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-gloriette-3.webp",
+    "thumb": "/gallery/y23-gloriette-3-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-gloriette-4.webp",
+    "thumb": "/gallery/y23-gloriette-4-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-gloriette-5.webp",
+    "thumb": "/gallery/y23-gloriette-5-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-gloriette-6.webp",
+    "thumb": "/gallery/y23-gloriette-6-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-gloriette-7.webp",
+    "thumb": "/gallery/y23-gloriette-7-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-gloriette-8.webp",
+    "thumb": "/gallery/y23-gloriette-8-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-terrasse-1.webp",
+    "thumb": "/gallery/y23-terrasse-1-s.webp",
+    "w": 1067,
+    "h": 1600,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-terrasse-2.webp",
+    "thumb": "/gallery/y23-terrasse-2-s.webp",
+    "w": 1067,
+    "h": 1600,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-terrasse-3.webp",
+    "thumb": "/gallery/y23-terrasse-3-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-terrasse-4.webp",
+    "thumb": "/gallery/y23-terrasse-4-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-bar-1.webp",
+    "thumb": "/gallery/y23-bar-1-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-bar-2.webp",
+    "thumb": "/gallery/y23-bar-2-s.webp",
+    "w": 1600,
+    "h": 1067,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-rund-1.webp",
+    "thumb": "/gallery/y23-rund-1-s.webp",
+    "w": 800,
+    "h": 796,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
+    "src": "/gallery/y23-rund-2.webp",
+    "thumb": "/gallery/y23-rund-2-s.webp",
+    "w": 800,
+    "h": 785,
+    "alt": "Andre Leherb, 2023",
+    "year": "2023",
+    "caption": ""
+  },
+  {
     "src": "/gallery/archiv-mauer.webp",
     "thumb": "/gallery/archiv-mauer-s.webp",
     "w": 768,
@@ -364,5 +517,14 @@ export const gallery: Photo[] = [
     "alt": "DEZIRE, Think about it, EP-Cover",
     "year": "1995",
     "caption": "DEZIRE · Think about it"
+  },
+  {
+    "src": "/gallery/y74-lotte-leherb.webp",
+    "thumb": "/gallery/y74-lotte-leherb-s.webp",
+    "w": 1024,
+    "h": 1024,
+    "alt": "Lotte & Leherb, Irre gut, LP 1974",
+    "year": "1974",
+    "caption": "Lotte & Leherb · Irre gut (1974)"
   }
 ];

@@ -396,8 +396,20 @@ export default function Overlay() {
             </p>
             <BookingForm />
           </div>
+          <div className="mt-2 flex gap-4 px-2 text-[10px] uppercase tracking-[0.2em] opacity-50 sm:hidden">
+            <a href="/impressum">Impressum</a>
+            <a href="/datenschutz">Datenschutz</a>
+          </div>
           <div className="mt-3 hidden flex-wrap items-center justify-between gap-3 px-2 text-[11px] uppercase tracking-[0.2em] opacity-50 sm:flex">
             <span>© {new Date().getFullYear()} Andre Leherb · {artist.booking.agency}</span>
+            <span className="flex gap-4">
+              <a href="/impressum" className="hover:opacity-100">
+                Impressum
+              </a>
+              <a href="/datenschutz" className="hover:opacity-100">
+                Datenschutz
+              </a>
+            </span>
             <span>Fotos: catchlight by Martin Hauser</span>
           </div>
         </div>

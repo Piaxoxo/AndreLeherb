@@ -220,6 +220,10 @@ export default function Galerie() {
             </Link>
           </div>
         </footer>
+        <div className="mt-6 flex gap-5 text-[11px] font-bold uppercase tracking-[0.2em] opacity-50">
+          <Link href="/impressum">Impressum</Link>
+          <Link href="/datenschutz">Datenschutz</Link>
+        </div>
       </main>
       {open != null && gallery[open] && <Lightbox photos={gallery} index={open} onClose={close} onMove={move} />}
     </>

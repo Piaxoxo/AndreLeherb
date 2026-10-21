@@ -178,6 +178,10 @@ export default function Ueber() {
             </Link>
           </div>
         </footer>
+        <div className="mt-6 flex gap-5 text-[11px] font-bold uppercase tracking-[0.2em] opacity-50">
+          <Link href="/impressum">Impressum</Link>
+          <Link href="/datenschutz">Datenschutz</Link>
+        </div>
       </main>
     </>
   );

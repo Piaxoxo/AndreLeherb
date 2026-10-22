@@ -17,11 +17,11 @@ export function Tri({ className = "" }: { className?: string }) {
 }
 
 /** "▲ Wiener ▲  ▲ Sänger ▲ …" with chrome triangles around every word. */
-export default function ChromeWords({ words, className = "" }: { words: string[]; className?: string }) {
+export default function ChromeWords({ words, className = "", stacked = true }: { words: string[]; className?: string; stacked?: boolean }) {
   return (
-    <span className={`inline-flex flex-wrap items-center gap-x-[0.9em] gap-y-[0.35em] ${className}`}>
+    <span className={`${stacked ? "inline-flex flex-col items-start gap-y-[0.15em]" : "inline-flex flex-wrap items-center gap-x-[0.9em] gap-y-[0.35em]"} ${className}`}>
       {words.map((w) => (
-        <span key={w} className="inline-flex items-center gap-[0.3em] whitespace-nowrap">
+        <span key={w} className="inline-flex items-center gap-[0.3em] whitespace-nowrap leading-none">
           <Tri />
           <span className="liquid-word">{w}</span>
           <Tri />

@@ -23,10 +23,9 @@ export default function Loader() {
   }, [setReady]);
 
   useEffect(() => {
-    if (ready) {
-      const t = window.setTimeout(() => setGone(true), 900);
-      return () => window.clearTimeout(t);
-    }
+    // fade out 900 ms after ready; a later ready=false (page re-mounted) brings it back
+    const t = window.setTimeout(() => setGone(ready), ready ? 900 : 0);
+    return () => window.clearTimeout(t);
   }, [ready]);
 
   if (gone) return null;

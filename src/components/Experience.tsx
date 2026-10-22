@@ -15,6 +15,13 @@ export default function Experience() {
   const restoreTakeover = useStore((s) => s.restoreTakeover);
   const isStatic = useStore((s) => s.a11y.static);
   const motion = useStore((s) => s.a11y.motion);
+  const setReady = useStore((s) => s.setReady);
+
+  // Every mount of the 3D start page gets the loader: the room takes a moment to build,
+  // and a visible loader beats a frozen frame when coming back from another page.
+  useEffect(() => {
+    setReady(false);
+  }, [setReady]);
 
   useEffect(() => {
     restoreTakeover();

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useStore } from "@/store";
 
 const FRAMES = 248;
 const src = (i: number) => `/scrub/f${String(i + 1).padStart(3, "0")}.webp`;
@@ -14,8 +15,11 @@ const src = (i: number) => `/scrub/f${String(i + 1).padStart(3, "0")}.webp`;
 export default function MicScrub() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const root = useRef<HTMLDivElement>(null);
+  // frames load only once the room is up, so they never compete with the 3D build
+  const ready = useStore((s) => s.ready);
 
   useEffect(() => {
+    if (!ready) return;
     const frames: (HTMLImageElement | null)[] = Array(FRAMES).fill(null);
     let alive = true;
 
@@ -77,7 +81,7 @@ export default function MicScrub() {
       alive = false;
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [ready]);
 
   return (
     <div

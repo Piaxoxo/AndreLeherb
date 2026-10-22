@@ -366,14 +366,14 @@ export default function Overlay() {
         <div className="absolute left-5 right-5 top-[max(5.5rem,10vh)] hidden sm:left-10 sm:right-[46%] sm:block lg:left-16 lg:right-auto lg:w-[46%]">
           <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">{t.ueber.label}</div>
           <h2 className="display mt-2 text-3xl leading-[1.02] sm:text-4xl lg:text-5xl xl:text-6xl">{artist.credo}</h2>
-          <div className="display mt-6 text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">
+          <div className="display mt-5 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl">
             <ChromeWords words={artist.words} />
           </div>
         </div>
         <div className="absolute inset-x-5 bottom-6 sm:inset-x-10 lg:inset-x-16 lg:bottom-10 lg:left-auto lg:w-[46%]">
           <div className="glass drip p-5 sm:p-7">
             <h2 className="display mb-2 text-2xl leading-tight sm:hidden">{artist.credo}</h2>
-            <div className="display mb-3 text-xl sm:hidden">
+            <div className="display mb-3 text-2xl sm:hidden">
               <ChromeWords words={artist.words} />
             </div>
             <p className="text-sm leading-relaxed sm:text-[15px]">{artist.bio[0]}</p>
@@ -415,7 +415,7 @@ export default function Overlay() {
             <p className="mb-4 text-sm leading-relaxed opacity-85 sm:mb-5">{t.booking.intro}</p>
             <BookingForm />
           </div>
-          <SiteFooter className="mt-4 px-1" />
+          <SiteFooter className="mt-3 px-1" compact />
         </div>
       </Section>
     </div>

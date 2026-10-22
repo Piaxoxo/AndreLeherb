@@ -68,8 +68,8 @@ export function Glass({ tint = "#ffffff" }: { tint?: string }) {
       distortion={0.2}
       distortionScale={0.4}
       temporalDistortion={0.1}
-      samples={6}
-      resolution={512}
+      samples={4}
+      resolution={384}
       backside={false}
     />
   );

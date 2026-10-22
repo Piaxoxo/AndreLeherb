@@ -40,9 +40,10 @@ export default function PageTransition() {
       // lift once the address has changed (or after 4 s, whatever happens), never before MIN_MS
       const t0 = performance.now();
       const tick = () => {
-        const arrived = window.location.pathname === target;
+        // the 3D start page also has to report ready (its loader), other pages just need to be there
+        const arrived = window.location.pathname === target && (target !== "/" || useStore.getState().ready);
         const elapsed = performance.now() - t0;
-        if ((arrived && elapsed >= MIN_MS) || elapsed > 4000) {
+        if ((arrived && elapsed >= MIN_MS) || elapsed > 12000) {
           pending.current = null;
           setOn(false);
           return;

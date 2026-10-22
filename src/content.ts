@@ -41,6 +41,8 @@ export const artist = {
   /** outbound links (dofollow) */
   links: {
     instagram: "https://www.instagram.com/andreleherb/",
+    facebook: "https://www.facebook.com/andreleherb",
+    tiktok: "https://www.tiktok.com/@andreleherb",
     youtube: "https://www.youtube.com/@andre_leherb",
     leherbOrg: "https://www.leherb.org",
     label: "https://newartmusicproduction.com",

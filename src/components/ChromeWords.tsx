@@ -23,7 +23,7 @@ export default function ChromeWords({ words, className = "" }: { words: string[]
       {words.map((w) => (
         <span key={w} className="inline-flex items-center gap-[0.3em] whitespace-nowrap">
           <Tri />
-          <span>{w}</span>
+          <span className="liquid-word">{w}</span>
           <Tri />
         </span>
       ))}

@@ -3,7 +3,7 @@
 import { useProgress } from "@react-three/drei";
 import { useEffect, useState } from "react";
 import { useStore } from "@/store";
-import MicSequence from "./MicSequence";
+import Pyramid from "./Pyramid";
 
 export default function Loader() {
   const { progress, active } = useProgress();
@@ -35,11 +35,11 @@ export default function Loader() {
     <div
       aria-hidden
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center transition-opacity duration-700"
-      style={{ background: "#000", opacity: ready ? 0 : 1, pointerEvents: ready ? "none" : "auto" }}
+      style={{ background: "var(--bg)", opacity: ready ? 0 : 1, pointerEvents: ready ? "none" : "auto" }}
     >
-      <MicSequence className="h-[52vh] w-full max-w-[60vw]" speed={30} />
-      <img src="/img/logo-dark.webp" alt="Andre Leherb" className="mt-2 h-12 w-auto sm:h-14" draggable={false} />
-      <div className="mt-3 h-[2px] w-40 overflow-hidden rounded-full bg-white/15">
+      <Pyramid />
+      <img src="/img/logo-light.webp" alt="Andre Leherb" className="mt-2 h-12 w-auto sm:h-14" draggable={false} />
+      <div className="mt-3 h-[2px] w-40 overflow-hidden rounded-full bg-black/10">
         <div
           className="h-full rounded-full"
           style={{ width: `${Math.round(progress)}%`, background: "var(--lilac-deep)", transition: "width .3s" }}

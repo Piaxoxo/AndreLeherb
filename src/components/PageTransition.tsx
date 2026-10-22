@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import MicSequence, { warmSequence } from "./MicSequence";
+import Pyramid from "./Pyramid";
 
-const MIN_MS = 900;
+const MIN_MS = 700;
 
 /**
  * Between pages: a black curtain with the mic coming apart. Internal link clicks
@@ -16,12 +16,6 @@ export default function PageTransition() {
   const [on, setOn] = useState(false);
   const since = useRef(0);
   const pending = useRef<string | null>(null);
-
-  // warm the frames once the first page is up
-  useEffect(() => {
-    const id = window.setTimeout(warmSequence, 2500);
-    return () => window.clearTimeout(id);
-  }, []);
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -60,11 +54,11 @@ export default function PageTransition() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-[95] bg-black transition-opacity duration-300"
-      style={{ opacity: on ? 1 : 0, visibility: on ? "visible" : "hidden", transitionProperty: "opacity, visibility" }}
+      className="pointer-events-none fixed inset-0 z-[95] flex items-center justify-center transition-opacity duration-300"
+      style={{ background: "var(--bg)", opacity: on ? 1 : 0, visibility: on ? "visible" : "hidden", transitionProperty: "opacity, visibility" }}
       aria-hidden
     >
-      {on && <MicSequence className="h-full w-full" speed={60} />}
+      {on && <Pyramid scale={0.7} />}
     </div>
   );
 }

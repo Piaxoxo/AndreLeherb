@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Nav, Tear } from "@/components/Chrome";
+import SiteFooter from "@/components/SiteFooter";
 import { artist, maitre } from "@/content";
 import ChromeWords from "@/components/ChromeWords";
 
@@ -38,7 +39,7 @@ export default function Ueber() {
           <div>
             <Label>Über André</Label>
             <h1 className="display mt-3 text-4xl leading-[1.02] sm:text-6xl lg:text-7xl">{artist.credo}</h1>
-            <div className="display mt-6 text-xl sm:text-2xl lg:text-3xl">
+            <div className="display mt-6 text-3xl sm:text-4xl lg:text-5xl">
               <ChromeWords words={artist.words} />
             </div>
             <p className="display mt-6 max-w-xl text-2xl leading-tight sm:text-3xl" style={{ color: "var(--lilac-deep)" }}>
@@ -176,13 +177,7 @@ export default function Ueber() {
             </Link>
           </div>
         </footer>
-        <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] font-bold uppercase tracking-[0.2em] opacity-50">
-          <a href={artist.links.instagram} target="_blank" rel="noreferrer">Instagram</a>
-          <a href={artist.links.youtube} target="_blank" rel="noreferrer">YouTube</a>
-          <a href={artist.booking.agencyUrl} target="_blank" rel="noreferrer">{artist.booking.agency}</a>
-          <Link href="/impressum">Impressum</Link>
-          <Link href="/datenschutz">Datenschutz</Link>
-        </div>
+        <SiteFooter className="mt-8" />
       </main>
     </>
   );

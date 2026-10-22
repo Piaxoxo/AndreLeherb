@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Nav, Tear } from "@/components/Chrome";
+import SiteFooter from "@/components/SiteFooter";
 import { gallery, type Photo } from "@/gallery";
 import { artist } from "@/content";
 
@@ -220,13 +221,7 @@ export default function Galerie() {
             </Link>
           </div>
         </footer>
-        <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] font-bold uppercase tracking-[0.2em] opacity-50">
-          <a href={artist.links.instagram} target="_blank" rel="noreferrer">Instagram</a>
-          <a href={artist.links.youtube} target="_blank" rel="noreferrer">YouTube</a>
-          <a href={artist.booking.agencyUrl} target="_blank" rel="noreferrer">{artist.booking.agency}</a>
-          <Link href="/impressum">Impressum</Link>
-          <Link href="/datenschutz">Datenschutz</Link>
-        </div>
+        <SiteFooter className="mt-8" />
       </main>
       {open != null && gallery[open] && <Lightbox photos={gallery} index={open} onClose={close} onMove={move} />}
     </>

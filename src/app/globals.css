@@ -331,3 +331,27 @@ body {
 .legal p { margin: 0.75rem 0; }
 .legal ul { margin: 0.5rem 0 0.75rem 1.25rem; list-style: disc; }
 .legal a { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- liquid lilac-silver words ---------- */
+.liquid-word {
+  background: linear-gradient(100deg, #f4f2fa 0%, #c9c7d6 14%, #7b58e8 30%, #e9e4ff 46%, #8f8ca3 58%, #b39aff 72%, #ffffff 86%, #6d4bd6 100%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.55);
+  filter: drop-shadow(0 2px 0 rgba(255, 255, 255, 0.6)) drop-shadow(0 10px 24px rgba(109, 75, 214, 0.28));
+  animation: liquid-flow 7s ease-in-out infinite;
+}
+@keyframes liquid-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+:root[data-glitch="on"] .liquid-word {
+  background: linear-gradient(100deg, #c15cff, #ff2bd6 30%, #4a1a8a 55%, #e0b3ff 80%, #8a2bff);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-stroke: 0.5px rgba(255, 60, 220, 0.5);
+}

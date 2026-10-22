@@ -3,6 +3,7 @@
 
 import { artist, songs, type Song } from "@/content";
 import ChromeWords from "./ChromeWords";
+import SiteFooter from "./SiteFooter";
 import { player } from "@/lib/audio";
 import { useStore } from "@/store";
 import { useEffect, useRef, useState } from "react";
@@ -352,18 +353,18 @@ export default function Overlay() {
 
       {/* ---------- 2 · Über ---------- */}
       <Section>
-        <ParticleAndre className="pointer-events-auto absolute left-[8%] top-[6%] h-[34%] w-[84%] sm:left-[55%] sm:top-[8%] sm:h-[40%] sm:w-[42%] lg:left-[2%] lg:top-[50%] lg:h-[48%] lg:w-[46%]" />
+        <ParticleAndre className="pointer-events-auto absolute left-[8%] top-[6%] h-[34%] w-[84%] sm:left-[55%] sm:top-[8%] sm:h-[40%] sm:w-[42%] lg:left-[2%] lg:top-[62%] lg:h-[38%] lg:w-[46%]" />
         <div className="absolute left-5 right-5 top-[max(5.5rem,10vh)] hidden sm:left-10 sm:right-[46%] sm:block lg:left-16 lg:right-auto lg:w-[46%]">
           <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">02 · Über</div>
           <h2 className="display mt-2 text-3xl leading-[1.02] sm:text-4xl lg:text-5xl xl:text-6xl">{artist.credo}</h2>
-          <div className="display mt-5 text-base sm:text-lg lg:text-xl xl:text-2xl">
+          <div className="display mt-6 text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">
             <ChromeWords words={artist.words} />
           </div>
         </div>
         <div className="absolute inset-x-5 bottom-6 sm:inset-x-10 lg:inset-x-16 lg:bottom-10 lg:left-auto lg:w-[46%]">
           <div className="glass drip p-5 sm:p-7">
             <h2 className="display mb-2 text-2xl leading-tight sm:hidden">{artist.credo}</h2>
-            <div className="display mb-3 text-sm sm:hidden">
+            <div className="display mb-3 text-xl sm:hidden">
               <ChromeWords words={artist.words} />
             </div>
             <p className="text-sm leading-relaxed sm:text-[15px]">{artist.bio[0]}</p>
@@ -404,34 +405,7 @@ export default function Overlay() {
             </p>
             <BookingForm />
           </div>
-          <div className="mt-2 flex gap-4 px-2 text-[10px] uppercase tracking-[0.2em] opacity-50 sm:hidden">
-            <a href={artist.links.instagram} target="_blank" rel="noreferrer">Instagram</a>
-            <a href="/impressum">Impressum</a>
-            <a href="/datenschutz">Datenschutz</a>
-          </div>
-          <div className="mt-3 hidden flex-wrap items-center justify-between gap-3 px-2 text-[11px] uppercase tracking-[0.2em] opacity-50 sm:flex">
-            <span>
-              © {new Date().getFullYear()} Andre Leherb ·{" "}
-              <a href={artist.booking.agencyUrl} target="_blank" rel="noreferrer" className="hover:opacity-100">
-                {artist.booking.agency}
-              </a>
-            </span>
-            <span className="flex gap-4">
-              <a href={artist.links.instagram} target="_blank" rel="noreferrer" className="hover:opacity-100">
-                Instagram
-              </a>
-              <a href={artist.links.youtube} target="_blank" rel="noreferrer" className="hover:opacity-100">
-                YouTube
-              </a>
-              <a href="/impressum" className="hover:opacity-100">
-                Impressum
-              </a>
-              <a href="/datenschutz" className="hover:opacity-100">
-                Datenschutz
-              </a>
-            </span>
-            <span>Fotos: catchlight by Martin Hauser</span>
-          </div>
+          <SiteFooter className="mt-4 px-1" />
         </div>
       </Section>
     </div>

@@ -382,7 +382,10 @@ export default function Overlay() {
             <a href="/ueber" className="btn-lilac mt-4 !py-2.5 !px-5 text-sm">
               {t.ueber.more}
             </a>
-            <ol className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t pt-3 sm:mt-5 sm:gap-x-5 sm:gap-y-2 sm:pt-4" style={{ borderColor: "var(--glass-border)" }}>
+            <div className="mt-4 border-t pt-3 text-[10px] font-bold uppercase tracking-[0.3em] opacity-60 sm:mt-5 sm:pt-4" style={{ borderColor: "var(--glass-border)" }}>
+              {t.ueberPage.pointBio}
+            </div>
+            <ol className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5 sm:gap-x-5 sm:gap-y-2">
               {artist.timeline.map((t) => (
                 <li key={t.year} className="flex items-baseline gap-2 text-[11px] sm:text-xs">
                   <span className="inline-block h-2.5 w-2.5 translate-y-[1px] rounded-full bg-gradient-to-br from-white to-[#b8b8c6] shadow" />

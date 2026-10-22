@@ -8,10 +8,10 @@ export type Lang = "de" | "en";
 /** UI strings. German is the source; English mirrors every key. */
 const ui = {
   de: {
-    nav: { home: "Home", musik: "Musik", galerie: "Galerie", spiel: "Spiel", andre: "André", book: "Buch mich", open: "Menü öffnen", close: "Menü schließen" },
+    nav: { home: "Home", musik: "Musik", galerie: "Galerie", spiel: "Spiel", andre: "Andre", book: "Buch mich", open: "Menü öffnen", close: "Menü schließen" },
     hero: { tag: "Wien · Singer / Songwriter", release: "Neue Single und Video:", produced: ". Produziert mit Gary Lux.", book: "Buch mich", mic: "Das Mikro ↓", scroll: "Scroll", listen: (t: string) => `${t} anhören`, play: (t: string) => `${t} abspielen`, pause: "Pause", short: "Anhören", platforms: "Auf allen Plattformen", soundOn: "Ton an", soundOff: "Ton aus" },
     musik: { label: "01 · Musik", title: "Neu.", subscribe: "Andre auf YouTube abonnieren", single: "Single" },
-    ueber: { label: "02 · Über", more: "Mehr über André" },
+    ueber: { label: "02 · Über", more: "Mehr über Andre" },
     booking: {
       label: "03 · Booking",
       title: ["Buch", "mich."],
@@ -21,20 +21,20 @@ const ui = {
       subject: "Booking-Anfrage", kind: "Art", dateLabel: "Datum / Ort",
       events: ["Konzert", "Club / Bar", "Firmenevent", "Privatfeier / Hochzeit", "Festival", "Medien / Interview"],
     },
-    footer: { imprint: "Impressum", privacy: "Datenschutz", photos: "Fotos: Catchlight by Martin Hauser", madeBy: "Made by", credit: "Webdesign, 3D & Creative Direction", press: "Pressefotos?", pressText: "Druckfähige Dateien auf Anfrage an", bookTitle: "Buch mich.", bookText: "Konzerte, Events, Features. Anfragen an", overAndre: "Über André", booking: "Booking", start: "Startseite" },
+    footer: { imprint: "Impressum", privacy: "Datenschutz", photos: "Fotos: Catchlight by Martin Hauser", madeBy: "Made by", credit: "Webdesign, 3D & Creative Direction", press: "Pressefotos?", pressText: "Druckfähige Dateien auf Anfrage an", bookTitle: "Buch mich.", bookText: "Konzerte, Events, Features. Anfragen an", overAndre: "Über Andre", booking: "Booking", start: "Startseite" },
     galerie: { label: "Galerie", title: ["Von heute", "zurück."], text: "Andre Leherb vor der Kamera, als Zeitreise: vom Shooting 2026 zurück bis zu DEZIRE. Zum Vergrößern antippen.", years: "Jahre", open: "öffnen", prev: "Vorheriges Foto", next: "Nächstes Foto", close: "Schließen" },
-    ueberPage: { label: "Über André", bio: "Biografie", bioTitle: "Vom Sängerknaben zum Dandy.", on247: "Andre Leherb zu „24/7“", heritage: "Das Erbe · Über Leherb", uncle: "Andres Onkel", life: "Leben", work: "Werk", works: "Werke ansehen", continents: "Die Kontinente · Faenza, 1982", awards: "Auszeichnungen" },
-    game: { label: "Das Spiel", notes: "Noten", lives: (n: number, m: number) => `${n} von ${m} Leben`, introTitle: "24 Sekunden. 7 Leben.", introTitleTaken: "Hol ihn zurück.", intro: "Bewege André mit Maus oder Finger. Fang die lila Noten, weich den schwarzen Tropfen aus. Wer alle sieben Leben verliert, überlässt die Seite dem anderen.", introTaken: "Die Nacht hat die Seite. Fang die lila Noten, weich den schwarzen Tropfen aus. Überstehst du 24 Sekunden, gehört die Bühne wieder André.", play: "Spielen", wonTitle: "Du hast ihn gehalten.", won: (n: number) => `${n} Noten gefangen. Noch gehört die Bühne André.`, back: "Zurück ins Licht", again: "Noch einmal", home: "Zur Startseite", lostTitle: "Die Nacht bin ich.", lost: "Die Seite gehört jetzt dem anderen. Du kannst sie zurückholen. Wenn du es schaffst." },
+    ueberPage: { label: "Über Andre", bio: "Biografie", pointBio: "Punktuelle Bio", bioTitle: "Vom Sängerknaben zum Dandy.", on247: "Andre Leherb zu „24/7“", heritage: "Das Erbe · Über Leherb", uncle: "Andres Onkel", life: "Leben", work: "Werk", works: "Werke ansehen", continents: "Die Kontinente · Faenza, 1982", awards: "Auszeichnungen" },
+    game: { label: "Das Spiel", notes: "Noten", lives: (n: number, m: number) => `${n} von ${m} Leben`, introTitle: "24 Sekunden. 7 Leben.", introTitleTaken: "Hol ihn zurück.", intro: "Bewege Andre mit Maus oder Finger. Fang die lila Noten, weich den schwarzen Tropfen aus. Wer alle sieben Leben verliert, überlässt die Seite dem anderen.", introTaken: "Die Nacht hat die Seite. Fang die lila Noten, weich den schwarzen Tropfen aus. Überstehst du 24 Sekunden, gehört die Bühne wieder Andre.", play: "Spielen", wonTitle: "Du hast ihn gehalten.", won: (n: number) => `${n} Noten gefangen. Noch gehört die Bühne Andre.`, back: "Zurück ins Licht", again: "Noch einmal", home: "Zur Startseite", lostTitle: "Die Nacht bin ich.", lost: "Die Seite gehört jetzt dem anderen. Du kannst sie zurückholen. Wenn du es schaffst." },
     player: { playing: "Läuft", pause: "Pause" },
     a11y: { button: "Barrierefreiheit", title: "Barrierefreiheit", motion: "Effekte & Bewegung", motionHint: "3D-Effekte, Video und Animationen", static: "Statische Seite", staticHint: "Ohne 3D, als einfache Seite", font: "Schriftgröße", contrast: "Hoher Kontrast", lang: "Sprache", on: "An", off: "Aus", close: "Schließen", reset: "Zurücksetzen" },
     legal: { imprint: "Impressum.", privacy: "Datenschutz.", label: "Rechtliches", enNote: "" },
-    a11yStatic: { hero: "Sänger und Songwriter aus Wien.", sections: { musik: "Musik", ueber: "Über André", booking: "Booking" } },
+    a11yStatic: { hero: "Sänger und Songwriter aus Wien.", sections: { musik: "Musik", ueber: "Über Andre", booking: "Booking" } },
   },
   en: {
-    nav: { home: "Home", musik: "Music", galerie: "Gallery", spiel: "Game", andre: "André", book: "Book me", open: "Open menu", close: "Close menu" },
+    nav: { home: "Home", musik: "Music", galerie: "Gallery", spiel: "Game", andre: "Andre", book: "Book me", open: "Open menu", close: "Close menu" },
     hero: { tag: "Vienna · Singer / Songwriter", release: "New single and video:", produced: ". Produced with Gary Lux.", book: "Book me", mic: "The mic ↓", scroll: "Scroll", listen: (t: string) => `Listen to ${t}`, play: (t: string) => `Play ${t}`, pause: "Pause", short: "Listen", platforms: "On all platforms", soundOn: "Sound on", soundOff: "Sound off" },
     musik: { label: "01 · Music", title: "New.", subscribe: "Subscribe to Andre on YouTube", single: "Single" },
-    ueber: { label: "02 · About", more: "More about André" },
+    ueber: { label: "02 · About", more: "More about Andre" },
     booking: {
       label: "03 · Booking",
       title: ["Book", "me."],
@@ -44,14 +44,14 @@ const ui = {
       subject: "Booking request", kind: "Type", dateLabel: "Date / place",
       events: ["Concert", "Club / bar", "Corporate event", "Private party / wedding", "Festival", "Media / interview"],
     },
-    footer: { imprint: "Imprint", privacy: "Privacy", photos: "Photos: Catchlight by Martin Hauser", madeBy: "Made by", credit: "Web design, 3D & creative direction", press: "Press photos?", pressText: "Print-ready files on request at", bookTitle: "Book me.", bookText: "Concerts, events, features. Requests to", overAndre: "About André", booking: "Booking", start: "Home" },
+    footer: { imprint: "Imprint", privacy: "Privacy", photos: "Photos: Catchlight by Martin Hauser", madeBy: "Made by", credit: "Web design, 3D & creative direction", press: "Press photos?", pressText: "Print-ready files on request at", bookTitle: "Book me.", bookText: "Concerts, events, features. Requests to", overAndre: "About Andre", booking: "Booking", start: "Home" },
     galerie: { label: "Gallery", title: ["From today", "backwards."], text: "Andre Leherb in front of the camera, as a journey in time: from the 2026 shoot back to DEZIRE. Tap to enlarge.", years: "Years", open: "open", prev: "Previous photo", next: "Next photo", close: "Close" },
-    ueberPage: { label: "About André", bio: "Biography", bioTitle: "From choirboy to dandy.", on247: "Andre Leherb on “24/7”", heritage: "The legacy · About Leherb", uncle: "André's uncle", life: "Life", work: "Work", works: "See the works", continents: "The Continents · Faenza, 1982", awards: "Awards" },
-    game: { label: "The game", notes: "Notes", lives: (n: number, m: number) => `${n} of ${m} lives`, introTitle: "24 seconds. 7 lives.", introTitleTaken: "Bring him back.", intro: "Move André with mouse or finger. Catch the lilac notes, dodge the black drops. Lose all seven lives and the site belongs to the other one.", introTaken: "The night owns the site. Catch the lilac notes, dodge the black drops. Survive 24 seconds and the stage is André's again.", play: "Play", wonTitle: "You held him.", won: (n: number) => `${n} notes caught. The stage is still André's.`, back: "Back into the light", again: "Once more", home: "Home", lostTitle: "I am the night.", lost: "The site belongs to the other one now. You can bring it back. If you can." },
+    ueberPage: { label: "About Andre", bio: "Biography", pointBio: "Bio at a glance", bioTitle: "From choirboy to dandy.", on247: "Andre Leherb on “24/7”", heritage: "The legacy · About Leherb", uncle: "Andre's uncle", life: "Life", work: "Work", works: "See the works", continents: "The Continents · Faenza, 1982", awards: "Awards" },
+    game: { label: "The game", notes: "Notes", lives: (n: number, m: number) => `${n} of ${m} lives`, introTitle: "24 seconds. 7 lives.", introTitleTaken: "Bring him back.", intro: "Move Andre with mouse or finger. Catch the lilac notes, dodge the black drops. Lose all seven lives and the site belongs to the other one.", introTaken: "The night owns the site. Catch the lilac notes, dodge the black drops. Survive 24 seconds and the stage is Andre's again.", play: "Play", wonTitle: "You held him.", won: (n: number) => `${n} notes caught. The stage is still Andre's.`, back: "Back into the light", again: "Once more", home: "Home", lostTitle: "I am the night.", lost: "The site belongs to the other one now. You can bring it back. If you can." },
     player: { playing: "Playing", pause: "Pause" },
     a11y: { button: "Accessibility", title: "Accessibility", motion: "Effects & motion", motionHint: "3D effects, video and animation", static: "Static page", staticHint: "No 3D, a simple page", font: "Font size", contrast: "High contrast", lang: "Language", on: "On", off: "Off", close: "Close", reset: "Reset" },
     legal: { imprint: "Imprint.", privacy: "Privacy.", label: "Legal", enNote: "This page is provided in German, the legally binding version." },
-    a11yStatic: { hero: "Singer and songwriter from Vienna.", sections: { musik: "Music", ueber: "About André", booking: "Booking" } },
+    a11yStatic: { hero: "Singer and songwriter from Vienna.", sections: { musik: "Music", ueber: "About Andre", booking: "Booking" } },
   },
 };
 
@@ -61,7 +61,7 @@ export type UI = typeof ui.de;
 const artistEn = {
   claim: "Surrealism in music.",
   motto: "Nothing has to be the way it is",
-  credo: "With me everything is silver-grey. And there is always a third option, not just black and white.",
+  credo: "For me there is no black or white. With me everything is silver-grey.",
   words: ["Viennese", "Singer", "Dandy", "Poet"],
   intro:
     "Andre Leherb is a singer and music maker from Vienna. The rather untypical singer/songwriter is also a poet, thinker and philosopher. He turns surrealism into music, creating a complete acoustic picture with his mix of genres.",
@@ -83,11 +83,15 @@ const artistEn = {
   },
   timeline: [
     { year: "70s", label: "Mozart choirboy" },
-    { year: "80s", label: "Vienna, Falco, Hansi Lang" },
-    { year: "1995", label: "Frontman DEZIRE" },
-    { year: "1998", label: "Solo, USA, South America" },
+    { year: "80s", label: "Vienna, Falco" },
+    { year: "90s", label: "Germany, America" },
+    { year: "1995", label: "Rock band DEZIRE" },
+    { year: "1998", label: "Solo career" },
+    { year: "2000", label: "Model agency" },
     { year: "2004", label: "Eurovision pre-selection" },
-    { year: "2026", label: "24/7 with Gary Lux" },
+    { year: "2017", label: "Andre Leherb SURREAL" },
+    { year: "2022", label: "Wiener Mischung Surreal" },
+    { year: "2026", label: "“24/7” and “Wir tanzen den Walzer” with Gary Lux" },
   ],
 };
 

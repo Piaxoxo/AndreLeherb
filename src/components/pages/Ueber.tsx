@@ -59,11 +59,12 @@ export default function Ueber() {
           <div className="lg:sticky lg:top-32 lg:self-start">
             <Label>{t.ueberPage.bio}</Label>
             <h2 className="display mt-3 text-4xl sm:text-5xl">{t.ueberPage.bioTitle}</h2>
-            <ol className="mt-8 space-y-3">
+            <div className="mt-8 text-xs font-bold uppercase tracking-[0.3em] opacity-60">{t.ueberPage.pointBio}</div>
+            <ol className="mt-3 space-y-3">
               {artist.timeline.map((t) => (
                 <li key={t.year} className="flex items-baseline gap-3 text-sm">
                   <span className="inline-block h-3 w-3 translate-y-[1px] rounded-full bg-gradient-to-br from-white to-[#b8b8c6] shadow" />
-                  <span className="w-12 shrink-0 font-bold">{t.year}</span>
+                  <span className="w-14 shrink-0 font-bold">{t.year}</span>
                   <span className="opacity-75">{t.label}</span>
                 </li>
               ))}

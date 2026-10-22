@@ -3,7 +3,7 @@ export const artist = {
   claim: "Surrealismus in Musik.",
   motto: "Nichts muss so sein, wie es ist",
   /** the big one */
-  credo: "Bei mir ist alles silbergrau. Und es gibt immer eine dritte Option, nicht nur Schwarz und Weiß.",
+  credo: "Für mich gibt's kein Schwarz oder Weiß. Bei mir ist alles silbergrau.",
   words: ["Wiener", "Sänger", "Dandy", "Poet"],
   intro:
     "Andre Leherb ist musikschaffender Sänger aus Wien. Der eher untypische Singer/Songwriter ist zudem noch Dichter, Denker und Philosoph. Er transformiert Surrealismus in Musik, indem er mit seinem Genre-Mix ein akustisches Gesamtbild (er)schafft.",
@@ -27,11 +27,15 @@ export const artist = {
   },
   timeline: [
     { year: "70er", label: "Mozart-Sängerknabe" },
-    { year: "80er", label: "Wien, Falco, Hansi Lang" },
-    { year: "1995", label: "Frontman DEZIRE" },
-    { year: "1998", label: "Solo, USA, Südamerika" },
-    { year: "2004", label: "ESC-Vorentscheid" },
-    { year: "2026", label: "24/7 mit Gary Lux" },
+    { year: "80er", label: "Wien, Falco" },
+    { year: "90er", label: "Germany, America" },
+    { year: "1995", label: "Rockband DEZIRE" },
+    { year: "1998", label: "Solokarriere" },
+    { year: "2000", label: "Model-Agentur" },
+    { year: "2004", label: "ESC-Vorausscheid" },
+    { year: "2017", label: "Andre Leherb SURREAL" },
+    { year: "2022", label: "Wiener Mischung Surreal" },
+    { year: "2026", label: "„24/7“ und „Wir tanzen den Walzer“ mit Gary Lux" },
   ],
   booking: {
     email: "office@bandita.agency",

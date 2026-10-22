@@ -4,16 +4,19 @@ import { Canvas } from "@react-three/fiber";
 import { ScrollControls, Scroll, Preload } from "@react-three/drei";
 import { Suspense, useEffect } from "react";
 import * as THREE from "three";
-import Scene, { PAGES } from "./scene/Scene";
+import Scene, { pagesFor } from "./scene/Scene";
 import Overlay from "./Overlay";
 import { useStore } from "@/store";
 
 /** drei's ScrollControls renders a fixed, scrollable div; find it live (it can be re-created while the room loads). */
 function getScroller(): HTMLElement | null {
   const tagged = document.querySelector<HTMLElement>("[data-scroll]");
-  if (tagged && tagged.isConnected && tagged.scrollHeight > tagged.clientHeight) return tagged;
+  if (tagged && tagged.isConnected && tagged.scrollHeight > tagged.clientHeight)
+    return tagged;
   const el = [...document.querySelectorAll<HTMLElement>("main div")].find(
-    (d) => getComputedStyle(d).overflowY === "auto" && d.scrollHeight > d.clientHeight
+    (d) =>
+      getComputedStyle(d).overflowY === "auto" &&
+      d.scrollHeight > d.clientHeight,
   );
   if (el) el.dataset.scroll = "1";
   return el ?? null;
@@ -22,16 +25,30 @@ function getScroller(): HTMLElement | null {
 /** Anchor links (#musik, #booking) scroll the drei scroll container. */
 function Anchors() {
   useEffect(() => {
-    const map: Record<string, number> = { "#": 0, "#mikro": 1, "#musik": 4, "#ueber": 5, "#booking": 6 };
+    const pages = () => pagesFor(useStore.getState().mobile);
+    const map: Record<string, number> = {
+      "#": 0,
+      "#mikro": 1,
+      "#musik": 4,
+      "#ueber": 5,
+      "#booking": 6,
+    };
     const onClick = (e: MouseEvent) => {
-      const a = (e.target as HTMLElement).closest("a[href^='#']") as HTMLAnchorElement | null;
+      const a = (e.target as HTMLElement).closest(
+        "a[href^='#']",
+      ) as HTMLAnchorElement | null;
       if (!a) return;
       const hash = a.getAttribute("href") || "#";
       if (!(hash in map)) return;
       e.preventDefault();
       const el = getScroller();
       // drei: the scrollable distance maps 0..1 onto (pages-1) sections.
-      if (el) el.scrollTo({ top: (map[hash] * (el.scrollHeight - el.clientHeight)) / (PAGES - 1), behavior: "smooth" });
+      if (el)
+        el.scrollTo({
+          top:
+            (map[hash] * (el.scrollHeight - el.clientHeight)) / (pages() - 1),
+          behavior: "smooth",
+        });
     };
     document.addEventListener("click", onClick);
     // Arriving from another page with a hash (/#booking): once the room is ready, jump there.
@@ -45,7 +62,10 @@ function Anchors() {
         unsub?.();
       };
       window.addEventListener("wheel", stop, { once: true, passive: true });
-      window.addEventListener("touchstart", stop, { once: true, passive: true });
+      window.addEventListener("touchstart", stop, {
+        once: true,
+        passive: true,
+      });
       window.addEventListener("keydown", stop, { once: true });
       const begin = () => {
         let hits = 0;
@@ -54,7 +74,8 @@ function Anchors() {
           const el = getScroller();
           if (Date.now() > until) return stop();
           if (!el) return;
-          const top = (map[hash] * (el.scrollHeight - el.clientHeight)) / (PAGES - 1);
+          const top =
+            (map[hash] * (el.scrollHeight - el.clientHeight)) / (pages() - 1);
           if (Math.abs(el.scrollTop - top) > 2) {
             el.scrollTo({ top, behavior: "instant" });
             hits = 0;
@@ -109,7 +130,7 @@ export default function Stage() {
       style={{ position: "absolute", inset: 0 }}
     >
       <Suspense fallback={null}>
-        <ScrollControls pages={PAGES} damping={0.22} distance={1}>
+        <ScrollControls pages={pagesFor(mobile)} damping={0.22} distance={1}>
           <Scene />
           <Scroll html style={{ width: "100%" }}>
             <Overlay />

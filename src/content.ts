@@ -2,6 +2,9 @@ export const artist = {
   name: "Andre Leherb",
   claim: "Surrealismus in Musik.",
   motto: "Nichts muss so sein, wie es ist",
+  /** the big one */
+  credo: "Bei mir ist alles silbergrau. Und es gibt immer eine dritte Option, nicht nur Schwarz und Weiß.",
+  words: ["Wiener", "Sänger", "Dandy", "Poet"],
   intro:
     "Andre Leherb ist musikschaffender Sänger aus Wien. Der eher untypische Singer/Songwriter ist zudem noch Dichter, Denker und Philosoph. Er transformiert Surrealismus in Musik, indem er mit seinem Genre-Mix ein akustisches Gesamtbild (er)schafft.",
   youtube: "https://www.youtube.com/@andre_leherb",

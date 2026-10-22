@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Nav, Tear } from "@/components/Chrome";
 import { artist, maitre } from "@/content";
+import ChromeWords from "@/components/ChromeWords";
 
 const Backdrop = dynamic(() => import("./Backdrop"), { ssr: false });
 
@@ -36,13 +37,10 @@ export default function Ueber() {
         <header className="grid items-end gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <Label>Über André</Label>
-            <h1 className="display mt-3 text-5xl leading-[0.95] sm:text-7xl lg:text-8xl">
-              Dandy.
-              <br />
-              Dichter.
-              <br />
-              Wiener.
-            </h1>
+            <h1 className="display mt-3 text-4xl leading-[1.02] sm:text-6xl lg:text-7xl">{artist.credo}</h1>
+            <div className="display mt-6 text-xl sm:text-2xl lg:text-3xl">
+              <ChromeWords words={artist.words} />
+            </div>
             <p className="display mt-6 max-w-xl text-2xl leading-tight sm:text-3xl" style={{ color: "var(--lilac-deep)" }}>
               {artist.motto}
             </p>

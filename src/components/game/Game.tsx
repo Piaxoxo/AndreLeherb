@@ -285,7 +285,7 @@ export default function Game() {
   useEffect(() => {
     restoreTakeover();
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setDevice({ reduced: mq.matches, mobile: window.innerWidth < 768 || (navigator.maxTouchPoints > 1 && window.innerWidth < 1024) });
+    setDevice({ reduced: mq.matches, mobile: window.innerWidth < 768 });
   }, [restoreTakeover, setDevice]);
 
   const start = useCallback(() => {

@@ -2,6 +2,7 @@
 
 
 import { artist, songs, type Song } from "@/content";
+import ChromeWords from "./ChromeWords";
 import { player } from "@/lib/audio";
 import { useStore } from "@/store";
 import { useEffect, useRef, useState } from "react";
@@ -152,7 +153,14 @@ function PlayButton({ song, big = false }: { song: Song; big?: boolean }) {
   const on = playing === song.id;
   const available = useAudioAvailable(song.audio);
   if (!song.audio || available === false) {
-    return big ? null : (
+    return big ? (
+      <a href={song.links[0].href} target="_blank" rel="noreferrer" className="btn-lilac text-base">
+        <span aria-hidden className="inline-block w-3 text-center">
+          ▶
+        </span>
+        {song.title} anhören
+      </a>
+    ) : (
       <span className="rounded-full border px-3 py-1.5 text-xs font-bold opacity-60" style={{ borderColor: "var(--glass-border)" }}>
         Auf allen Plattformen
       </span>
@@ -286,11 +294,11 @@ export default function Overlay() {
               <p className="display mt-1.5 text-xl leading-tight sm:mt-2 sm:text-3xl">{artist.motto}</p>
               <p className="mt-2 hidden text-sm leading-relaxed opacity-85 sm:block">{artist.intro}</p>
               <p className="mt-1.5 text-[14px] leading-snug sm:mt-3 sm:text-[15px]">
-                Neues Video: <strong>24/7</strong>
-                <span className="hidden sm:inline"> · Single: <strong>Wir tanzen den Walzer</strong>. Produziert mit Gary Lux.</span>
+                Neue Single und Video: <strong>24/7</strong>
+                <span className="hidden sm:inline">. Produziert mit Gary Lux.</span>
               </p>
               <div className="mt-3 flex flex-wrap gap-2 sm:mt-4 sm:gap-3">
-                <PlayButton song={walzer} big />
+                <PlayButton song={s247} big />
                 <a href="#booking" className="btn-chrome">
                   Buch mich
                 </a>
@@ -344,20 +352,20 @@ export default function Overlay() {
 
       {/* ---------- 2 · Über ---------- */}
       <Section>
-        <ParticleAndre className="pointer-events-auto absolute left-[8%] top-[8%] h-[40%] w-[84%] sm:left-[2%] sm:h-[84%] sm:w-[60%] lg:left-[6%] lg:w-[44%]" />
-        <div className="absolute left-5 top-[max(5.5rem,10vh)] hidden sm:left-10 sm:block lg:left-16">
+        <ParticleAndre className="pointer-events-auto absolute left-[8%] top-[6%] h-[34%] w-[84%] sm:left-[55%] sm:top-[8%] sm:h-[40%] sm:w-[42%] lg:left-[2%] lg:top-[50%] lg:h-[48%] lg:w-[46%]" />
+        <div className="absolute left-5 right-5 top-[max(5.5rem,10vh)] hidden sm:left-10 sm:right-[46%] sm:block lg:left-16 lg:right-auto lg:w-[46%]">
           <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">02 · Über</div>
-          <h2 className="display mt-2 text-5xl sm:text-7xl">
-            Dandy.
-            <br />
-            Dichter.
-            <br />
-            Wiener.
-          </h2>
+          <h2 className="display mt-2 text-3xl leading-[1.02] sm:text-4xl lg:text-5xl xl:text-6xl">{artist.credo}</h2>
+          <div className="display mt-5 text-base sm:text-lg lg:text-xl xl:text-2xl">
+            <ChromeWords words={artist.words} />
+          </div>
         </div>
         <div className="absolute inset-x-5 bottom-6 sm:inset-x-10 lg:inset-x-16 lg:bottom-10 lg:left-auto lg:w-[46%]">
           <div className="glass drip p-5 sm:p-7">
-            <h2 className="display mb-3 text-3xl sm:hidden">Dandy. Dichter. Wiener.</h2>
+            <h2 className="display mb-2 text-2xl leading-tight sm:hidden">{artist.credo}</h2>
+            <div className="display mb-3 text-sm sm:hidden">
+              <ChromeWords words={artist.words} />
+            </div>
             <p className="text-sm leading-relaxed sm:text-[15px]">{artist.bio[0]}</p>
             <p className="mt-3 hidden text-sm leading-relaxed sm:block sm:text-[15px]">{artist.bio[1]}</p>
             {!mobile && <p className="mt-3 text-sm leading-relaxed sm:text-[15px]">{artist.bio[2]}</p>}

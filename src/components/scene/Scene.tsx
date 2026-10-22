@@ -112,6 +112,8 @@ export default function Scene() {
 
   // Horizontal layout helper: fraction of the visible width.
   const X = (f: number) => (vw / 2) * f;
+  // portrait tablets: desktop layout, but the wide objects need to slide toward the middle
+  const portrait = !mobile && vw / vh < 0.95;
 
   return (
     <>
@@ -130,7 +132,7 @@ export default function Scene() {
         />
         {/* The melted lilac mic stands on the floor between logo and André */}
         <Mic size={mobile ? 1.7 : 3.2} position={[mobile ? X(-0.12) : X(0.2), mobile ? -1.5 : -2.7, mobile ? 0.6 : 0.8]} rotation={[0, 0.25, 0]} />
-        <ChromeSphere r={mobile ? 0.26 : 0.42} position={[X(-0.84), mobile ? 2.4 : 2.5, -1.5]} />
+        <ChromeSphere r={mobile ? 0.26 : 0.42} position={[X(-0.6), mobile ? 2.6 : 2.9, -3]} />
         <ChromeSphere r={mobile ? 0.12 : 0.16} position={[X(mobile ? 0.75 : 0.12), mobile ? 2.3 : 2.1, 0.3]} />
         <ChromeSphere r={mobile ? 0.16 : 0.22} position={[X(-0.62), mobile ? 0.2 : -1.6, 0.2]} />
         <GlassDrop r={mobile ? 0.28 : 0.42} position={[X(mobile ? 0.1 : -0.08), mobile ? -2.5 : -2.3, 1.0]} />
@@ -169,7 +171,7 @@ export default function Scene() {
           position={[mobile ? X(0.6) : X(0.55), mobile ? 1.5 : -0.2, -0.8]}
         />
         {/* the lilac pigeon, Andre's mascot; drag to turn her */}
-        <Pigeon size={mobile ? 1.3 : 2.8} position={[X(mobile ? -0.3 : -0.5), mobile ? 1.85 : 1.2, -1.2]} />
+        <Pigeon size={mobile ? 0.95 : portrait ? 2.2 : 2.8} position={[X(mobile ? -0.35 : portrait ? 0.05 : -0.5), mobile ? 1.72 : portrait ? 1.7 : 1.2, -1.2]} />
         <ChromeSphere r={0.5} position={[X(-0.8), -1.7, -1.5]} />
         <GlassDrop r={0.35} position={[X(0.1), 2.2, 0.5]} />
         <GlassDrop r={0.22} position={[X(-0.2), -2.2, 1.4]} />

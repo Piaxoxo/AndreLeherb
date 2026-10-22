@@ -19,7 +19,7 @@ export default function Experience() {
     const update = () =>
       setDevice({
         reduced: mq.matches,
-        mobile: window.innerWidth < 768 || (navigator.maxTouchPoints > 1 && window.innerWidth < 1024),
+        mobile: window.innerWidth < 768,
       });
     update();
     // Small debug handle (used by the screenshot tests).

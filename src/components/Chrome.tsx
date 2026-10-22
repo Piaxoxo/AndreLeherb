@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useStore } from "@/store";
 import { player } from "@/lib/audio";
 import { songs } from "@/content";
@@ -30,38 +31,78 @@ function Sec({ hash, home, className, children }: { hash: string; home: boolean;
 
 export function Nav({ dark = false }: { dark?: boolean }) {
   const home = usePathname() === "/";
+  const [open, setOpen] = useState(false);
   const link = "rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] opacity-70 hover:opacity-100";
+
+  // close the phone menu on any navigation or hash jump
+  useEffect(() => {
+    if (!open) return;
+    const close = () => setOpen(false);
+    document.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("a")) close();
+    });
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const items = (
+    <>
+      {home ? (
+        <a href="#" className={link}>
+          Home
+        </a>
+      ) : (
+        <Link href="/" className={link}>
+          Home
+        </Link>
+      )}
+      <Sec hash="musik" home={home} className={link}>
+        Musik
+      </Sec>
+      <Link href="/galerie" className={link}>
+        Galerie
+      </Link>
+      <Link href="/spiel" className={link}>
+        Spiel
+      </Link>
+      <Link href="/ueber" className={link}>
+        André
+      </Link>
+      <Sec hash="booking" home={home} className="btn-chrome whitespace-nowrap !py-2.5 !px-4 text-xs uppercase tracking-[0.15em]">
+        Buch mich
+      </Sec>
+    </>
+  );
+
   return (
     <header className={`pointer-events-none fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-4 sm:px-10 lg:px-16 ${dark ? "text-white" : ""}`}>
       <Link href="/" className="pointer-events-auto block" aria-label="Andre Leherb, Start">
         <NavLogo dark={dark} />
       </Link>
-      <nav className="pointer-events-auto flex items-center gap-2 sm:gap-3">
-        {home ? (
-          <a href="#" className={`hidden sm:block ${link}`}>
-            Home
-          </a>
-        ) : (
-          <Link href="/" className={link}>
-            Home
-          </Link>
-        )}
-        <Sec hash="musik" home={home} className={`hidden sm:block ${link}`}>
-          Musik
-        </Sec>
-        <Link href="/galerie" className={link}>
-          Galerie
-        </Link>
-        <Link href="/spiel" className={`hidden sm:block ${link}`}>
-          Spiel
-        </Link>
-        <Link href="/ueber" className={link}>
-          André
-        </Link>
-        <Sec hash="booking" home={home} className="btn-chrome whitespace-nowrap !py-2.5 !px-4 text-xs uppercase tracking-[0.15em]">
-          Buch mich
-        </Sec>
-      </nav>
+      {/* desktop and tablet: everything in a row */}
+      <nav className="pointer-events-auto hidden items-center gap-2 md:flex md:gap-3">{items}</nav>
+      {/* phone: a burger that opens a full menu */}
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="pointer-events-auto flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-full md:hidden"
+        aria-label={open ? "Menü schließen" : "Menü öffnen"}
+        aria-expanded={open}
+        style={{ background: "var(--glass-bg, rgba(255,255,255,.55))", boxShadow: "0 8px 24px -12px rgba(60,30,120,.35), inset 0 1px 0 rgba(255,255,255,.7)" }}
+      >
+        <span className="block h-[2px] w-5 rounded bg-current transition-transform" style={{ transform: open ? "translateY(7px) rotate(45deg)" : "none" }} />
+        <span className="block h-[2px] w-5 rounded bg-current transition-opacity" style={{ opacity: open ? 0 : 1 }} />
+        <span className="block h-[2px] w-5 rounded bg-current transition-transform" style={{ transform: open ? "translateY(-7px) rotate(-45deg)" : "none" }} />
+      </button>
+      {open && (
+        <nav
+          className="pointer-events-auto fixed inset-0 z-[-1] flex flex-col items-start justify-center gap-2 px-8 text-current md:hidden [&_a]:text-2xl [&_a]:tracking-[0.12em] [&_a]:normal-case"
+          style={{ background: "var(--bg)", backdropFilter: "blur(20px)" }}
+        >
+          {items}
+        </nav>
+      )}
     </header>
   );
 }

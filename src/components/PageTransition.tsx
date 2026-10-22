@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Pyramid from "./Pyramid";
+import { useStore } from "@/store";
 
 const MIN_MS = 700;
 
@@ -14,6 +15,7 @@ const MIN_MS = 700;
 export default function PageTransition() {
   const router = useRouter();
   const [on, setOn] = useState(false);
+  const motion = useStore((s) => s.a11y.motion);
   const since = useRef(0);
   const pending = useRef<string | null>(null);
 
@@ -28,6 +30,7 @@ export default function PageTransition() {
       const samePage = url.pathname === window.location.pathname;
       if (samePage && url.hash) return; // in-page anchors scroll, no curtain
       if (samePage) return;
+      if (!motion) return; // effects off: plain navigation
       e.preventDefault();
       pending.current = href;
       since.current = performance.now();
@@ -50,7 +53,7 @@ export default function PageTransition() {
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
-  }, [router]);
+  }, [router, motion]);
 
   return (
     <div

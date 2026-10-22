@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter_Tight, Manrope } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/PageTransition";
+import AccessPanel from "@/components/AccessPanel";
+import { Analytics } from "@vercel/analytics/next";
 
 const display = Inter_Tight({
   variable: "--font-display",
@@ -39,6 +41,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full">
         {children}
         <PageTransition />
+        <AccessPanel />
+        <Analytics />
       </body>
     </html>
   );

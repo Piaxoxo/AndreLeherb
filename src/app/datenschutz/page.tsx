@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "Datenschutz · Andre Leherb" };
 
 export default function Page() {
   return (
-    <Legal label="Rechtliches" title="Datenschutz.">
+    <Legal kind="privacy">
       <p>
         Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten daher ausschließlich auf Grundlage der
         geltenden gesetzlichen Bestimmungen (EU-Datenschutz-Grundverordnung DSGVO, TKG 2003). In diesen Datenschutzinformationen informieren wir
@@ -48,6 +48,20 @@ export default function Page() {
         sind dazu unbedingt notwendig. Sie werden nicht mit anderen Datenquellen verbunden, so dass sie sich nicht einzelnen Personen zuordnen
         lassen. Sie werden nach drei Monaten gelöscht. Die Datenverarbeitung erfolgt auf Basis des Art 6 Abs 1 lit f (berechtigte Interessen) der
         DSGVO. Das berechtigte Interesse im Sinne der DSGVO ist hierbei die ordnungsgemäße, sichere Funktion der Webseite.
+      </p>
+      <h2>Reichweitenmessung (Vercel Web Analytics)</h2>
+      <p>
+        Diese Webseite wird von Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA gehostet. Zur Messung der Besucherzahlen nutzen wir
+        Vercel Web Analytics. Dabei werden keine Cookies gesetzt und keine personenbezogenen Daten gespeichert: Aus IP-Adresse und Browserkennung
+        wird ein kurzlebiger, nicht rückführbarer Hash gebildet, der nach 24 Stunden verfällt. Erfasst werden besuchte Seiten, Herkunft (Referrer),
+        Gerätetyp, Browser und ungefähre Region. Rechtsgrundlage ist Art 6 Abs 1 lit f DSGVO (berechtigtes Interesse an der Auswertung der
+        Reichweite). Die Erhebung erfolgt ohne Einwilligungspflicht, da keine Daten auf Ihrem Endgerät gespeichert oder ausgelesen werden.
+      </p>
+      <h2>Barrierefreiheits-Einstellungen</h2>
+      <p>
+        Ihre Auswahl im Menü Barrierefreiheit (Effekte, statische Seite, Schriftgröße, Kontrast, Sprache) wird ausschließlich lokal in Ihrem
+        Browser gespeichert (localStorage) und nicht an uns übertragen. Das Spiel merkt sich seinen Zustand für die Dauer des Besuchs im
+        sessionStorage Ihres Browsers.
       </p>
       <h2>Cookies</h2>
       <p>

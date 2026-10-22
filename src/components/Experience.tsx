@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useStore } from "@/store";
 import Loader from "./Loader";
 import MicScrub from "./MicScrub";
+import StaticHome from "./StaticHome";
 import { MiniPlayer, Nav, Tear } from "./Chrome";
 
 const Stage = dynamic(() => import("./Stage"), { ssr: false });
@@ -12,6 +13,8 @@ const Stage = dynamic(() => import("./Stage"), { ssr: false });
 export default function Experience() {
   const setDevice = useStore((s) => s.setDevice);
   const restoreTakeover = useStore((s) => s.restoreTakeover);
+  const isStatic = useStore((s) => s.a11y.static);
+  const motion = useStore((s) => s.a11y.motion);
 
   useEffect(() => {
     restoreTakeover();
@@ -28,7 +31,7 @@ export default function Experience() {
     mq.addEventListener("change", update);
     // Very rarely (about 1 in 50 visits) the page twitches on its own for a split second.
     let twitch: number | undefined;
-    if (Math.random() < 0.02 && !mq.matches) {
+    if (Math.random() < 0.02 && !mq.matches && motion) {
       twitch = window.setTimeout(() => useStore.getState().triggerGlitch(140, true), 9000 + Math.random() * 12000);
     }
     return () => {
@@ -36,7 +39,9 @@ export default function Experience() {
       mq.removeEventListener("change", update);
       window.clearTimeout(twitch);
     };
-  }, [setDevice, restoreTakeover]);
+  }, [setDevice, restoreTakeover, motion]);
+
+  if (isStatic) return <StaticHome />;
 
   return (
     <main className="fixed inset-0">

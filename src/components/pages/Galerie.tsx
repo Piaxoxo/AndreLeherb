@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Nav, Tear } from "@/components/Chrome";
 import SiteFooter from "@/components/SiteFooter";
 import { gallery, type Photo } from "@/gallery";
-import { artist } from "@/content";
+import { useContent, useT } from "@/i18n";
 
 const Backdrop = dynamic(() => import("./Backdrop"), { ssr: false });
 
@@ -17,6 +17,7 @@ function Label({ children }: { children: React.ReactNode }) {
 /** Full-screen viewer with keyboard, swipe and preloading of the neighbours. */
 function Lightbox({ photos, index, onClose, onMove }: { photos: Photo[]; index: number; onClose: () => void; onMove: (d: number) => void }) {
   const p = photos[index];
+  const t = useT();
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -71,7 +72,7 @@ function Lightbox({ photos, index, onClose, onMove }: { photos: Photo[]; index: 
         </span>
       </div>
       <button
-        aria-label="Vorheriges Foto"
+        aria-label={t.galerie.prev}
         className="absolute left-3 top-1/2 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20 sm:flex"
         onClick={(e) => {
           e.stopPropagation();
@@ -81,7 +82,7 @@ function Lightbox({ photos, index, onClose, onMove }: { photos: Photo[]; index: 
         ←
       </button>
       <button
-        aria-label="Nächstes Foto"
+        aria-label={t.galerie.next}
         className="absolute right-3 top-1/2 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20 sm:flex"
         onClick={(e) => {
           e.stopPropagation();
@@ -91,7 +92,7 @@ function Lightbox({ photos, index, onClose, onMove }: { photos: Photo[]; index: 
         →
       </button>
       <button
-        aria-label="Schließen"
+        aria-label={t.galerie.close}
         className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-xl text-white backdrop-blur hover:bg-white/20"
         onClick={onClose}
       >
@@ -118,6 +119,8 @@ function useTimeline() {
 export default function Galerie() {
   const [open, setOpen] = useState<number | null>(null);
   const groups = useTimeline();
+  const t = useT();
+  const { artist } = useContent();
 
   const close = useCallback(() => setOpen(null), []);
   const move = useCallback((d: number) => setOpen((i) => (i == null ? null : (i + d + gallery.length) % gallery.length)), []);
@@ -131,18 +134,16 @@ export default function Galerie() {
       <main className="relative z-10 mx-auto max-w-7xl px-5 pb-24 pt-28 sm:px-10 sm:pt-36 lg:px-16">
         <header className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <Label>Galerie</Label>
+            <Label>{t.galerie.label}</Label>
             <h1 className="display mt-3 text-5xl leading-[0.95] sm:text-7xl lg:text-8xl">
-              Von heute
+              {t.galerie.title[0]}
               <br />
-              zurück.
+              {t.galerie.title[1]}
             </h1>
-            <p className="mt-4 max-w-xl text-base leading-relaxed opacity-85 sm:text-lg">
-              Andre Leherb vor der Kamera, als Zeitreise: vom Shooting 2026 zurück bis zu DEZIRE. Zum Vergrößern antippen.
-            </p>
+            <p className="mt-4 max-w-xl text-base leading-relaxed opacity-85 sm:text-lg">{t.galerie.text}</p>
           </div>
           {/* year chips jump along the line */}
-          <nav aria-label="Jahre" className="flex flex-wrap gap-2">
+          <nav aria-label={t.galerie.years} className="flex flex-wrap gap-2">
             {groups.map((g) => (
               <a key={g.year} href={`#jahr-${g.year}`} className="btn-chrome !py-2 !px-4 text-xs tracking-[0.15em]">
                 {g.year}
@@ -183,7 +184,7 @@ export default function Galerie() {
                       <button
                         onClick={() => setOpen(i)}
                         className="group glass block w-full overflow-hidden !rounded-[1.4rem] !p-1.5 text-left transition-transform duration-500 hover:-translate-y-1"
-                        aria-label={`${p.alt} öffnen`}
+                        aria-label={`${p.alt} ${t.galerie.open}`}
                       >
                         <img
                           src={p.thumb}
@@ -209,15 +210,15 @@ export default function Galerie() {
 
         <footer className="mt-8 flex flex-col items-start justify-between gap-6 border-t pt-8 sm:flex-row sm:items-center" style={{ borderColor: "var(--glass-border)" }}>
           <div>
-            <div className="display text-2xl">Pressefotos?</div>
-            <p className="mt-1 text-sm opacity-70">Druckfähige Dateien auf Anfrage an {artist.booking.email}</p>
+            <div className="display text-2xl">{t.footer.press}</div>
+            <p className="mt-1 text-sm opacity-70">{t.footer.pressText} {artist.booking.email}</p>
           </div>
           <div className="flex gap-3">
             <Link href="/ueber" className="btn-chrome text-sm">
-              Über André
+              {t.footer.overAndre}
             </Link>
             <Link href="/#booking" className="btn-lilac text-sm">
-              Booking
+              {t.footer.booking}
             </Link>
           </div>
         </footer>

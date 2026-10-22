@@ -1,7 +1,8 @@
 "use client";
 
 
-import { artist, songs, type Song } from "@/content";
+import { type Song } from "@/content";
+import { useContent, useT } from "@/i18n";
 import ChromeWords from "./ChromeWords";
 import SiteFooter from "./SiteFooter";
 import { player } from "@/lib/audio";
@@ -12,10 +13,11 @@ import ParticleSwirl from "./ParticleSwirl";
 /** Brush logo that tilts with the pointer; swaps to the original (white) version in the glitch. */
 function LogoTilt({ className }: { className?: string }) {
   const glitch = useStore((s) => s.glitch);
+  const motion = useStore((s) => s.a11y.motion);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!el || !motion) return;
     const onMove = (e: PointerEvent) => {
       const x = e.clientX / window.innerWidth - 0.5;
       const y = e.clientY / window.innerHeight - 0.5;
@@ -23,7 +25,7 @@ function LogoTilt({ className }: { className?: string }) {
     };
     window.addEventListener("pointermove", onMove);
     return () => window.removeEventListener("pointermove", onMove);
-  }, []);
+  }, [motion]);
   return (
     <div ref={ref} className={className} style={{ transition: "transform .25s ease-out", willChange: "transform" }}>
       <img
@@ -55,6 +57,8 @@ function Clip({
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [sound, setSound] = useState(false);
+  const t = useT();
+  const motion = useStore((s) => s.a11y.motion);
   const toggle = () => {
     const v = ref.current;
     if (!v) return;
@@ -64,7 +68,7 @@ function Clip({
     setSound(!sound);
   };
   return (
-    <button onClick={toggle} className={`${className ?? ""} pointer-events-auto group block`} aria-label={sound ? "Ton aus" : "Ton an"}>
+    <button onClick={toggle} className={`${className ?? ""} pointer-events-auto group block`} aria-label={sound ? t.hero.soundOff : t.hero.soundOn}>
       <div
         className="glass relative w-full overflow-hidden p-[6px] transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-[-1.5deg]"
         style={{ aspectRatio: aspect, borderRadius: radius, boxShadow: "0 30px 60px -20px rgba(60,30,120,.45), inset 0 1px 0 rgba(255,255,255,.7)" }}
@@ -75,7 +79,7 @@ function Clip({
           poster={poster}
           className="h-full w-full object-cover"
           style={{ borderRadius: radius - 6 }}
-          autoPlay
+          autoPlay={motion}
           muted
           loop
           playsInline
@@ -87,7 +91,7 @@ function Clip({
           </span>
         )}
         <span className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur">
-          {sound ? "Ton aus" : "Ton an"}
+          {sound ? t.hero.soundOff : t.hero.soundOn}
         </span>
       </div>
     </button>
@@ -103,8 +107,10 @@ function ParticleAndre({ className }: { className?: string }) {
   const glitch = useStore((s) => s.glitch);
   const count = useStore((s) => s.glitchCount);
   const mobile = useStore((s) => s.mobile);
+  const motion = useStore((s) => s.a11y.motion);
   return (
     <ParticleSwirl
+      calm={!motion}
       className={className}
       image="/img/andre-velvet.webp"
       fit="contain"
@@ -149,7 +155,8 @@ function useAudioAvailable(url?: string) {
   return ok;
 }
 
-function PlayButton({ song, big = false }: { song: Song; big?: boolean }) {
+export function PlayButton({ song, big = false }: { song: Song; big?: boolean }) {
+  const t = useT();
   const playing = useStore((s) => s.playing);
   const on = playing === song.id;
   const available = useAudioAvailable(song.audio);
@@ -159,11 +166,11 @@ function PlayButton({ song, big = false }: { song: Song; big?: boolean }) {
         <span aria-hidden className="inline-block w-3 text-center">
           ▶
         </span>
-        {song.title} anhören
+        {t.hero.listen(song.title)}
       </a>
     ) : (
       <span className="rounded-full border px-3 py-1.5 text-xs font-bold opacity-60" style={{ borderColor: "var(--glass-border)" }}>
-        Auf allen Plattformen
+        {t.hero.platforms}
       </span>
     );
   }
@@ -176,12 +183,13 @@ function PlayButton({ song, big = false }: { song: Song; big?: boolean }) {
       <span aria-hidden className="inline-block w-3 text-center">
         {on ? "❚❚" : "▶"}
       </span>
-      {on ? "Pause" : big ? `${song.title} abspielen` : "Anhören"}
+      {on ? t.hero.pause : big ? t.hero.play(song.title) : t.hero.short}
     </button>
   );
 }
 
-function SongCard({ song, align }: { song: Song; align: "left" | "right" }) {
+export function SongCard({ song, align }: { song: Song; align: "left" | "right" }) {
+  const t = useT();
   return (
     <div className={`glass drip w-full max-w-md p-4 sm:p-7 ${align === "right" ? "lg:ml-auto" : ""}`}>
       <div className="flex gap-4 sm:gap-5">
@@ -192,7 +200,7 @@ function SongCard({ song, align }: { song: Song; align: "left" | "right" }) {
         />
         <div className="min-w-0">
           <div className="text-[10px] font-bold uppercase tracking-[0.25em] opacity-60 sm:text-xs">
-            {song.tag && <span style={{ color: "var(--lilac-deep)" }}>{song.tag} · </span>}Single · {song.release}
+            {song.tag && <span style={{ color: "var(--lilac-deep)" }}>{song.tag} · </span>}{t.musik.single} · {song.release}
           </div>
           <h3 className="display mt-1 text-2xl sm:text-4xl">{song.title}</h3>
           <div className="mt-2 flex flex-wrap gap-2 sm:mt-3">
@@ -224,47 +232,46 @@ function SongCard({ song, align }: { song: Song; align: "left" | "right" }) {
   );
 }
 
-function BookingForm() {
+export function BookingForm() {
   const [sent, setSent] = useState(false);
+  const t = useT();
+  const { artist } = useContent();
   return (
     <form
       className="grid gap-3"
       onSubmit={(e) => {
         e.preventDefault();
         const f = new FormData(e.currentTarget);
-        const subject = encodeURIComponent(`Booking-Anfrage: ${f.get("event") || "Auftritt"}`);
+        const subject = encodeURIComponent(`${t.booking.subject}: ${f.get("event") || ""}`);
         const body = encodeURIComponent(
-          `Name: ${f.get("name")}\nE-Mail: ${f.get("email")}\nArt: ${f.get("event")}\nDatum / Ort: ${f.get("date")}\n\n${f.get("msg")}`
+          `${t.booking.name}: ${f.get("name")}\n${t.booking.email}: ${f.get("email")}\n${t.booking.kind}: ${f.get("event")}\n${t.booking.dateLabel}: ${f.get("date")}\n\n${f.get("msg")}`
         );
         window.location.href = `mailto:${artist.booking.email}?subject=${subject}&body=${body}`;
         setSent(true);
       }}
     >
       <div className="grid gap-3 sm:grid-cols-2">
-        <input name="name" required placeholder="Name" className="field" autoComplete="name" />
-        <input name="email" type="email" required placeholder="E-Mail" className="field" autoComplete="email" />
+        <input name="name" required placeholder={t.booking.name} aria-label={t.booking.name} className="field" autoComplete="name" />
+        <input name="email" type="email" required placeholder={t.booking.email} aria-label={t.booking.email} className="field" autoComplete="email" />
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
-        <select name="event" className="field" defaultValue="Konzert">
-          <option>Konzert</option>
-          <option>Club / Bar</option>
-          <option>Firmenevent</option>
-          <option>Privatfeier / Hochzeit</option>
-          <option>Festival</option>
-          <option>Medien / Interview</option>
+        <select name="event" className="field" defaultValue={t.booking.events[0]} aria-label={t.booking.kind}>
+          {t.booking.events.map((e) => (
+            <option key={e}>{e}</option>
+          ))}
         </select>
-        <input name="date" placeholder="Datum und Ort" className="field" />
+        <input name="date" placeholder={t.booking.date} aria-label={t.booking.date} className="field" />
       </div>
-      <textarea name="msg" rows={2} placeholder="Erzähl uns kurz, was geplant ist." className="field resize-none" />
+      <textarea name="msg" rows={2} placeholder={t.booking.msg} aria-label={t.booking.msg} className="field resize-none" />
       <div className="mt-1 flex flex-wrap items-center gap-3">
         <button type="submit" className="btn-lilac">
-          Anfrage senden →
+          {t.booking.send}
         </button>
         <a href={`mailto:${artist.booking.email}`} className="text-sm underline-offset-4 hover:underline opacity-80">
-          oder direkt: {artist.booking.email}
+          {t.booking.direct} {artist.booking.email}
         </a>
       </div>
-      {sent && <p className="text-sm opacity-70">Dein E-Mail-Programm sollte sich jetzt öffnen. Danke!</p>}
+      {sent && <p className="text-sm opacity-70">{t.booking.sent}</p>}
     </form>
   );
 }
@@ -272,6 +279,8 @@ function BookingForm() {
 export default function Overlay() {
   const note = useStore((s) => s.note);
   const mobile = useStore((s) => s.mobile);
+  const t = useT();
+  const { artist, songs } = useContent();
   const s247 = songs[0];
   const walzer = songs[1];
 
@@ -291,25 +300,25 @@ export default function Overlay() {
         <div className="absolute inset-x-5 bottom-[max(2rem,env(safe-area-inset-bottom))] sm:inset-x-10 lg:inset-x-16">
           <div className="flex flex-col items-start justify-between gap-5 lg:flex-row lg:items-end">
             <div className="glass drip max-w-[calc(100vw-2.5rem)] p-4 sm:max-w-md sm:p-6">
-              <div className="text-[10px] font-bold uppercase tracking-[0.25em] opacity-60 sm:text-xs">Wien · Singer / Songwriter</div>
+              <div className="text-[10px] font-bold uppercase tracking-[0.25em] opacity-60 sm:text-xs">{t.hero.tag}</div>
               <p className="display mt-1.5 text-xl leading-tight sm:mt-2 sm:text-3xl">{artist.motto}</p>
               <p className="mt-2 hidden text-sm leading-relaxed opacity-85 sm:block">{artist.intro}</p>
               <p className="mt-1.5 text-[14px] leading-snug sm:mt-3 sm:text-[15px]">
-                Neue Single und Video: <strong>24/7</strong>
-                <span className="hidden sm:inline">. Produziert mit Gary Lux.</span>
+                {t.hero.release} <strong>24/7</strong>
+                <span className="hidden sm:inline">{t.hero.produced}</span>
               </p>
               <div className="mt-3 flex flex-wrap gap-2 sm:mt-4 sm:gap-3">
                 <PlayButton song={s247} big />
                 <a href="#booking" className="btn-chrome">
-                  Buch mich
+                  {t.hero.book}
                 </a>
                 <a href="#mikro" className="hidden rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] opacity-70 hover:opacity-100 sm:inline-block">
-                  Das Mikro ↓
+                  {t.hero.mic}
                 </a>
               </div>
             </div>
             <div className="hidden pr-[17vw] text-right text-xs font-bold uppercase tracking-[0.3em] opacity-50 lg:block">
-              Scroll
+              {t.hero.scroll}
               <div className="mx-auto mt-2 h-10 w-px bg-current opacity-60" />
             </div>
           </div>
@@ -330,15 +339,15 @@ export default function Overlay() {
       {/* ---------- 1 · Musik ---------- */}
       <Section>
         <div className="absolute left-5 top-[max(5.5rem,10vh)] sm:left-10 lg:left-16">
-          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">01 · Musik</div>
-          <h2 className="display mt-2 text-5xl sm:text-7xl">Neu.</h2>
+          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">{t.musik.label}</div>
+          <h2 className="display mt-2 text-5xl sm:text-7xl">{t.musik.title}</h2>
           <a
             href={artist.youtube}
             target="_blank"
             rel="noreferrer"
             className="btn-chrome mt-4 hidden !py-2.5 !px-4 text-xs uppercase tracking-[0.15em] sm:inline-flex"
           >
-            Andre auf YouTube abonnieren
+            {t.musik.subscribe}
           </a>
         </div>
         <div className="absolute inset-x-5 bottom-6 grid gap-3 sm:inset-x-10 sm:gap-5 lg:inset-x-16 lg:bottom-10 lg:grid-cols-2 lg:gap-10">
@@ -355,7 +364,7 @@ export default function Overlay() {
       <Section>
         <ParticleAndre className="pointer-events-auto absolute left-[8%] top-[6%] h-[34%] w-[84%] sm:left-[55%] sm:top-[8%] sm:h-[40%] sm:w-[42%] lg:left-[2%] lg:top-[62%] lg:h-[38%] lg:w-[46%]" />
         <div className="absolute left-5 right-5 top-[max(5.5rem,10vh)] hidden sm:left-10 sm:right-[46%] sm:block lg:left-16 lg:right-auto lg:w-[46%]">
-          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">02 · Über</div>
+          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">{t.ueber.label}</div>
           <h2 className="display mt-2 text-3xl leading-[1.02] sm:text-4xl lg:text-5xl xl:text-6xl">{artist.credo}</h2>
           <div className="display mt-6 text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">
             <ChromeWords words={artist.words} />
@@ -371,7 +380,7 @@ export default function Overlay() {
             <p className="mt-3 hidden text-sm leading-relaxed sm:block sm:text-[15px]">{artist.bio[1]}</p>
             {!mobile && <p className="mt-3 text-sm leading-relaxed sm:text-[15px]">{artist.bio[2]}</p>}
             <a href="/ueber" className="btn-lilac mt-4 !py-2.5 !px-5 text-sm">
-              Mehr über André
+              {t.ueber.more}
             </a>
             <ol className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t pt-3 sm:mt-5 sm:gap-x-5 sm:gap-y-2 sm:pt-4" style={{ borderColor: "var(--glass-border)" }}>
               {artist.timeline.map((t) => (
@@ -390,19 +399,17 @@ export default function Overlay() {
       <Section>
         <div id="booking" className="absolute -top-20" />
         <div className="absolute left-5 top-[max(5.5rem,10vh)] hidden sm:left-10 sm:block lg:left-16">
-          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">03 · Booking</div>
+          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">{t.booking.label}</div>
           <h2 className="display mt-2 text-5xl sm:text-7xl">
-            Buch
+            {t.booking.title[0]}
             <br />
-            mich.
+            {t.booking.title[1]}
           </h2>
         </div>
         <div className="absolute inset-x-5 bottom-6 sm:inset-x-10 lg:inset-x-16 lg:bottom-10 lg:right-auto lg:w-[52%]">
           <div className="glass drip p-5 sm:p-7">
-            <h2 className="display mb-2 text-3xl sm:hidden">Buch mich.</h2>
-            <p className="mb-4 text-sm leading-relaxed opacity-85 sm:mb-5">
-              Konzert, Club, Firmenevent oder Fernsehen. Solo oder mit Band, Deutsch, Englisch und Wienerisch. Schreib uns, wir melden uns innerhalb von 48 Stunden.
-            </p>
+            <h2 className="display mb-2 text-3xl sm:hidden">{t.booking.titleShort}</h2>
+            <p className="mb-4 text-sm leading-relaxed opacity-85 sm:mb-5">{t.booking.intro}</p>
             <BookingForm />
           </div>
           <SiteFooter className="mt-4 px-1" />

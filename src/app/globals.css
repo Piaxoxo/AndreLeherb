@@ -355,3 +355,59 @@ body {
   background-clip: text;
   -webkit-text-stroke: 0.5px rgba(255, 60, 220, 0.5);
 }
+
+/* ---------- accessibility modes ---------- */
+/* effects off: no animation or transition anywhere, no film */
+:root[data-reduced="on"] *,
+:root[data-reduced="on"] *::before,
+:root[data-reduced="on"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+:root[data-reduced="on"] .hero-film video {
+  display: none;
+}
+/* high contrast: solid panels, full-opacity text, strong borders */
+:root[data-contrast="on"] {
+  --bg: #ffffff;
+  --glass: #ffffff;
+  --glass-border: #111118;
+  --lilac-deep: #4a1fb8;
+}
+:root[data-contrast="on"][data-glitch="on"] {
+  --bg: #000000;
+  --glass: #000000;
+  --glass-border: #ffffff;
+  --lilac-deep: #d9b8ff;
+}
+:root[data-contrast="on"] .glass {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-width: 2px;
+}
+:root[data-contrast="on"] [class*="opacity-"] {
+  opacity: 1 !important;
+}
+:root[data-contrast="on"] .hero-film {
+  display: none;
+}
+:root[data-contrast="on"] .liquid-word {
+  background: none;
+  color: var(--lilac-deep);
+  -webkit-text-stroke: 0;
+  filter: none;
+}
+:root[data-contrast="on"] a:focus-visible,
+:root[data-contrast="on"] button:focus-visible {
+  outline: 3px solid var(--lilac-deep);
+  outline-offset: 2px;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--lilac-deep);
+  outline-offset: 2px;
+}

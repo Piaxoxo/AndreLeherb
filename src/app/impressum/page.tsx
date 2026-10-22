@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "Impressum · Andre Leherb" };
 
 export default function Page() {
   return (
-    <Legal label="Rechtliches" title="Impressum.">
+    <Legal kind="imprint">
       <p>
         <strong>NEW ART MUSIC PRODUCTIONS GmbH</strong>
         <br />

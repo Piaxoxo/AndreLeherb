@@ -10,6 +10,7 @@ import GlbModel from "@/components/scene/GlbModel";
 import { Studio } from "@/components/scene/Scene";
 import { Chrome, Lilac } from "@/components/scene/materials";
 import { useStore } from "@/store";
+import { useT } from "@/i18n";
 
 const Loader = dynamic(() => import("@/components/Loader"), { ssr: false });
 
@@ -248,8 +249,9 @@ function Stage() {
 }
 
 function Hearts({ lives }: { lives: number }) {
+  const t = useT();
   return (
-    <div className="flex gap-1.5" aria-label={`${lives} von ${LIVES} Leben`}>
+    <div className="flex gap-1.5" aria-label={t.game.lives(lives, LIVES)}>
       {Array.from({ length: LIVES }).map((_, i) => (
         <span
           key={i}
@@ -268,6 +270,7 @@ function Hearts({ lives }: { lives: number }) {
 export default function Game() {
   const world = useRef<World>(makeWorld());
   const [phase, setPhase] = useState<Phase>("intro");
+  const t = useT();
   const [lives, setLives] = useState(LIVES);
   const [score, setScore] = useState(0);
   const [left, setLeft] = useState(DURATION);
@@ -361,14 +364,14 @@ export default function Game() {
       {/* HUD */}
       <div className="pointer-events-none absolute inset-x-5 top-[max(5.5rem,10vh)] flex items-start justify-between sm:inset-x-10 lg:inset-x-16">
         <div>
-          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">Das Spiel</div>
+          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">{t.game.label}</div>
           <div className="display mt-1 text-5xl tabular-nums sm:text-7xl">{phase === "play" ? left : DURATION}</div>
           <div className="mt-2">
             <Hearts lives={lives} />
           </div>
         </div>
         <div className="text-right">
-          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">Noten</div>
+          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">{t.game.notes}</div>
           <div className="display mt-1 text-5xl tabular-nums sm:text-7xl" style={{ color: "var(--lilac-deep)" }}>
             {score}
           </div>
@@ -381,22 +384,20 @@ export default function Game() {
           <div className="glass drip mx-auto max-w-xl p-5 text-center sm:p-7">
             {phase === "intro" && (
               <>
-                <h1 className="display text-3xl sm:text-5xl">{takeover ? "Hol ihn zurück." : "24 Sekunden. 7 Leben."}</h1>
+                <h1 className="display text-3xl sm:text-5xl">{takeover ? t.game.introTitleTaken : t.game.introTitle}</h1>
                 <p className="mt-3 text-sm leading-relaxed opacity-85 sm:text-base">
-                  {takeover
-                    ? "Die Nacht hat die Seite. Fang die lila Noten, weich den schwarzen Tropfen aus. Überstehst du 24 Sekunden, gehört die Bühne wieder André."
-                    : "Bewege André mit Maus oder Finger. Fang die lila Noten, weich den schwarzen Tropfen aus. Wer alle sieben Leben verliert, überlässt die Seite dem anderen."}
+                  {takeover ? t.game.introTaken : t.game.intro}
                 </p>
                 <button onClick={start} className="btn-lilac mt-5 text-base">
-                  Spielen
+                  {t.game.play}
                 </button>
               </>
             )}
             {phase === "won" && (
               <>
-                <h2 className="display text-3xl sm:text-5xl">Du hast ihn gehalten.</h2>
+                <h2 className="display text-3xl sm:text-5xl">{t.game.wonTitle}</h2>
                 <p className="mt-3 text-sm leading-relaxed opacity-85 sm:text-base">
-                  {score} Noten gefangen. Noch gehört die Bühne André.
+                  {t.game.won(score)}
                 </p>
                 <div className="mt-5 flex flex-wrap justify-center gap-3">
                   {takeover ? (
@@ -407,29 +408,29 @@ export default function Game() {
                       }}
                       className="btn-lilac text-base"
                     >
-                      Zurück ins Licht
+                      {t.game.back}
                     </button>
                   ) : (
                     <button onClick={start} className="btn-lilac text-base">
-                      Noch einmal
+                      {t.game.again}
                     </button>
                   )}
                   <Link href="/" className="btn-chrome text-base">
-                    Zur Startseite
+                    {t.game.home}
                   </Link>
                 </div>
               </>
             )}
             {phase === "lost" && (
               <>
-                <h2 className="display text-3xl sm:text-5xl">Die Nacht bin ich.</h2>
-                <p className="mt-3 text-sm leading-relaxed opacity-85 sm:text-base">Die Seite gehört jetzt dem anderen. Du kannst sie zurückholen. Wenn du es schaffst.</p>
+                <h2 className="display text-3xl sm:text-5xl">{t.game.lostTitle}</h2>
+                <p className="mt-3 text-sm leading-relaxed opacity-85 sm:text-base">{t.game.lost}</p>
                 <div className="mt-5 flex flex-wrap justify-center gap-3">
                   <button onClick={start} className="btn-lilac text-base">
-                    Noch einmal
+                    {t.game.again}
                   </button>
                   <Link href="/" className="btn-chrome text-base">
-                    Zur Startseite
+                    {t.game.home}
                   </Link>
                 </div>
               </>

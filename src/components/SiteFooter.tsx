@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { artist } from "@/content";
+import { useContent, useT } from "@/i18n";
 
 function Social({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
   return (
@@ -20,6 +20,8 @@ function Social({ href, label, children }: { href: string; label: string; childr
 
 /** Socials, legal links and the Bandita credit. Shared by every page. */
 export default function SiteFooter({ className = "" }: { className?: string }) {
+  const t = useT();
+  const { artist } = useContent();
   const l = artist.links;
   return (
     <div className={`flex flex-col gap-5 ${className}`}>
@@ -50,12 +52,12 @@ export default function SiteFooter({ className = "" }: { className?: string }) {
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-[11px] font-bold uppercase tracking-[0.2em] opacity-60">
           <Link href="/impressum" className="hover:opacity-100">
-            Impressum
+            {t.footer.imprint}
           </Link>
           <Link href="/datenschutz" className="hover:opacity-100">
-            Datenschutz
+            {t.footer.privacy}
           </Link>
-          <span className="hidden sm:inline">Fotos: Catchlight by Martin Hauser</span>
+          <span className="hidden sm:inline">{t.footer.photos}</span>
         </div>
       </div>
       <a
@@ -67,9 +69,9 @@ export default function SiteFooter({ className = "" }: { className?: string }) {
       >
         <span className="inline-block h-2 w-2 rounded-full" style={{ background: "linear-gradient(135deg,#fff,#b9a3ff 60%,#6d4bd6)" }} />
         <span>
-          Made by <span style={{ color: "var(--lilac-deep)" }}>Bandita</span>
+          {t.footer.madeBy} <span style={{ color: "var(--lilac-deep)" }}>Bandita</span>
         </span>
-        <span className="opacity-60 group-hover:opacity-90">· Webdesign, 3D &amp; Creative Direction</span>
+        <span className="opacity-60 group-hover:opacity-90">· {t.footer.credit}</span>
       </a>
     </div>
   );

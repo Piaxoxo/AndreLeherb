@@ -25,13 +25,18 @@ class Player {
 
   private connect() {
     if (this.ctx || !this.el) return;
-    const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    const Ctx =
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext })
+        .webkitAudioContext;
     this.ctx = new Ctx();
     const src = this.ctx.createMediaElementSource(this.el);
     this.analyser = this.ctx.createAnalyser();
     this.analyser.fftSize = 256;
     this.analyser.smoothingTimeConstant = 0.6;
-    this.data = new Uint8Array(this.analyser.frequencyBinCount) as Uint8Array<ArrayBuffer>;
+    this.data = new Uint8Array(
+      this.analyser.frequencyBinCount,
+    ) as Uint8Array<ArrayBuffer>;
     src.connect(this.analyser);
     this.analyser.connect(this.ctx.destination);
   }
@@ -45,8 +50,10 @@ class Player {
       this.current = url;
     }
     try {
-      await this.ctx?.resume();
-      await el.play();
+      // start inside the user gesture (Safari): play first, resume the context alongside
+      const started = el.play();
+      void this.ctx?.resume();
+      await started;
       useStore.getState().setPlaying(id);
       this.tick();
     } catch {

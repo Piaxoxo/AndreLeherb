@@ -6,7 +6,7 @@ import { useStore } from "@/store";
 import Loader from "./Loader";
 import MicScrub from "./MicScrub";
 import StaticHome from "./StaticHome";
-import { MiniPlayer, Nav, Tear } from "./Chrome";
+import { Nav, Tear } from "./Chrome";
 
 const Stage = dynamic(() => import("./Stage"), { ssr: false });
 
@@ -86,7 +86,6 @@ export default function Experience() {
       <Nav />
       <Stage />
       <MicScrub />
-      <MiniPlayer />
       <Tear />
     </main>
   );

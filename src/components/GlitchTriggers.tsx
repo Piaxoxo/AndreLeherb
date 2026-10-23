@@ -144,7 +144,8 @@ export function Credo({ text }: { text: string }) {
       {text.slice(0, i)}
       <span
         role="presentation"
-        className="cursor-default transition hover:opacity-80"
+        className="glitch-word"
+        title="psst"
         onClick={() => trigger()}
       >
         {text.slice(i, i + m[0].length)}

@@ -5,6 +5,8 @@ import PageTransition from "@/components/PageTransition";
 import AccessPanel from "@/components/AccessPanel";
 import HomeKeeper from "@/components/HomeKeeper";
 import GlitchTriggers from "@/components/GlitchTriggers";
+import Soundtrack from "@/components/Soundtrack";
+import GlitchHints from "@/components/GlitchHints";
 import { Analytics } from "@vercel/analytics/next";
 
 const display = Inter_Tight({
@@ -60,6 +62,8 @@ export default function RootLayout({
         <PageTransition />
         <AccessPanel />
         <GlitchTriggers />
+        <GlitchHints />
+        <Soundtrack />
         <Analytics />
       </body>
     </html>

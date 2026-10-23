@@ -228,7 +228,10 @@ export function PlayButton({
       className={big ? "btn-lilac text-base" : "btn-chrome text-sm"}
       aria-pressed={on}
     >
-      <span aria-hidden className="inline-block w-3 text-center">
+      <span
+        aria-hidden
+        className={`inline-block text-center ${on ? "w-5 text-[11px]" : "w-3"}`}
+      >
         {on ? "❚❚" : "▶"}
       </span>
       {on ? t.hero.pause : big ? t.hero.play(song.title) : t.hero.short}

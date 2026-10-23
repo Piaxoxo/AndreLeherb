@@ -460,3 +460,35 @@ textarea:focus-visible {
     radial-gradient(60% 40% at 15% 0%, rgba(138, 43, 255, 0.35), transparent 70%),
     var(--bg);
 }
+
+/* ---------- glitch hints and the secret word ---------- */
+.glitch-word {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--lilac-deep);
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.12em;
+  transition: color 0.2s;
+}
+.glitch-word:hover { color: var(--lilac-deep); }
+.hint {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lilac-deep);
+  animation: hint-in 4.5s ease-in-out forwards, hint-flicker 0.9s steps(2) infinite;
+}
+@keyframes hint-in {
+  0% { opacity: 0; transform: translateY(6px); }
+  12% { opacity: 1; transform: none; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes hint-flicker {
+  0% { text-shadow: 1px 0 rgba(255, 43, 214, 0.55), -1px 0 rgba(90, 0, 168, 0.55); }
+  50% { text-shadow: -1px 0 rgba(255, 43, 214, 0.55), 1px 0 rgba(90, 0, 168, 0.55); }
+  100% { text-shadow: 1px 0 rgba(255, 43, 214, 0.55), -1px 0 rgba(90, 0, 168, 0.55); }
+}
+:root[data-reduced="on"] .hint { display: none; }

@@ -3,6 +3,7 @@ import { Inter_Tight, Manrope } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/PageTransition";
 import AccessPanel from "@/components/AccessPanel";
+import HomeKeeper from "@/components/HomeKeeper";
 import { Analytics } from "@vercel/analytics/next";
 
 const display = Inter_Tight({
@@ -35,10 +36,15 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="de" className={`${display.variable} ${body.variable} h-full`}>
       <body className="min-h-full">
+        <HomeKeeper />
         {children}
         <PageTransition />
         <AccessPanel />

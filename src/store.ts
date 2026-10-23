@@ -6,6 +6,9 @@ type SongId = "247" | "walzer" | null;
 type State = {
   ready: boolean;
   setReady: (v: boolean) => void;
+  /** The 3D start page stays mounted while other pages are open; false pauses its render loop. */
+  homeActive: boolean;
+  setHomeActive: (v: boolean) => void;
 
   playing: SongId;
   setPlaying: (id: SongId) => void;
@@ -76,6 +79,8 @@ function savePrefs(a: A11y, lang: "de" | "en") {
 export const useStore = create<State>((set, get) => ({
   ready: false,
   setReady: (ready) => set({ ready }),
+  homeActive: true,
+  setHomeActive: (homeActive) => set({ homeActive }),
 
   playing: null,
   setPlaying: (playing) => set({ playing }),

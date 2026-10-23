@@ -7,13 +7,14 @@ import {
   ContactShadows,
 } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useRef } from "react";
+import { lazy, Suspense, useRef } from "react";
 import * as THREE from "three";
 import Pigeon from "./Pigeon";
 import Mic from "./Mic";
 import DiscoBall from "./DiscoBall";
 import Portrait from "./Portrait";
-import Effects from "./Effects";
+const Effects = lazy(() => import("./Effects"));
+import { GlassBuffer } from "./materials";
 import {
   ChromeSphere,
   GlassDrop,
@@ -179,6 +180,7 @@ export default function Scene() {
   const vh = viewport.height;
   const vw = viewport.width;
   const mobile = useStore((s) => s.mobile);
+  const glitch = useStore((s) => s.glitch);
   const playing = useStore((s) => s.playing);
   const s247 = songs[0];
   const walzer = songs[1];
@@ -189,7 +191,7 @@ export default function Scene() {
   const portrait = !mobile && vw / vh < 0.95;
 
   return (
-    <>
+    <GlassBuffer>
       <Studio transparent />
       <Rig />
 
@@ -319,7 +321,11 @@ export default function Scene() {
         color="#2a1a4a"
         frames={1}
       />
-      <Effects />
-    </>
+      {glitch && (
+        <Suspense fallback={null}>
+          <Effects />
+        </Suspense>
+      )}
+    </GlassBuffer>
   );
 }

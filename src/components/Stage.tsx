@@ -53,10 +53,17 @@ function Anchors() {
     document.addEventListener("click", onClick);
     // Arriving from another page with a hash (/#booking): once the room is ready, jump there.
     // A few nudges cover drei resetting its scroller while it settles; any user input ends it.
-    const hash = window.location.hash;
     let poll: number | undefined;
     let unsub: (() => void) | undefined;
-    if (hash in map && map[hash] > 0) {
+    const arrive = () => {
+      const hash = window.location.hash;
+      window.clearInterval(poll);
+      unsub?.();
+      if (!(hash in map) || map[hash] === 0) {
+        // plain "Home": start at the top
+        getScroller()?.scrollTo({ top: 0, behavior: "instant" });
+        return;
+      }
       const stop = () => {
         window.clearInterval(poll);
         unsub?.();
@@ -90,8 +97,12 @@ function Anchors() {
             begin();
           }
         });
-    }
+    };
+    arrive();
+    // coming back to the (kept-alive) start page from another route
+    window.addEventListener("leherb:home", arrive);
     return () => {
+      window.removeEventListener("leherb:home", arrive);
       document.removeEventListener("click", onClick);
       window.clearInterval(poll);
       unsub?.();
@@ -116,8 +127,10 @@ function MarkScroller() {
 
 export default function Stage() {
   const mobile = useStore((s) => s.mobile);
+  const active = useStore((s) => s.homeActive);
   return (
     <Canvas
+      frameloop={active ? "always" : "never"}
       dpr={mobile ? [1, 1.5] : [1, 1.5]}
       camera={{ position: [0, 0, 9], fov: 35, near: 0.1, far: 60 }}
       gl={{

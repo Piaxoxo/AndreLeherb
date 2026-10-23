@@ -147,4 +147,7 @@ export const songs: Song[] = [
 export const glitchNotes = [
   "Wir teilen uns eine Stimme. Noch.",
   "24/7 ist er.\nDie Nacht bin ich.",
+  "Du hast mich gerufen.",
+  "Silbergrau? Ich bin schwarz.",
+  "Noch ein Mal, und ich bleib.",
 ];

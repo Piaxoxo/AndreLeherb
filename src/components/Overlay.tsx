@@ -1,6 +1,7 @@
 "use client";
 
 import { type Song } from "@/content";
+import { Credo } from "./GlitchTriggers";
 import { useContent, useT } from "@/i18n";
 import ChromeWords from "./ChromeWords";
 import { EssayTeaser } from "./Essays";
@@ -480,7 +481,7 @@ export default function Overlay() {
             {t.ueber.label}
           </div>
           <h2 className="display mt-2 text-3xl leading-[1.02] sm:text-4xl lg:text-5xl xl:text-6xl">
-            {artist.credo}
+            <Credo text={artist.credo} />
           </h2>
           <div className="display mt-5 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl">
             <ChromeWords words={artist.words} />
@@ -490,7 +491,7 @@ export default function Overlay() {
         <div className="absolute inset-x-5 bottom-6 sm:inset-x-10 lg:inset-x-16 lg:bottom-10 lg:left-auto lg:w-[46%]">
           <div className="glass drip p-5 sm:p-7">
             <h2 className="display mb-2 text-[22px] leading-tight sm:hidden">
-              {artist.credo}
+              <Credo text={artist.credo} />
             </h2>
             <div className="display mb-3 text-xl sm:hidden">
               <ChromeWords words={artist.words} />

@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { Credo } from "@/components/GlitchTriggers";
 import Link from "next/link";
 import { Nav, Tear } from "@/components/Chrome";
 import SiteFooter from "@/components/SiteFooter";
@@ -58,7 +59,7 @@ export default function Ueber() {
           <div>
             <Label>{t.ueberPage.label}</Label>
             <h1 className="display mt-3 text-4xl leading-[1.02] sm:text-6xl lg:text-7xl">
-              {artist.credo}
+              <Credo text={artist.credo} />
             </h1>
             <div className="display mt-6 text-3xl sm:text-4xl lg:text-5xl">
               <ChromeWords words={artist.words} />

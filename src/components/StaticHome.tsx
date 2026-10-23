@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Credo } from "./GlitchTriggers";
 import { Nav } from "./Chrome";
 import ChromeWords from "./ChromeWords";
 import { EssayTeaser } from "./Essays";
@@ -82,7 +83,7 @@ export default function StaticHome() {
             {t.ueber.label}
           </div>
           <h2 className="display mt-2 max-w-4xl text-3xl leading-[1.02] sm:text-5xl">
-            {artist.credo}
+            <Credo text={artist.credo} />
           </h2>
           <div className="display mt-6 text-2xl sm:text-4xl">
             <ChromeWords words={artist.words} />

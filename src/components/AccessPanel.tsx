@@ -142,7 +142,7 @@ export default function AccessPanel() {
             <Switch
               on={a11y.static}
               onChange={(v) =>
-                setA11y({ static: v, ...(v ? { motion: false } : {}) })
+                setA11y({ static: v, motion: !v })
               }
               labels={[t.a11y.on, t.a11y.off]}
             />

@@ -172,14 +172,6 @@ export default function Ueber() {
               <p className="mt-3 text-[15px] leading-relaxed sm:text-base">
                 {maitre.werk}
               </p>
-              <a
-                href={maitre.links.werke}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-chrome mt-5 text-sm"
-              >
-                {t.ueberPage.works}
-              </a>
             </div>
           </div>
 
@@ -187,24 +179,7 @@ export default function Ueber() {
             <div className="glass drip p-6 sm:p-8">
               <Label>{t.ueberPage.continents}</Label>
               <p className="mt-3 text-[15px] leading-relaxed sm:text-base">
-                {faenzaText}{" "}
-                <a
-                  href={maitre.links.faenza}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline underline-offset-4"
-                >
-                  Faenza
-                </a>
-                {" · "}
-                <a
-                  href={maitre.links.wu}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline underline-offset-4"
-                >
-                  WU Wien
-                </a>
+                {faenzaText}
               </p>
               <blockquote
                 className="mt-5 border-l-2 pl-4 text-sm italic leading-relaxed opacity-85"
@@ -229,14 +204,6 @@ export default function Ueber() {
                   </li>
                 ))}
               </ul>
-              <a
-                href={maitre.links.site}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-6 inline-block text-sm underline underline-offset-4 opacity-80"
-              >
-                leherb.org
-              </a>
             </div>
           </div>
         </section>

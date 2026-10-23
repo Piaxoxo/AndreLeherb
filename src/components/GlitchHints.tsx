@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "@/store";
 import { useT } from "@/i18n";
 
-/** A whispered hint every so often: how to wake the twin. */
+/** A whispered hint now and then (three per visit): how to wake the twin. */
 export default function GlitchHints() {
   const t = useT();
   const mobile = useStore((s) => s.mobile);
@@ -17,14 +17,18 @@ export default function GlitchHints() {
     if (!motion || takeover) return;
     const list = mobile ? t.hints.phone : t.hints.list;
     let i = Math.floor(Math.random() * list.length);
+    let shown = 0;
     let hide: number | undefined;
     const show = () => {
+      // calm: at most three whispers per visit
+      if (shown >= 3) return window.clearInterval(every);
+      shown++;
       setHint(list[i % list.length]);
       i++;
       hide = window.setTimeout(() => setHint(null), 4600);
     };
-    const first = window.setTimeout(show, 9000);
-    const every = window.setInterval(show, 24000);
+    const first = window.setTimeout(show, 15000);
+    const every = window.setInterval(show, 90000);
     return () => {
       window.clearTimeout(first);
       window.clearInterval(every);

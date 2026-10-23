@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight, Manrope } from "next/font/google";
+import { Inter_Tight, Manrope, Newsreader } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/PageTransition";
 import AccessPanel from "@/components/AccessPanel";
@@ -10,6 +10,13 @@ const display = Inter_Tight({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["700", "800", "900"],
+});
+
+const serif = Newsreader({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
 });
 
 const body = Manrope({
@@ -42,7 +49,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de" className={`${display.variable} ${body.variable} h-full`}>
+    <html
+      lang="de"
+      className={`${display.variable} ${body.variable} ${serif.variable} h-full`}
+    >
       <body className="min-h-full">
         <HomeKeeper />
         {children}

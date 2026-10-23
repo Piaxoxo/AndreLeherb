@@ -3,6 +3,7 @@
 import { type Song } from "@/content";
 import { useContent, useT } from "@/i18n";
 import ChromeWords from "./ChromeWords";
+import { EssayTeaser } from "./Essays";
 import SiteFooter from "./SiteFooter";
 import { player } from "@/lib/audio";
 import { useStore } from "@/store";
@@ -473,7 +474,7 @@ export default function Overlay() {
 
       {/* ---------- 2 · Über ---------- */}
       <Section>
-        <ParticleAndre className="pointer-events-auto absolute left-[10%] top-[5%] h-[30%] w-[80%] sm:left-[55%] sm:top-[8%] sm:h-[40%] sm:w-[42%] lg:left-[2%] lg:top-[62%] lg:h-[38%] lg:w-[46%]" />
+        <ParticleAndre className="pointer-events-auto absolute left-[10%] top-[5%] h-[30%] w-[80%] sm:left-[55%] sm:top-[8%] sm:h-[40%] sm:w-[42%] lg:left-[24%] lg:top-[60%] lg:h-[40%] lg:w-[32%]" />
         <div className="absolute left-5 right-5 top-[max(5.5rem,10vh)] hidden sm:left-10 sm:right-[46%] sm:block lg:left-16 lg:right-auto lg:w-[46%]">
           <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">
             {t.ueber.label}
@@ -484,6 +485,7 @@ export default function Overlay() {
           <div className="display mt-5 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl">
             <ChromeWords words={artist.words} />
           </div>
+          <EssayTeaser className="mt-6 hidden lg:block" />
         </div>
         <div className="absolute inset-x-5 bottom-6 sm:inset-x-10 lg:inset-x-16 lg:bottom-10 lg:left-auto lg:w-[46%]">
           <div className="glass drip p-5 sm:p-7">

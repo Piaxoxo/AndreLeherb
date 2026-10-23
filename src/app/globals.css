@@ -411,3 +411,52 @@ textarea:focus-visible {
   outline: 2px solid var(--lilac-deep);
   outline-offset: 2px;
 }
+
+/* ---------- the essays (reading mode) ---------- */
+.essay {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  letter-spacing: 0.002em;
+}
+@media (min-width: 640px) {
+  .essay { font-size: 1.3rem; }
+}
+.essay p + p { margin-top: 1.25em; }
+.essay .initial::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 4.2em;
+  line-height: 0.78;
+  padding-right: 0.12em;
+  padding-top: 0.06em;
+  color: var(--lilac-deep);
+}
+.essay h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1em;
+  letter-spacing: 0.01em;
+  margin: 2.4em 0 0.9em;
+}
+.essay-quote {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 1.35rem;
+  line-height: 1.35;
+}
+@media (min-width: 640px) {
+  .essay-quote { font-size: 1.75rem; }
+}
+.reader-bg {
+  background:
+    radial-gradient(60% 40% at 15% 0%, rgba(179, 154, 255, 0.28), transparent 70%),
+    radial-gradient(50% 35% at 90% 100%, rgba(201, 199, 214, 0.5), transparent 70%),
+    var(--bg);
+}
+:root[data-glitch="on"] .reader-bg {
+  background:
+    radial-gradient(60% 40% at 15% 0%, rgba(138, 43, 255, 0.35), transparent 70%),
+    var(--bg);
+}

@@ -13,10 +13,12 @@ export default function Page() {
         <br />
         1120 Wien
         <br />
-        <a href="mailto:office@leherb.music">office@leherb.music</a>
+        Tel.: <a href="tel:+4366910251024">0669 10251024</a>
+        <br />
+        E-Mail: <a href="mailto:office@andreleherb.music">office@andreleherb.music</a>
       </p>
       <p>
-        Unternehmensgegenstand: Werbeagentur und Musikproduktion
+        Unternehmensgegenstand: Ton- und Musikproduktion, Werbeagentur
         <br />
         Mitglied der WKO, Wirtschaftskammer Wien, Fachgruppe Werbung und Marktkommunikation
         <br />
@@ -32,34 +34,25 @@ export default function Page() {
         UID: ATU83176509
         <br />
         Firmenbuch Nr.: 669614 b
+        <br />
+        GLN: 911039082609
       </p>
       <h2>Management | Booking | Presse | Sponsoring</h2>
       <p>
         Mag. Alexander Vogel
         <br />
-        <a href="mailto:alex@newartmusicproduction.com">alex@newartmusicproduction.com</a>
+        <a href="mailto:office@andreleherb.music">office@andreleherb.music</a>
       </p>
       <p>
-        Bilder:{" "}
-        <a href="https://www.catchlight.at" target="_blank" rel="noreferrer">
-          Martin Hauser, Catchlight
-        </a>
+        Bilder: Martin Hauser, Catchlight
         <br />
-        Webdesign und 3D:{" "}
+        Webdesign und 3D Art: made by{" "}
         <a href="https://bandita.agency" target="_blank" rel="noreferrer">
-          Bandita Agency
+          Bandita Creative Agency
         </a>
         , Wien
         <br />
-        Label:{" "}
-        <a href="https://newartmusicproduction.com" target="_blank" rel="noreferrer">
-          New Art Music Productions
-        </a>
-        <br />
-        Maître Leherb:{" "}
-        <a href="https://www.leherb.org" target="_blank" rel="noreferrer">
-          leherb.org
-        </a>
+        Label: New Art Music Productions
       </p>
     </Legal>
   );

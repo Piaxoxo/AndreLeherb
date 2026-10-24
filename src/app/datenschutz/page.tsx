@@ -154,7 +154,7 @@ export default function Page() {
       <h2>Ihre Rechte</h2>
       <p>
         Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerruf und Widerspruch
-        zu. Entsprechende Anfragen können an die E-Mail-Adresse <a href="mailto:office@leherb.music">office@leherb.music</a> adressiert werden.
+        zu. Entsprechende Anfragen können an die E-Mail-Adresse <a href="mailto:office@andreleherb.music">office@andreleherb.music</a> adressiert werden.
       </p>
       <p>
         Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt oder Ihre datenschutzrechtlichen Ansprüche sonst in
@@ -168,7 +168,7 @@ export default function Page() {
       <p>
         Sie erreichen uns unter folgenden Kontaktdaten:
         <br />
-        <a href="mailto:office@leherb.music">office@leherb.music</a>
+        <a href="mailto:office@andreleherb.music">office@andreleherb.music</a>
       </p>
     </Legal>
   );

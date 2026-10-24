@@ -38,7 +38,7 @@ export const artist = {
     { year: "2026", label: "„24/7“ und „Wir tanzen den Walzer“ mit Gary Lux" },
   ],
   booking: {
-    email: "office@bandita.agency",
+    email: "office@andreleherb.music",
     agency: "Bandita Agency",
     agencyUrl: "https://bandita.agency",
   },

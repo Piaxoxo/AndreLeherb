@@ -116,9 +116,7 @@ export default function Page() {
       <h2>Hinweise zu unserer Instagram Seite</h2>
       <p>
         Wir betreiben eine Instagram Seite, welche unter{" "}
-        <a href="https://www.instagram.com/andreleherb/" target="_blank" rel="noreferrer">
-          https://www.instagram.com/andreleherb/
-        </a>{" "}
+        instagram.com/andreleherb{" "}
         aufgerufen werden kann. Dabei handelt es sich um einen Dienst des Unternehmens Meta Platforms Ireland Limited, 4 Grand Canal Square, Grand
         Canal Harbour, Dublin 2, Irland.
       </p>
@@ -130,10 +128,7 @@ export default function Page() {
         Meta-Anmeldungsdaten verknüpft werden kann, wird beim Aufrufen der Fanpages erhoben und verarbeitet. Für den Betreiber einer
         Instagram-Fanpage besteht keine Möglichkeit, diese Funktion zu deaktivieren bzw. die genannte Verarbeitung der Daten zu unterbinden. Nähere
         Informationen zu Meta Insight werden{" "}
-        <a href="https://www.facebook.com/legal/terms/page_controller_addendum" target="_blank" rel="noreferrer">
-          hier
-        </a>{" "}
-        zur Verfügung gestellt.
+        von Meta unter „Seiten-Insights-Ergänzung bezüglich des Verantwortlichen“ zur Verfügung gestellt.
       </p>
       <p>
         Meta stimmt zu, in diesem Zusammenhang die primäre Verantwortung gemäß DSGVO für die Verarbeitung der Insights-Daten zu übernehmen und
@@ -159,10 +154,7 @@ export default function Page() {
       <p>
         Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt oder Ihre datenschutzrechtlichen Ansprüche sonst in
         einer Weise verletzt worden sind, können Sie sich bei der Aufsichtsbehörde beschweren. In Österreich ist dies die{" "}
-        <a href="https://www.dsb.gv.at" target="_blank" rel="noreferrer">
-          Datenschutzbehörde
-        </a>
-        .
+        Datenschutzbehörde (dsb.gv.at).
       </p>
       <h2>Kontakt</h2>
       <p>

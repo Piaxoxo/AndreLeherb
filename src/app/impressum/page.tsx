@@ -24,10 +24,7 @@ export default function Page() {
         <br />
         Behörde: Magistratisches Bezirksamt 12. Bezirk, Schönbrunner Straße 259, 1120 Wien
         <br />
-        Anwendbare Rechtsvorschriften:{" "}
-        <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10007517" target="_blank" rel="noreferrer">
-          Gewerbeordnung
-        </a>
+        Anwendbare Rechtsvorschriften: Gewerbeordnung (ris.bka.gv.at)
         <br />
         Gründung: Mai 2026
         <br />

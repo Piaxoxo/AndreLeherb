@@ -21,8 +21,18 @@ export default function PageTransition() {
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      const a = (e.target as HTMLElement).closest("a") as HTMLAnchorElement | null;
+      if (
+        e.defaultPrevented ||
+        e.button !== 0 ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.shiftKey ||
+        e.altKey
+      )
+        return;
+      const a = (e.target as HTMLElement).closest(
+        "a",
+      ) as HTMLAnchorElement | null;
       if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
       const href = a.getAttribute("href") || "";
       if (!href.startsWith("/") || href.startsWith("//")) return;
@@ -37,13 +47,15 @@ export default function PageTransition() {
       setOn(true);
       const target = url.pathname;
       window.setTimeout(() => router.push(href), 350);
-      // lift once the address has changed (or after 4 s, whatever happens), never before MIN_MS
+      // lift once the address has changed (or after 5 s, whatever happens), never before MIN_MS
       const t0 = performance.now();
       const tick = () => {
         // the 3D start page also has to report ready (its loader), other pages just need to be there
-        const arrived = window.location.pathname === target && (target !== "/" || useStore.getState().ready);
+        const arrived =
+          window.location.pathname === target &&
+          (target !== "/" || useStore.getState().ready);
         const elapsed = performance.now() - t0;
-        if ((arrived && elapsed >= MIN_MS) || elapsed > 12000) {
+        if ((arrived && elapsed >= MIN_MS) || elapsed > 5000) {
           pending.current = null;
           setOn(false);
           return;
@@ -59,7 +71,12 @@ export default function PageTransition() {
   return (
     <div
       className="pointer-events-none fixed inset-0 z-[95] flex items-center justify-center transition-opacity duration-300"
-      style={{ background: "var(--bg)", opacity: on ? 1 : 0, visibility: on ? "visible" : "hidden", transitionProperty: "opacity, visibility" }}
+      style={{
+        background: "var(--bg)",
+        opacity: on ? 1 : 0,
+        visibility: on ? "visible" : "hidden",
+        transitionProperty: "opacity, visibility",
+      }}
       aria-hidden
     >
       {on && <Pyramid scale={0.7} />}

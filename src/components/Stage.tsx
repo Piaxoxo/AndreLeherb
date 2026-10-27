@@ -1,8 +1,8 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { ScrollControls, Scroll, Preload } from "@react-three/drei";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import * as THREE from "three";
 import Scene, { pagesFor } from "./scene/Scene";
 import Overlay from "./Overlay";
@@ -125,11 +125,32 @@ function MarkScroller() {
   return null;
 }
 
+/** Kicks the render loop once the start page is shown again (Safari needs the nudge). */
+function Wake() {
+  const active = useStore((s) => s.homeActive);
+  const invalidate = useThree((s) => s.invalidate);
+  useEffect(() => {
+    if (active) invalidate();
+  }, [active, invalidate]);
+  return null;
+}
+
 export default function Stage() {
   const mobile = useStore((s) => s.mobile);
   const active = useStore((s) => s.homeActive);
+  // Safety net: if the browser throws the WebGL context away (too many contexts,
+  // GPU memory, tab in the background for long), the room is rebuilt instead of staying blank.
+  const [gen, setGen] = useState(0);
   return (
     <Canvas
+      key={gen}
+      onCreated={({ gl }) => {
+        gl.domElement.addEventListener("webglcontextlost", (e) => {
+          e.preventDefault();
+          useStore.getState().setReady(false);
+          window.setTimeout(() => setGen((g) => g + 1), 300);
+        });
+      }}
       frameloop={active ? "always" : "never"}
       dpr={mobile ? [1, 1.5] : [1, 1.5]}
       camera={{ position: [0, 0, 9], fov: 35, near: 0.1, far: 60 }}
@@ -153,6 +174,7 @@ export default function Stage() {
       </Suspense>
       <Anchors />
       <MarkScroller />
+      <Wake />
     </Canvas>
   );
 }

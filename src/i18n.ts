@@ -389,7 +389,7 @@ const artistEn = {
   intro:
     "Andre Leherb is a singer and music maker from Vienna. The rather untypical singer/songwriter is also a poet, thinker and philosopher. He turns surrealism into music, creating a complete acoustic picture with his mix of genres.",
   bio: [
-    "Andre Leherb, a Mozart choirboy in the 70s, musically forged and inspired in the Vienna of the 80s, known and on the road with contemporaries such as Falco and Hansi Lang, made his first experiences in the business in 1995 as lead singer and frontman of the rock band DEZIRE. Since then he has written and produced songs in English, German and his very own Viennese dialect.",
+    "Andre Leherb is a singer, songwriter and poet from Vienna. A Mozart choirboy in the 70s, musically forged and inspired in the Vienna of the 80s, known and on the road with contemporaries such as Falco and Hansi Lang, made his first experiences in the business in 1995 as lead singer and frontman of the rock band DEZIRE. Since then he has written and produced songs in English, German and his very own Viennese dialect.",
     "His music ranges from rock and pop via new wave, rap and indie to the new Viennese song pop. Andre Leherb has seen a lot, lived it to the full and created his very own style and mix from it. He is a fashion icon, a dandy and above all a dazzling figure of his home town Vienna. The declared eccentric carries the creative legacy of his uncle, the surrealist Maître Leherb, into the 21st century.",
     "Several years in the USA and South America. Solo since 1998. Donauinselfest, studio with CJ Bomb (Bingo Boys) and the Rounder Girls, Eurovision pre-selection 2004. Today, matured and with a critical eye, he has found an almost ideal musical partner in Gary Lux.",
   ],
@@ -410,17 +410,21 @@ const artistEn = {
     { year: "80s", label: "Vienna, Falco" },
     { year: "90s", label: "Germany, America" },
     { year: "1995", label: "Rock band DEZIRE" },
-    { year: "1998", label: "Solo career" },
+    { year: "1998", label: "Start of the solo career" },
     { year: "2000", label: "Model agency" },
     { year: "2004", label: "Eurovision pre-selection" },
+    { year: "2007", label: "Studio recordings" },
+    { year: "2011", label: "Video shoot “Ganz Wien” (2001 version)" },
+    { year: "2012", label: "Working on the Maître Leherb biography" },
     { year: "2017", label: "Andre Leherb SURREAL" },
+    { year: "2019", label: "Live shows" },
     { year: "2022", label: "Wiener Mischung Surreal" },
     { year: "2026", label: "“24/7” and “Wir tanzen den Walzer” with Gary Lux" },
   ],
 };
 
 const maitreEn = {
-  fullName: "Helmut Leherbauer (1933–1997)",
+  fullName: "Maître Leherb (1933–1997)",
   role: "Surrealist, co-founder of the Vienna School of Fantastic Realism",
   intro:
     "His own person was often at the centre of his surreal inventions. Although Leherb was one of the first representatives of the Vienna School of Fantastic Realism, he later turned away from the style of the others such as Arik Brauer and Ernst Fuchs and ever more toward surrealism.",
@@ -428,8 +432,8 @@ const maitreEn = {
     text: "A new vice has just been born, one more frenzy has been given to man: surrealism, son of madness and darkness.",
     source: "Louis Aragon in Le paysan de Paris on Maître Leherb",
   },
-  life: "Helmut Leherbauer, Viennese artist of Fantastic Realism, and his wife Lotte Profohs became international superstars of their time, with streets in Vienna named after them posthumously.",
-  werk: "Leherbauer's artistic legacy comprises impressive works, from monumental faience mosaics to oversized artworks.",
+  life: "Maître Leherb, Viennese artist of Fantastic Realism, and his wife Lotte Profohs became international superstars of their time, with streets in Vienna named after them posthumously.",
+  werk: "Leherb's artistic legacy comprises impressive works, from monumental faience mosaics to oversized artworks.",
   faenzaText:
     "In Faenza, Italy, in the early 1980s he created the “largest faience ever made”, a 380-square-metre mosaic for the new building of the Vienna University of Economics, opened in 1982: “The Continents”. The ceramic dust left him with serious damage to his health. An imaginary portrait of the continents Asia, Europe, America, Africa, Antarctica and Australia was created here in twelve years of work with more than 3,500 small ceramic tiles.",
   faenzaQuote:
@@ -445,7 +449,7 @@ const songsEn: Partial<Record<Song["id"], Partial<Song>>> = {
     description:
       "The metamorphosis of a nightlife aficionado into a man who has found his love. The struggle with his inner conflict, the lonely night hawk, and arriving at himself.",
     credits:
-      "Music: Gary Lux · Lyrics: Gary Lux, Nicole Hoffmann, Andre Leherb, Alex Vogel · New Art Music Records",
+      "Music: Gary Lux · Lyrics: Andre Leherb, Alex Vogel, Gary Lux, Nicole Hoffmann · New Art Music Records",
   },
   walzer: {
     release: "12 June 2026",
@@ -454,7 +458,7 @@ const songsEn: Partial<Record<Song["id"], Partial<Song>>> = {
     description:
       "“Wir tanzen den Walzer” tells the history of the waltz as a force from Vienna that unites peoples, and, with a wink, a few things about the problems of our time. The daily manipulation in word, writing and image triggers existential fears in many people and often leads to paralysis.",
     credits:
-      "Music: Gary Lux · Lyrics: Gary Lux, Nicole Hoffmann, Andre Leherb, Alex Vogel · New Art Music Records",
+      "Music: Gary Lux · Lyrics: Andre Leherb, Alex Vogel, Gary Lux, Nicole Hoffmann · New Art Music Records",
   },
 };
 

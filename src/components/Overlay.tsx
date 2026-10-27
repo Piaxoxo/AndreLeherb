@@ -68,11 +68,22 @@ function Clip({
   const [sound, setSound] = useState(false);
   const t = useT();
   const motion = useStore((s) => s.a11y.motion);
+  const playing = useStore((s) => s.playing);
+  // the soundtrack took over: the clip goes quiet again
+  useEffect(() => {
+    if (playing && ref.current) {
+      ref.current.muted = true;
+      setSound(false);
+    }
+  }, [playing]);
   const toggle = () => {
     const v = ref.current;
     if (!v) return;
     v.muted = sound;
-    if (!sound) v.currentTime = 0;
+    if (!sound) {
+      v.currentTime = 0;
+      player.pause(false);
+    }
     v.play().catch(() => {});
     setSound(!sound);
   };
@@ -93,6 +104,7 @@ function Clip({
       >
         <video
           ref={ref}
+          data-clip
           src={src}
           poster={poster}
           className="h-full w-full object-cover"
@@ -549,7 +561,7 @@ export default function Overlay() {
           </h2>
         </div>
         <div className="absolute inset-x-5 bottom-6 sm:inset-x-10 lg:inset-x-16 lg:bottom-10 lg:right-auto lg:w-[52%]">
-          <div className="glass drip p-5 sm:p-7">
+          <div className="glass glass-solid drip p-5 sm:p-7">
             <h2 className="display mb-2 text-3xl sm:hidden">
               {t.booking.titleShort}
             </h2>

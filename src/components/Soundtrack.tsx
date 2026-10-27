@@ -40,18 +40,8 @@ export default function Soundtrack() {
     };
   }, [motion, s247.audio]);
 
-  const pause = () => {
-    player.pause();
-    try {
-      sessionStorage.setItem(KEY, "off");
-    } catch {}
-  };
-  const play = () => {
-    try {
-      sessionStorage.removeItem(KEY);
-    } catch {}
-    player.play("247", s247.audio!);
-  };
+  const pause = () => player.pause();
+  const play = () => player.play("247", s247.audio!);
 
   const song = playing ? songs.find((s) => s.id === playing)! : s247;
 

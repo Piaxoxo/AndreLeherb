@@ -9,7 +9,7 @@ export const artist = {
     "Andre Leherb ist musikschaffender Sänger aus Wien. Der eher untypische Singer/Songwriter ist zudem noch Dichter, Denker und Philosoph. Er transformiert Surrealismus in Musik, indem er mit seinem Genre-Mix ein akustisches Gesamtbild (er)schafft.",
   youtube: "https://www.youtube.com/@andre_leherb",
   bio: [
-    "Andre Leherb, Mozart-Sängerknabe in den 70ern, musikalisch geschmiedet und inspiriert im Wien der 80er, bekannt und unterwegs gewesen mit Zeitgenossen wie Falco und Hansi Lang, macht er seine ersten Erfahrungen in der Branche 1995 als Leadsänger und Frontman der Rockband DEZIRE. Seitdem schreibt und produziert er Songs in Englisch, Deutsch und in seinem ganz eigenen Wiener Dialekt.",
+    "Andre Leherb ist Sänger, Songwriter und Poet aus Wien. Mozart-Sängerknabe in den 70ern, musikalisch geschmiedet und inspiriert im Wien der 80er, bekannt und unterwegs gewesen mit Zeitgenossen wie Falco und Hansi Lang, macht er seine ersten Erfahrungen in der Branche 1995 als Leadsänger und Frontman der Rockband DEZIRE. Seitdem schreibt und produziert er Songs in Englisch, Deutsch und in seinem ganz eigenen Wiener Dialekt.",
     "Seine Musik erstreckt sich von Rock und Pop über New Wave, Rap und Indie bis zum neuen Wiener Lied Pop. Andre Leherb hat viel(es) gesehen, voll ausgelebt und daraus seinen ganz eigenen Stil und Mix kreiert. Er ist Mode-Ikone, Dandy und vor allem eine schillernde Figur seiner Heimatstadt Wien. Der erklärte Exzentriker trägt das kreative Erbe seines Onkels Surrèaliste Maître Leherb ins 21. Jahrhundert.",
     "Mehrere Jahre in den USA und Südamerika. Seit 1998 Solo. Donauinselfest, Studio mit CJ Bomb (Bingo Boys) und den Rounder Girls, ESC-Vorentscheid 2004. Heute, gereift und mit kritischem Blick, hat er in Gary Lux einen nahezu idealen musikalischen Partner gefunden.",
   ],
@@ -30,10 +30,14 @@ export const artist = {
     { year: "80er", label: "Wien, Falco" },
     { year: "90er", label: "Germany, America" },
     { year: "1995", label: "Rockband DEZIRE" },
-    { year: "1998", label: "Solokarriere" },
+    { year: "1998", label: "Beginn der Solokarriere" },
     { year: "2000", label: "Model-Agentur" },
     { year: "2004", label: "ESC-Vorausscheid" },
+    { year: "2007", label: "Studioaufnahmen" },
+    { year: "2011", label: "Videodreh „Ganz Wien“ (Version 2001)" },
+    { year: "2012", label: "Arbeit an der Biographie Maître Leherb" },
     { year: "2017", label: "Andre Leherb SURREAL" },
+    { year: "2019", label: "Liveauftritte" },
     { year: "2022", label: "Wiener Mischung Surreal" },
     { year: "2026", label: "„24/7“ und „Wir tanzen den Walzer“ mit Gary Lux" },
   ],
@@ -54,10 +58,10 @@ export const artist = {
   },
 };
 
-/** Andre's uncle: Helmut Leherbauer, "Maître Leherb". */
+/** Andre's uncle, Maître Leherb. */
 export const maitre = {
   name: "Maître Leherb",
-  fullName: "Helmut Leherbauer (1933–1997)",
+  fullName: "Maître Leherb (1933–1997)",
   role: "Surrealist, Mitbegründer der Wiener Schule des Phantastischen Realismus",
   intro:
     "Im Mittelpunkt seiner surrealen Bilderfindungen stand oft die eigene Person. Obwohl Leherb einer der ersten Vertreter der Wiener Schule des Phantastischen Realismus war, wandte er sich später vom Stil der anderen Vertreter wie Arik Brauer und Ernst Fuchs ab und immer mehr dem Surrealismus zu.",
@@ -65,8 +69,8 @@ export const maitre = {
     text: "Soeben ist uns ein neues Laster entstanden, ein Taumel mehr ist dem Menschen gegeben: der Surrealismus, Sohn des Wahnsinns und der Finsternis.",
     source: "Louis Aragon in Le paysan de Paris über Maître Leherb",
   },
-  life: "Helmut Leherbauer, Wiener Künstler des Phantastischen Realismus, und seine Frau Lotte Profohs wurden internationale Superstars ihrer Zeit, mit posthum gewidmeten Straßennamen in Wien.",
-  werk: "Leherbauers künstlerisches Erbe umfasst beeindruckende Werke, von monumentalen Fayencen-Mosaiken bis zu überdimensionalen Kunstwerken.",
+  life: "Maître Leherb, Wiener Künstler des Phantastischen Realismus, und seine Frau Lotte Profohs wurden internationale Superstars ihrer Zeit, mit posthum gewidmeten Straßennamen in Wien.",
+  werk: "Leherbs künstlerisches Erbe umfasst beeindruckende Werke, von monumentalen Fayencen-Mosaiken bis zu überdimensionalen Kunstwerken.",
   faenza: [
     "In Faenza, Italien, schuf er Anfang der 1980er Jahre die „größte jemals hergestellte Fayence“, ein 380 Quadratmeter großes Mosaik für den Neubau der Wiener Wirtschaftsuniversität, die 1982 eröffnet wurde: „Die Kontinente“. Dabei zog er sich durch den keramischen Staub schwere gesundheitliche Schäden zu. Ein imaginäres Porträt der Erdteile Asien, Europa, Amerika, Afrika, Antarktis und Australien wurde hier in zwölfjähriger Arbeit und mit mehr als 3500 kleinen Keramikplatten geschaffen.",
   ],
@@ -118,7 +122,7 @@ export const songs: Song[] = [
       "Der Zeitgeist ist geprägt von Oberflächlichkeit und Bindungsangst statt mutigem Bekenntnis zur persönlichen Beziehung.",
     description:
       "Die Metamorphose eines Nightlife-Aficionados zu einem Mann, der seine Liebe gefunden hat. Der Kampf mit der inneren Zerrissenheit, der einsame Nachtfalke und das Ankommen bei sich selbst.",
-    credits: "Musik: Gary Lux · Text: Gary Lux, Nicole Hoffmann, Andre Leherb, Alex Vogel · New Art Music Records",
+    credits: "Musik: Gary Lux · Text: Andre Leherb, Alex Vogel, Gary Lux, Nicole Hoffmann · New Art Music Records",
     links: [
       { label: "Spotify", href: "https://open.spotify.com/search/Andre%20Leherb%2024%2F7" },
       { label: "Apple Music", href: "https://music.apple.com/search?term=Andre%20Leherb" },
@@ -135,7 +139,7 @@ export const songs: Song[] = [
       "Der Walzer macht uns allen wieder Mut, weil er einfach heiß ist. Und das wird no' in 200 Jahr' so sein. So schaut's aus.",
     description:
       "„Wir tanzen den Walzer“ erzählt sowohl die Historie des Walzers als völkerverbindende Kraft aus Wien als auch, mit einem Augenzwinkern, einiges über die Probleme unserer Zeit. Die tägliche Manipulation in Wort, Schrift und Bild löst Existenzängste bei vielen Menschen aus und führt oftmals zu Handlungsunfähigkeit.",
-    credits: "Musik: Gary Lux · Text: Gary Lux, Nicole Hoffmann, Andre Leherb, Alex Vogel · New Art Music Records",
+    credits: "Musik: Gary Lux · Text: Andre Leherb, Alex Vogel, Gary Lux, Nicole Hoffmann · New Art Music Records",
     links: [
       { label: "Spotify", href: "https://open.spotify.com/search/Andre%20Leherb%20Wir%20tanzen%20den%20Walzer" },
       { label: "Apple Music", href: "https://music.apple.com/search?term=Andre%20Leherb" },

@@ -492,3 +492,11 @@ textarea:focus-visible {
   100% { text-shadow: 1px 0 rgba(255, 43, 214, 0.55), -1px 0 rgba(90, 0, 168, 0.55); }
 }
 :root[data-reduced="on"] .hint { display: none; }
+
+/* a denser panel where text must stay readable over the film and the room */
+.glass-solid {
+  background: rgba(248, 246, 251, 0.9) !important;
+}
+:root[data-glitch="on"] .glass-solid {
+  background: rgba(14, 8, 24, 0.86) !important;
+}

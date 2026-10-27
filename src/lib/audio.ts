@@ -44,6 +44,13 @@ class Player {
   async play(id: "247" | "walzer", url: string) {
     this.ensure();
     this.connect();
+    // the soundtrack and the small clips never play sound at the same time
+    document
+      .querySelectorAll<HTMLVideoElement>("video[data-clip]")
+      .forEach((v) => (v.muted = true));
+    try {
+      sessionStorage.removeItem("leherb-sound");
+    } catch {}
     const el = this.el!;
     if (this.current !== url) {
       el.src = url;
@@ -61,8 +68,14 @@ class Player {
     }
   }
 
-  pause() {
+  /** `byUser`: a pause the visitor asked for keeps the soundtrack off for the visit. */
+  pause(byUser = true) {
     this.el?.pause();
+    if (byUser) {
+      try {
+        sessionStorage.setItem("leherb-sound", "off");
+      } catch {}
+    }
     useStore.getState().setPlaying(null);
     cancelAnimationFrame(this.raf);
     useStore.getState().level.value = 0;

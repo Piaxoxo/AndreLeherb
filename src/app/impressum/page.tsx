@@ -41,7 +41,7 @@ export default function Page() {
         <a href="mailto:office@andreleherb.music">office@andreleherb.music</a>
       </p>
       <p>
-        Bilder: Martin Hauser, Catchlight
+        Bilder: Martin Hauser (Catchlight), Roman Wiener (RW), Nina Tiefenbacher (NT)
         <br />
         Webdesign und 3D Art: made by{" "}
         <a href="https://bandita.agency" target="_blank" rel="noreferrer">

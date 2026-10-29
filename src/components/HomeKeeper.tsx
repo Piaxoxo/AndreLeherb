@@ -6,9 +6,10 @@ import Experience from "./Experience";
 import { useStore } from "@/store";
 
 /**
- * Keeps the 3D start page alive while other pages are open. The room is built once;
- * going back to Home is instant instead of a fresh WebGL setup every time.
- * It is only mounted once the visitor has actually been on the start page.
+ * Keeps the 3D start page alive while other pages are open (desktop and tablet).
+ * The room is built once; going back to Home is instant instead of a fresh WebGL setup.
+ * Phones get a fresh start page every time instead: iOS does not reliably let a
+ * hidden scroll container scroll again once it is shown, and memory is tight there.
  */
 export default function HomeKeeper() {
   const pathname = usePathname();
@@ -17,17 +18,18 @@ export default function HomeKeeper() {
   // derived during render: once the start page was shown it stays mounted
   if (home && !seen) setSeen(true);
   const setHomeActive = useStore((s) => s.setHomeActive);
+  const phone = useStore((s) => s.mobile);
 
   useEffect(() => {
     setHomeActive(home);
     if (home) window.dispatchEvent(new CustomEvent("leherb:home"));
   }, [home, setHomeActive]);
 
-  if (!seen && !home) return null;
+  if (!home && (!seen || phone)) return null;
   return (
-    // visibility (not display:none): iOS silently resets a hidden container's scroll
-    // position, which left the room and its scroller out of sync when coming back
+    // visibility (not display:none): a hidden container keeps its layout and scroll position
     <div
+      key={phone ? "phone" : "desk"}
       style={home ? undefined : { visibility: "hidden", pointerEvents: "none" }}
       aria-hidden={!home}
     >

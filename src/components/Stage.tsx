@@ -63,6 +63,10 @@ function Anchors() {
         // plain "Home": start at the top, and tell drei about it (no scroll event fires otherwise)
         const el = getScroller();
         if (el) {
+          // iOS: a scroll container that was hidden sometimes ignores touches until it is re-laid out
+          el.style.overflowY = "hidden";
+          void el.offsetHeight;
+          el.style.overflowY = "";
           el.scrollTo({ top: 0, behavior: "instant" });
           el.dispatchEvent(new Event("scroll"));
         }

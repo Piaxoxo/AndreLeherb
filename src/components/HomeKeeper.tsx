@@ -25,7 +25,12 @@ export default function HomeKeeper() {
 
   if (!seen && !home) return null;
   return (
-    <div style={{ display: home ? undefined : "none" }} aria-hidden={!home}>
+    // visibility (not display:none): iOS silently resets a hidden container's scroll
+    // position, which left the room and its scroller out of sync when coming back
+    <div
+      style={home ? undefined : { visibility: "hidden", pointerEvents: "none" }}
+      aria-hidden={!home}
+    >
       <Experience />
     </div>
   );

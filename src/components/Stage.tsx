@@ -60,8 +60,12 @@ function Anchors() {
       window.clearInterval(poll);
       unsub?.();
       if (!(hash in map) || map[hash] === 0) {
-        // plain "Home": start at the top
-        getScroller()?.scrollTo({ top: 0, behavior: "instant" });
+        // plain "Home": start at the top, and tell drei about it (no scroll event fires otherwise)
+        const el = getScroller();
+        if (el) {
+          el.scrollTo({ top: 0, behavior: "instant" });
+          el.dispatchEvent(new Event("scroll"));
+        }
         return;
       }
       const stop = () => {
@@ -85,6 +89,7 @@ function Anchors() {
             (map[hash] * (el.scrollHeight - el.clientHeight)) / (pages() - 1);
           if (Math.abs(el.scrollTop - top) > 2) {
             el.scrollTo({ top, behavior: "instant" });
+            el.dispatchEvent(new Event("scroll"));
             hits = 0;
           } else if (++hits >= 4) stop();
         }, 150);

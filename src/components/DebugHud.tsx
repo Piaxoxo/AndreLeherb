@@ -5,11 +5,9 @@ import { useStore } from "@/store";
 
 /** Tiny on-device diagnostics, only with ?debug in the address: what the scroller and touches do. */
 export default function DebugHud() {
-  const [on, setOn] = useState(false);
   const [lines, setLines] = useState<string[]>([]);
   useEffect(() => {
     if (!/[?&]debug/.test(window.location.search)) return;
-    setOn(true);
     const log: string[] = [];
     let touches = 0;
     let moves = 0;
@@ -61,7 +59,7 @@ export default function DebugHud() {
       window.removeEventListener("error", onErr);
     };
   }, []);
-  if (!on) return null;
+  if (lines.length === 0) return null;
   return (
     <pre
       className="pointer-events-none fixed left-2 top-16 z-[200] max-w-[95vw] whitespace-pre-wrap break-all rounded-lg p-2 text-[10px] leading-snug"

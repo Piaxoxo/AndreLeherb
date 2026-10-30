@@ -26,6 +26,7 @@ const ui = {
       mic: "Das Mikro ↓",
       scroll: "Scroll",
       listen: (t: string) => `${t} anhören`,
+      watch: (t: string) => `${t} ansehen`,
       play: (t: string) => `${t} abspielen`,
       pause: "Pause",
       short: "Anhören",
@@ -34,6 +35,7 @@ const ui = {
       soundOff: "Ton aus",
     },
     musik: {
+      video: "Das Video",
       label: "01 · Musik",
       title: "Neu.",
       subscribe: "Andre auf YouTube abonnieren",
@@ -210,6 +212,7 @@ const ui = {
       mic: "The mic ↓",
       scroll: "Scroll",
       listen: (t: string) => `Listen to ${t}`,
+      watch: (t: string) => `Watch ${t}`,
       play: (t: string) => `Play ${t}`,
       pause: "Pause",
       short: "Listen",
@@ -218,6 +221,7 @@ const ui = {
       soundOff: "Sound off",
     },
     musik: {
+      video: "The video",
       label: "01 · Music",
       title: "New.",
       subscribe: "Subscribe to Andre on YouTube",

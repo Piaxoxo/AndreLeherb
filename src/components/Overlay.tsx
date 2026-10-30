@@ -5,6 +5,7 @@ import { Credo } from "./GlitchTriggers";
 import { useContent, useT } from "@/i18n";
 import ChromeWords from "./ChromeWords";
 import { EssayTeaser } from "./Essays";
+import VideoCard, { WatchButton } from "./VideoCard";
 import SiteFooter from "./SiteFooter";
 import { player } from "@/lib/audio";
 import { useStore } from "@/store";
@@ -431,7 +432,7 @@ export default function Overlay() {
                 <span className="hidden sm:inline">{t.hero.produced}</span>
               </p>
               <div className="mt-3 flex flex-wrap gap-2 sm:mt-4 sm:gap-3">
-                <PlayButton song={s247} big />
+                <WatchButton song={s247} />
                 <a href="#booking" className="btn-chrome">
                   {t.hero.book}
                 </a>
@@ -479,8 +480,8 @@ export default function Overlay() {
           </a>
         </div>
         <div className="absolute inset-x-5 bottom-6 grid gap-3 sm:inset-x-10 sm:gap-5 lg:inset-x-16 lg:bottom-10 lg:grid-cols-2 lg:gap-10">
-          <div className="lg:mt-10">
-            <SongCard song={s247} align="left" />
+          <div>
+            <VideoCard song={s247} />
           </div>
           <div>
             <SongCard song={walzer} align="right" />

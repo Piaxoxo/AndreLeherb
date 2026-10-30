@@ -5,8 +5,9 @@ import { Credo } from "./GlitchTriggers";
 import { Nav } from "./Chrome";
 import ChromeWords from "./ChromeWords";
 import { EssayTeaser } from "./Essays";
+import VideoCard, { WatchButton } from "./VideoCard";
 import SiteFooter from "./SiteFooter";
-import { BookingForm, PlayButton, SongCard } from "./Overlay";
+import { BookingForm, SongCard } from "./Overlay";
 import { useContent, useT } from "@/i18n";
 
 /** The start page without the 3D room: the same content as a plain, scrolling document. */
@@ -42,7 +43,7 @@ export default function StaticHome() {
               {t.hero.produced}
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
-              <PlayButton song={songs[0]} big />
+              <WatchButton song={songs[0]} />
               <a href="#booking" className="btn-chrome">
                 {t.hero.book}
               </a>
@@ -64,7 +65,7 @@ export default function StaticHome() {
           </div>
           <h2 className="display mt-2 text-5xl sm:text-7xl">{t.musik.title}</h2>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            <SongCard song={songs[0]} align="left" />
+            <VideoCard song={songs[0]} />
             <SongCard song={songs[1]} align="left" />
           </div>
           <a

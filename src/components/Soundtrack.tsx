@@ -1,44 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
 import { useStore } from "@/store";
 import { useContent, useT } from "@/i18n";
 import { player } from "@/lib/audio";
 
-const KEY = "leherb-sound";
-
 /**
- * 24/7 is the soundtrack of the site. It starts with the first click or key
- * (browsers allow sound only after a gesture) and keeps playing across pages.
- * Once paused by the visitor it stays off for the rest of the visit.
+ * 24/7 as the soundtrack of the site: a manual player that keeps playing
+ * across pages. It never starts by itself; the music video is the one thing
+ * that plays automatically.
  */
 export default function Soundtrack() {
   const playing = useStore((s) => s.playing);
-  const motion = useStore((s) => s.a11y.motion);
   const t = useT();
   const { songs } = useContent();
   const s247 = songs[0];
 
-  useEffect(() => {
-    if (!motion || !s247.audio) return;
-    const start = (e: Event) => {
-      const target = e.target as HTMLElement | null;
-      // not from the player's own pause button or a form field
-      if (target?.closest("[data-soundtrack], input, textarea, select")) return;
-      let off = false;
-      try {
-        off = sessionStorage.getItem(KEY) === "off";
-      } catch {}
-      if (off || useStore.getState().playing) return;
-      player.play("247", s247.audio!);
-    };
-    window.addEventListener("pointerdown", start, { passive: true });
-    window.addEventListener("keydown", start);
-    return () => {
-      window.removeEventListener("pointerdown", start);
-      window.removeEventListener("keydown", start);
-    };
-  }, [motion, s247.audio]);
+  // No automatic start: the music video is the one thing that plays by itself.
 
   const pause = () => player.pause();
   const play = () => player.play("247", s247.audio!);

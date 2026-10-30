@@ -79,6 +79,7 @@ export default function Experience() {
           preload="auto"
           poster="/video/header-poster.jpg"
         >
+          <source src="/video/header.webm" type="video/webm" />
           <source src="/video/header.mp4" type="video/mp4" />
         </video>
       </div>

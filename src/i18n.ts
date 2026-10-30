@@ -36,6 +36,7 @@ const ui = {
     },
     musik: {
       video: "Das Video",
+      fullscreen: "Vollbild",
       label: "01 · Musik",
       title: "Neu.",
       subscribe: "Andre auf YouTube abonnieren",
@@ -222,6 +223,7 @@ const ui = {
     },
     musik: {
       video: "The video",
+      fullscreen: "Full screen",
       label: "01 · Music",
       title: "New.",
       subscribe: "Subscribe to Andre on YouTube",

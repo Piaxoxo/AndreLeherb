@@ -43,7 +43,9 @@ export default function VideoCard({
           playsInline
           preload="metadata"
           controls={on}
+          controlsList="nodownload"
           className="h-full w-full object-cover"
+          style={{ pointerEvents: "auto" }}
           onPlay={() => {
             setOn(true);
             player.pause(false);
@@ -84,6 +86,25 @@ export default function VideoCard({
           <h3 className="display mt-1 text-2xl sm:text-3xl">{song.title}</h3>
         </div>
         <div className="flex flex-wrap gap-2">
+          {on && (
+            <button
+              onClick={() => {
+                const v = ref.current as
+                  | (HTMLVideoElement & { webkitEnterFullscreen?: () => void })
+                  | null;
+                if (!v) return;
+                if (v.requestFullscreen) v.requestFullscreen().catch(() => {});
+                else v.webkitEnterFullscreen?.();
+              }}
+              className="rounded-full border px-3 py-1.5 text-xs font-bold transition hover:bg-white/60"
+              style={{
+                borderColor: "var(--glass-border)",
+                pointerEvents: "auto",
+              }}
+            >
+              {t.musik.fullscreen} ⤢
+            </button>
+          )}
           {song.links.map((l) => (
             <a
               key={l.label}

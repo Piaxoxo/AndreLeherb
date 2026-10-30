@@ -7,6 +7,7 @@ import HomeKeeper from "@/components/HomeKeeper";
 import GlitchTriggers from "@/components/GlitchTriggers";
 import Soundtrack from "@/components/Soundtrack";
 import GlitchHints from "@/components/GlitchHints";
+import DebugHud from "@/components/DebugHud";
 import { Analytics } from "@vercel/analytics/next";
 
 const display = Inter_Tight({
@@ -64,6 +65,7 @@ export default function RootLayout({
         <GlitchTriggers />
         <GlitchHints />
         <Soundtrack />
+        <DebugHud />
         <Analytics />
       </body>
     </html>

@@ -91,6 +91,7 @@ export function Lilac({
 /** Frosted glass. Falls back to a cheap physical material on mobile. */
 export function Glass({ tint = "#ffffff" }: { tint?: string }) {
   const mobile = useStore((s) => s.mobile);
+  const lite = useStore((s) => s.lite);
   const glitch = useStore((s) => s.glitch);
   const buffer = useContext(GlassCtx);
   // The canvas is transparent (a film plays behind it), so the transmission pass
@@ -99,7 +100,7 @@ export function Glass({ tint = "#ffffff" }: { tint?: string }) {
     () => new THREE.Color(glitch ? "#050308" : "#f6f4f9"),
     [glitch],
   );
-  if (mobile) {
+  if (mobile || lite) {
     return (
       <meshPhysicalMaterial
         color={glitch ? "#2a1050" : tint}

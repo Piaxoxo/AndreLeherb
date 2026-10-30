@@ -56,6 +56,7 @@ export default function Backdrop() {
   const setDevice = useStore((s) => s.setDevice);
   const restoreTakeover = useStore((s) => s.restoreTakeover);
   const isStatic = useStore((s) => s.a11y.static);
+  const lite = useStore((s) => s.lite);
   useEffect(() => {
     restoreTakeover();
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -65,7 +66,7 @@ export default function Backdrop() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
       <Canvas
-        dpr={[1, 1.25]}
+        dpr={lite ? 1 : [1, 1.25]}
         camera={{ position: [0, 0, 9], fov: 40 }}
         gl={{
           antialias: true,

@@ -8,6 +8,7 @@ import GlitchTriggers from "@/components/GlitchTriggers";
 import Soundtrack from "@/components/Soundtrack";
 import GlitchHints from "@/components/GlitchHints";
 import DebugHud from "@/components/DebugHud";
+import GlitchSync from "@/components/GlitchSync";
 import { Analytics } from "@vercel/analytics/next";
 
 const display = Inter_Tight({
@@ -66,6 +67,7 @@ export default function RootLayout({
         <GlitchHints />
         <Soundtrack />
         <DebugHud />
+        <GlitchSync />
         <Analytics />
       </body>
     </html>

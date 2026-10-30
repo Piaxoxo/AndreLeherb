@@ -1,7 +1,12 @@
 "use client";
 
 import { Canvas, useThree } from "@react-three/fiber";
-import { ScrollControls, Scroll, Preload } from "@react-three/drei";
+import {
+  ScrollControls,
+  Scroll,
+  Preload,
+  PerformanceMonitor,
+} from "@react-three/drei";
 import { Suspense, useEffect, useState } from "react";
 import * as THREE from "three";
 import Scene, { pagesFor } from "./scene/Scene";
@@ -147,6 +152,8 @@ function Wake() {
 export default function Stage() {
   const mobile = useStore((s) => s.mobile);
   const active = useStore((s) => s.homeActive);
+  const lite = useStore((s) => s.lite);
+  const setLite = useStore((s) => s.setLite);
   // Safety net: if the browser throws the WebGL context away (too many contexts,
   // GPU memory, tab in the background for long), the room is rebuilt instead of staying blank.
   const [gen, setGen] = useState(0);
@@ -161,7 +168,7 @@ export default function Stage() {
         });
       }}
       frameloop={active ? "always" : "never"}
-      dpr={mobile ? [1, 1.5] : [1, 1.5]}
+      dpr={lite ? 1 : [1, 1.5]}
       camera={{ position: [0, 0, 9], fov: 35, near: 0.1, far: 60 }}
       gl={{
         antialias: true,
@@ -172,6 +179,12 @@ export default function Stage() {
       }}
       style={{ position: "absolute", inset: 0 }}
     >
+      {/* weak GPU (older MacBooks, integrated graphics): drop to the light setup for good */}
+      <PerformanceMonitor
+        onDecline={() => setLite(true)}
+        bounds={() => [28, 60]}
+        flipflops={2}
+      />
       <Suspense fallback={null}>
         <ScrollControls pages={pagesFor(mobile)} damping={0.22} distance={1}>
           <Scene />

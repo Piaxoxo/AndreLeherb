@@ -144,6 +144,7 @@ function ParticleAndre({ className }: { className?: string }) {
   const glitch = useStore((s) => s.glitch);
   const count = useStore((s) => s.glitchCount);
   const mobile = useStore((s) => s.mobile);
+  const lite = useStore((s) => s.lite);
   const motion = useStore((s) => s.a11y.motion);
   return (
     <ParticleSwirl
@@ -151,7 +152,7 @@ function ParticleAndre({ className }: { className?: string }) {
       className={className}
       image="/img/andre-velvet.webp"
       fit="contain"
-      particleCount={mobile ? 5000 : 11000}
+      particleCount={mobile || lite ? 5000 : 11000}
       particleSize={mobile ? 1.8 : 1.7}
       particleOpacity={0.95}
       speed={glitch ? 2.2 : 1}

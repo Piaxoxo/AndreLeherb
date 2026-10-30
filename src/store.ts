@@ -31,6 +31,9 @@ type State = {
 
   reduced: boolean;
   mobile: boolean;
+  /** weak GPU detected: cheaper glass, fewer particles, DPR 1 */
+  lite: boolean;
+  setLite: (v: boolean) => void;
   setDevice: (d: { reduced: boolean; mobile: boolean }) => void;
 
   /** language of the interface and content */
@@ -94,13 +97,17 @@ export const useStore = create<State>((set, get) => ({
     if (get().glitch || get().takeover || !get().a11y.motion) return;
     const count = silent ? get().glitchCount : get().glitchCount + 1;
     set({ glitch: true, glitchCount: count });
-    if (typeof document !== "undefined") document.documentElement.dataset.glitch = "on";
+    if (typeof document !== "undefined")
+      document.documentElement.dataset.glitch = "on";
     window.setTimeout(() => {
       set({
         glitch: false,
-        note: silent ? get().note : glitchNotes[Math.min(count - 1, glitchNotes.length - 1)],
+        note: silent
+          ? get().note
+          : glitchNotes[Math.min(count - 1, glitchNotes.length - 1)],
       });
-      if (typeof document !== "undefined") delete document.documentElement.dataset.glitch;
+      if (typeof document !== "undefined")
+        delete document.documentElement.dataset.glitch;
     }, ms);
   },
 
@@ -130,6 +137,8 @@ export const useStore = create<State>((set, get) => ({
 
   reduced: false,
   mobile: false,
+  lite: false,
+  setLite: (lite) => set({ lite }),
   setDevice: (d) => set({ ...d, reduced: d.reduced || !get().a11y.motion }),
 
   lang: "de",
@@ -157,8 +166,13 @@ export const useStore = create<State>((set, get) => ({
         if (p.lang === "en" || p.lang === "de") lang = p.lang;
       } else {
         // first visit: follow the system
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) a11y = { ...a11y, motion: false };
-        if (navigator.language && !navigator.language.toLowerCase().startsWith("de")) lang = "en";
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+          a11y = { ...a11y, motion: false };
+        if (
+          navigator.language &&
+          !navigator.language.toLowerCase().startsWith("de")
+        )
+          lang = "en";
       }
     } catch {}
     set({ a11y, lang, reduced: !a11y.motion });

@@ -7,6 +7,19 @@ export default function Page() {
   return (
     <Legal kind="imprint">
       <p>
+        <img
+          src="/img/namp-logo.png"
+          alt="NEW ART MUSIC PRODUCTIONS"
+          width={434}
+          height={96}
+          style={{
+            maxWidth: "min(100%, 434px)",
+            height: "auto",
+            borderRadius: 6,
+          }}
+        />
+      </p>
+      <p>
         <strong>NEW ART MUSIC PRODUCTIONS GmbH</strong>
         <br />
         Schönbrunner Allee 49A/4/12
@@ -15,14 +28,17 @@ export default function Page() {
         <br />
         Tel.: <a href="tel:+4366910251024">0669 10251024</a>
         <br />
-        E-Mail: <a href="mailto:office@andreleherb.music">office@andreleherb.music</a>
+        E-Mail:{" "}
+        <a href="mailto:office@andreleherb.music">office@andreleherb.music</a>
       </p>
       <p>
         Unternehmensgegenstand: Ton- und Musikproduktion, Werbeagentur
         <br />
-        Mitglied der WKO, Wirtschaftskammer Wien, Fachgruppe Werbung und Marktkommunikation
+        Mitglied der WKO, Wirtschaftskammer Wien, Fachgruppe Werbung und
+        Marktkommunikation
         <br />
-        Behörde: Magistratisches Bezirksamt 12. Bezirk, Schönbrunner Straße 259, 1120 Wien
+        Behörde: Magistratisches Bezirksamt 12. Bezirk, Schönbrunner Straße 259,
+        1120 Wien
         <br />
         Anwendbare Rechtsvorschriften: Gewerbeordnung (ris.bka.gv.at)
         <br />
@@ -41,7 +57,8 @@ export default function Page() {
         <a href="mailto:office@andreleherb.music">office@andreleherb.music</a>
       </p>
       <p>
-        Bilder: Martin Hauser (Catchlight), Roman Wiener (RW), Nina Tiefenbacher (NT)
+        Bilder: Martin Hauser (Catchlight), Roman Wiener (RW), Nina Tiefenbacher
+        (NT)
         <br />
         Webdesign und 3D Art: made by{" "}
         <a href="https://bandita.agency" target="_blank" rel="noreferrer">

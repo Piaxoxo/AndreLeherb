@@ -167,7 +167,7 @@ function ParticleAndre({ className }: { className?: string }) {
       cursorRadius={120}
       tint={glitch ? "#8a2bff" : undefined}
       burst={count}
-      maxDpr={1.5}
+      maxDpr={1}
       alt="Andre Leherb im lila Samtjackett"
     />
   );

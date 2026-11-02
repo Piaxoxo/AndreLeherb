@@ -13,11 +13,17 @@ export default function GlitchSync() {
       if (on) document.documentElement.dataset.glitch = "on";
       else delete document.documentElement.dataset.glitch;
     };
+    const applyLite = (on: boolean) => {
+      if (on) document.documentElement.dataset.lite = "on";
+      else delete document.documentElement.dataset.lite;
+    };
     const s = useStore.getState();
     apply(s.glitch || s.takeover);
+    applyLite(s.lite);
     return useStore.subscribe((st, prev) => {
       const on = st.glitch || st.takeover;
       if (on !== (prev.glitch || prev.takeover)) apply(on);
+      if (st.lite !== prev.lite) applyLite(st.lite);
     });
   }, []);
   return null;

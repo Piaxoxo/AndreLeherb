@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     ].map((host) => ({
       source: "/:path*",
       has: [{ type: "host", value: host }],
-      destination: "https://andre-leherb.vercel.app/impressum",
+      destination: "https://leherb.music/impressum",
       permanent: false,
     }));
   },

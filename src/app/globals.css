@@ -318,11 +318,11 @@ body {
     linear-gradient(to bottom, rgba(5, 3, 8, 0.4), rgba(5, 3, 8, 0) 30%, rgba(5, 3, 8, 0) 70%, var(--bg));
 }
 
-/* nav on the black mic scrub */
-:root[data-scrub="on"] header {
+/* nav on the black mic scrub (start page only) */
+:root[data-scrub="on"] #home header {
   color: #fff;
 }
-:root[data-scrub="on"] header img {
+:root[data-scrub="on"] #home header img {
   filter: invert(1) hue-rotate(180deg);
 }
 
@@ -499,4 +499,13 @@ textarea:focus-visible {
 }
 :root[data-glitch="on"] .glass-solid {
   background: rgba(14, 8, 24, 0.86) !important;
+}
+
+/* menu on the subpages */
+.nav-lilac {
+  color: var(--lilac-deep);
+  opacity: 0.95;
+}
+:root[data-glitch="on"] .nav-lilac {
+  color: var(--violet);
 }

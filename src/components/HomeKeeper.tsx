@@ -22,6 +22,8 @@ export default function HomeKeeper() {
 
   useEffect(() => {
     setHomeActive(home);
+    // the white-on-black nav signal belongs to the start page's mic scroll only
+    if (!home) delete document.documentElement.dataset.scrub;
     if (home) window.dispatchEvent(new CustomEvent("leherb:home"));
   }, [home, setHomeActive]);
 

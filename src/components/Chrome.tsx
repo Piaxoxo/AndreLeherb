@@ -52,8 +52,8 @@ export function Nav({ dark = false }: { dark?: boolean }) {
   const home = usePathname() === "/";
   const [open, setOpen] = useState(false);
   const t = useT();
-  const link =
-    "rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] opacity-70 hover:opacity-100";
+  // start page: ink; other pages: lilac, so the menu reads on the light room
+  const link = `rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] hover:opacity-100 ${home ? "opacity-70" : "nav-lilac"}`;
 
   // close the phone menu on any navigation or hash jump
   useEffect(() => {

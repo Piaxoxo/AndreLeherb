@@ -146,9 +146,11 @@ function ParticleAndre({ className }: { className?: string }) {
   const mobile = useStore((s) => s.mobile);
   const lite = useStore((s) => s.lite);
   const motion = useStore((s) => s.a11y.motion);
+  const active = useStore((s) => s.homeActive);
   return (
     <ParticleSwirl
       calm={!motion}
+      paused={!active}
       className={className}
       image="/img/andre-velvet.webp"
       fit="contain"

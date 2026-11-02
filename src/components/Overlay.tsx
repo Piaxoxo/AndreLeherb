@@ -182,7 +182,7 @@ function Section({
 }) {
   return (
     <section
-      className={`relative h-dvh w-screen overflow-hidden px-5 sm:px-10 lg:px-16 ${className}`}
+      className={`relative h-dvh w-full overflow-hidden px-5 sm:px-10 lg:px-16 ${className}`}
     >
       {children}
     </section>

@@ -7,7 +7,12 @@ import { useStore } from "@/store";
 export default function DebugHud() {
   const [lines, setLines] = useState<string[]>([]);
   useEffect(() => {
-    if (!/[?&]debug/.test(window.location.search)) return;
+    let on = /[?&]debug/.test(window.location.search);
+    try {
+      if (on) sessionStorage.setItem("leherb-debug", "1");
+      else on = sessionStorage.getItem("leherb-debug") === "1";
+    } catch {}
+    if (!on) return;
     const log: string[] = [];
     let touches = 0;
     let moves = 0;
@@ -39,8 +44,8 @@ export default function DebugHud() {
     window.addEventListener("error", onErr);
     const t = window.setInterval(() => {
       const s = useStore.getState();
-      const el = document.querySelector<HTMLElement>("[data-scroll]");
-      const html = el?.querySelector<HTMLElement>("div[style*='translate3d']");
+      const el = document.scrollingElement as HTMLElement | null;
+      const html = null as HTMLElement | null;
       const canvas = document.querySelector("main canvas");
       setLines([
         `path ${location.pathname} ready ${s.ready} active ${s.homeActive} glitch ${s.glitch} takeover ${s.takeover} mobile ${s.mobile}`,

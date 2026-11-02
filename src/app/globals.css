@@ -32,6 +32,12 @@ body {
   height: 100%;
   overscroll-behavior: none;
 }
+html {
+  overflow-x: hidden;
+}
+#home canvas {
+  touch-action: pan-y !important;
+}
 
 body {
   margin: 0;
@@ -283,7 +289,7 @@ body {
 
 /* ---------- hero film ---------- */
 .hero-film {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;

@@ -67,7 +67,7 @@ export default function Experience() {
   if (isStatic) return <StaticHome />;
 
   return (
-    <main id="home" className="fixed inset-0">
+    <main id="home" className="relative">
       <Loader />
       {/* the header film: a plain video element behind the transparent canvas, hardware decoded */}
       <div id="hero-film" className="hero-film" aria-hidden>

@@ -1,12 +1,8 @@
 "use client";
 
-import {
-  Environment,
-  Lightformer,
-  useScroll,
-  ContactShadows,
-} from "@react-three/drei";
+import { Environment, Lightformer, ContactShadows } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
+import { useScroll } from "@/lib/scroll";
 import { lazy, Suspense, useRef } from "react";
 import * as THREE from "three";
 import Pigeon from "./Pigeon";

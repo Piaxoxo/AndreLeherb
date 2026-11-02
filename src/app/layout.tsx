@@ -3,7 +3,6 @@ import { Inter_Tight, Manrope, Newsreader } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/PageTransition";
 import AccessPanel from "@/components/AccessPanel";
-import HomeKeeper from "@/components/HomeKeeper";
 import GlitchTriggers from "@/components/GlitchTriggers";
 import Soundtrack from "@/components/Soundtrack";
 import GlitchHints from "@/components/GlitchHints";
@@ -59,7 +58,6 @@ export default function RootLayout({
       className={`${display.variable} ${body.variable} ${serif.variable} h-full`}
     >
       <body className="min-h-full">
-        <HomeKeeper />
         {children}
         <PageTransition />
         <AccessPanel />

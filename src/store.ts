@@ -156,6 +156,18 @@ export const useStore = create<State>((set, get) => ({
     savePrefs(a11y, get().lang);
   },
   initPrefs: () => {
+    // weak device hints (few cores, little memory, data saver): start in the light setup right away
+    try {
+      const nav = navigator as Navigator & {
+        deviceMemory?: number;
+        connection?: { saveData?: boolean };
+      };
+      const weak =
+        (nav.hardwareConcurrency && nav.hardwareConcurrency <= 4) ||
+        (nav.deviceMemory && nav.deviceMemory <= 4) ||
+        nav.connection?.saveData;
+      if (weak) set({ lite: true });
+    } catch {}
     let a11y = get().a11y;
     let lang = get().lang;
     try {

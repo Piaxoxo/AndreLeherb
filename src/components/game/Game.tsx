@@ -3,7 +3,14 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import * as THREE from "three";
 import { Nav, Tear } from "@/components/Chrome";
 import GlbModel from "@/components/scene/GlbModel";
@@ -52,7 +59,18 @@ type World = {
 };
 
 function makeWorld(): World {
-  return { t: 0, startedAt: 0, spawnAt: 0.6, nextId: 1, drops: [], andreX: 0, targetX: 0, lean: 0, hitFlash: 0, caughtFlash: 0 };
+  return {
+    t: 0,
+    startedAt: 0,
+    spawnAt: 0.6,
+    nextId: 1,
+    drops: [],
+    andreX: 0,
+    targetX: 0,
+    lean: 0,
+    hitFlash: 0,
+    caughtFlash: 0,
+  };
 }
 
 function Andre({ world }: { world: React.MutableRefObject<World> }) {
@@ -64,23 +82,36 @@ function Andre({ world }: { world: React.MutableRefObject<World> }) {
     // ease toward the pointer, lean into the move
     const dx = w.targetX - w.andreX;
     w.andreX += dx * Math.min(1, dt * 9);
-    w.lean += (THREE.MathUtils.clamp(-dx * 0.35, -0.35, 0.35) - w.lean) * Math.min(1, dt * 8);
+    w.lean +=
+      (THREE.MathUtils.clamp(-dx * 0.35, -0.35, 0.35) - w.lean) *
+      Math.min(1, dt * 8);
     root.current.position.x = w.andreX;
     root.current.rotation.z = w.lean;
     root.current.rotation.y = -w.lean * 1.2;
     // small hop when hit, bounce when a note lands
     const bob = w.caughtFlash > 0 ? Math.sin(w.caughtFlash * 20) * 0.08 : 0;
-    root.current.position.y = FLOOR + bob + (w.hitFlash > 0 ? Math.random() * 0.06 : 0);
+    root.current.position.y =
+      FLOOR + bob + (w.hitFlash > 0 ? Math.random() * 0.06 : 0);
   });
   return (
     <group ref={root} position={[0, FLOOR, 0]}>
       <Suspense fallback={null}>
-        <GlbModel url={ANDRE_URL} size={mobile ? 2.4 : 2.9} anchor="bottom" envMapIntensity={1.3} />
+        <GlbModel
+          url={ANDRE_URL}
+          size={mobile ? 2.4 : 2.9}
+          anchor="bottom"
+          envMapIntensity={1.3}
+        />
       </Suspense>
       {/* soft shadow that travels with him */}
       <mesh position={[0, 0.02, 0]} rotation-x={-Math.PI / 2}>
         <circleGeometry args={[0.75, 32]} />
-        <meshBasicMaterial color="#2a1a4a" transparent opacity={0.28} depthWrite={false} />
+        <meshBasicMaterial
+          color="#2a1a4a"
+          transparent
+          opacity={0.28}
+          depthWrite={false}
+        />
       </mesh>
     </group>
   );
@@ -131,13 +162,28 @@ function Rain({ world }: { world: React.MutableRefObject<World> }) {
 
   return (
     <>
-      <instancedMesh ref={good} args={[undefined, undefined, POOL]} frustumCulled={false}>
+      <instancedMesh
+        ref={good}
+        args={[undefined, undefined, POOL]}
+        frustumCulled={false}
+      >
         <icosahedronGeometry args={[1, 2]} />
         <Lilac glitch={glitch} />
       </instancedMesh>
-      <instancedMesh ref={bad} args={[undefined, undefined, POOL]} frustumCulled={false}>
+      <instancedMesh
+        ref={bad}
+        args={[undefined, undefined, POOL]}
+        frustumCulled={false}
+      >
         <sphereGeometry args={[1, 24, 24]} />
-        <meshPhysicalMaterial color="#06030a" roughness={0.15} metalness={0.4} clearcoat={1} emissive="#3b0066" emissiveIntensity={0.6} />
+        <meshPhysicalMaterial
+          color="#06030a"
+          roughness={0.15}
+          metalness={0.4}
+          clearcoat={1}
+          emissive="#3b0066"
+          emissiveIntensity={0.6}
+        />
       </instancedMesh>
     </>
   );
@@ -225,7 +271,12 @@ function Rig({ world }: { world: React.MutableRefObject<World> }) {
   useFrame((state) => {
     const w = world.current;
     const t = state.clock.elapsedTime;
-    state.camera.position.set(Math.sin(t * 0.3) * 0.3 + (w.hitFlash > 0 ? (Math.random() - 0.5) * 0.15 : 0), 0.4, 8.6);
+    state.camera.position.set(
+      Math.sin(t * 0.3) * 0.3 +
+        (w.hitFlash > 0 ? (Math.random() - 0.5) * 0.15 : 0),
+      0.4,
+      8.6,
+    );
     state.camera.lookAt(0, 0.1, 0);
   });
   return null;
@@ -257,8 +308,14 @@ function Hearts({ lives }: { lives: number }) {
           key={i}
           className="inline-block h-3.5 w-3.5 rounded-full transition-all duration-300"
           style={{
-            background: i < lives ? "radial-gradient(circle at 35% 30%, #fff, #cfcfdc 45%, #8e8c9c 75%, #fff)" : "transparent",
-            boxShadow: i < lives ? "0 2px 6px rgba(60,40,100,.3)" : "inset 0 0 0 1.5px rgba(128,128,150,.5)",
+            background:
+              i < lives
+                ? "radial-gradient(circle at 35% 30%, #fff, #cfcfdc 45%, #8e8c9c 75%, #fff)"
+                : "transparent",
+            boxShadow:
+              i < lives
+                ? "0 2px 6px rgba(60,40,100,.3)"
+                : "inset 0 0 0 1.5px rgba(128,128,150,.5)",
             transform: i < lives ? "scale(1)" : "scale(.7)",
           }}
         />
@@ -329,7 +386,16 @@ export default function Game() {
       row: () => {
         const w = world.current;
         for (let i = 0; i < 10; i++)
-          w.drops.push({ id: w.nextId++, x: -3.2 + i * 0.7, y: 0.5 + (i % 3), z: 0, bad: i % 3 === 0, speed: 0, spin: 1, dead: false });
+          w.drops.push({
+            id: w.nextId++,
+            x: -3.2 + i * 0.7,
+            y: 0.5 + (i % 3),
+            z: 0,
+            bad: i % 3 === 0,
+            speed: 0,
+            spin: 1,
+            dead: false,
+          });
       },
     };
     (window as unknown as { __leherbGame: unknown }).__leherbGame = g;
@@ -339,8 +405,10 @@ export default function Game() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const w = world.current;
-      if (e.key === "ArrowLeft" || e.key === "a") w.targetX = Math.max(-LANE, w.targetX - 0.9);
-      if (e.key === "ArrowRight" || e.key === "d") w.targetX = Math.min(LANE, w.targetX + 0.9);
+      if (e.key === "ArrowLeft" || e.key === "a")
+        w.targetX = Math.max(-LANE, w.targetX - 0.9);
+      if (e.key === "ArrowRight" || e.key === "d")
+        w.targetX = Math.min(LANE, w.targetX + 0.9);
       if (e.key === " " && phaseRef.current !== "play") start();
     };
     window.addEventListener("keydown", onKey);
@@ -352,27 +420,47 @@ export default function Game() {
       <Loader />
       <Nav />
       <Tear />
-      <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0.4, 8.6], fov: 42 }} gl={{ antialias: true }} style={{ touchAction: "none" }}>
+      <Canvas
+        dpr={[1, 1.25]}
+        camera={{ position: [0, 0.4, 8.6], fov: 42 }}
+        gl={{ antialias: true }}
+        style={{ touchAction: "none" }}
+      >
         <Studio />
         <Rig world={world} />
         <Stage />
         <Andre world={world} />
         <Rain world={world} />
-        <Logic world={world} phase={phase} onCatch={onCatch} onHit={onHit} onTime={onTime} />
+        <Logic
+          world={world}
+          phase={phase}
+          onCatch={onCatch}
+          onHit={onHit}
+          onTime={onTime}
+        />
       </Canvas>
 
       {/* HUD */}
       <div className="pointer-events-none absolute inset-x-5 top-[max(5.5rem,10vh)] flex items-start justify-between sm:inset-x-10 lg:inset-x-16">
         <div>
-          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">{t.game.label}</div>
-          <div className="display mt-1 text-5xl tabular-nums sm:text-7xl">{phase === "play" ? left : DURATION}</div>
+          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">
+            {t.game.label}
+          </div>
+          <div className="display mt-1 text-5xl tabular-nums sm:text-7xl">
+            {phase === "play" ? left : DURATION}
+          </div>
           <div className="mt-2">
             <Hearts lives={lives} />
           </div>
         </div>
         <div className="text-right">
-          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">{t.game.notes}</div>
-          <div className="display mt-1 text-5xl tabular-nums sm:text-7xl" style={{ color: "var(--lilac-deep)" }}>
+          <div className="text-xs font-bold uppercase tracking-[0.3em] opacity-60">
+            {t.game.notes}
+          </div>
+          <div
+            className="display mt-1 text-5xl tabular-nums sm:text-7xl"
+            style={{ color: "var(--lilac-deep)" }}
+          >
             {score}
           </div>
         </div>
@@ -384,7 +472,9 @@ export default function Game() {
           <div className="glass drip mx-auto max-w-xl p-5 text-center sm:p-7">
             {phase === "intro" && (
               <>
-                <h1 className="display text-3xl sm:text-5xl">{takeover ? t.game.introTitleTaken : t.game.introTitle}</h1>
+                <h1 className="display text-3xl sm:text-5xl">
+                  {takeover ? t.game.introTitleTaken : t.game.introTitle}
+                </h1>
                 <p className="mt-3 text-sm leading-relaxed opacity-85 sm:text-base">
                   {takeover ? t.game.introTaken : t.game.intro}
                 </p>
@@ -395,7 +485,9 @@ export default function Game() {
             )}
             {phase === "won" && (
               <>
-                <h2 className="display text-3xl sm:text-5xl">{t.game.wonTitle}</h2>
+                <h2 className="display text-3xl sm:text-5xl">
+                  {t.game.wonTitle}
+                </h2>
                 <p className="mt-3 text-sm leading-relaxed opacity-85 sm:text-base">
                   {t.game.won(score)}
                 </p>
@@ -423,8 +515,12 @@ export default function Game() {
             )}
             {phase === "lost" && (
               <>
-                <h2 className="display text-3xl sm:text-5xl">{t.game.lostTitle}</h2>
-                <p className="mt-3 text-sm leading-relaxed opacity-85 sm:text-base">{t.game.lost}</p>
+                <h2 className="display text-3xl sm:text-5xl">
+                  {t.game.lostTitle}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed opacity-85 sm:text-base">
+                  {t.game.lost}
+                </p>
                 <div className="mt-5 flex flex-wrap justify-center gap-3">
                   <button onClick={start} className="btn-lilac text-base">
                     {t.game.again}

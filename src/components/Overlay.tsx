@@ -154,7 +154,7 @@ function ParticleAndre({ className }: { className?: string }) {
       className={className}
       image="/img/andre-velvet.webp"
       fit="contain"
-      particleCount={mobile || lite ? 5000 : 11000}
+      particleCount={mobile || lite ? 4000 : 8000}
       particleSize={mobile ? 1.8 : 1.7}
       particleOpacity={0.95}
       speed={glitch ? 2.2 : 1}

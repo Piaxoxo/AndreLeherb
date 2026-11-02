@@ -101,7 +101,7 @@ export default function Stage() {
             window.setTimeout(() => setGen((g) => g + 1), 300);
           });
         }}
-        dpr={lite ? 1 : [1, 1.5]}
+        dpr={lite ? 1 : [1, 1.25]}
         camera={{ position: [0, 0, 9], fov: 35, near: 0.1, far: 60 }}
         gl={{
           antialias: true,

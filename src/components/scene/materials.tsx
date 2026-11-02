@@ -14,7 +14,7 @@ const GlassCtx = createContext<THREE.Texture | null>(null);
  * glass objects that was ten scene renders per frame.
  */
 export function GlassBuffer({ children }: { children: React.ReactNode }) {
-  const fbo = useFBO(512, 512);
+  const fbo = useFBO(384, 384);
   const glitch = useStore((s) => s.glitch);
   const mobile = useStore((s) => s.mobile);
   const bg = useMemo(
